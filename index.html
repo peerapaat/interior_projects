@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project Interior Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400&family=IBM+Plex+Mono:wght@400&family=Noto+Sans+Thai:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* ---------- สีและค่าพื้นฐาน ---------- */
+:root{
+  --text:#f6ebdd;
+  --text2:rgba(246,235,221,.75);
+  --accent:#ffb27c;
+  --pad:clamp(20px,5vw,90px);
+  --head:'Barlow Condensed','Noto Sans Thai',sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+  --thai:'Noto Sans Thai',sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:#1a0f12;color:var(--text);font-family:var(--thai);overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+/* พื้นหลังเหมือนกันทุกหน้า */
+#deck{position:fixed;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 85% 8%,rgba(255,150,90,.18),transparent 60%),
+             linear-gradient(160deg,#33201a,#1a0f12 55%,#120a10)}
+#deck::after{content:"";position:absolute;left:0;right:0;bottom:0;height:22%;pointer-events:none;
+  background:linear-gradient(to top,rgba(122,74,72,.35),transparent);
+  clip-path:polygon(0 60%,15% 40%,35% 55%,55% 30%,75% 50%,100% 35%,100% 100%,0 100%)}
+
+/* ---------- สไลด์ ---------- */
+.slide{position:absolute;inset:0;z-index:1;opacity:0;visibility:hidden;transition:opacity .6s ease,visibility .6s}
+.slide.active{opacity:1;visibility:visible}
+
+/* ข้อความค่อยๆ โผล่ขึ้นมา */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+.active .rv{opacity:1;transform:none;transition-delay:var(--d,0s)}
+
+.mono{font:400 clamp(10px,.8vw,13px)/1.7 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--text2)}
+.title{margin:0;font:300 clamp(40px,6vw,110px)/.95 var(--head);letter-spacing:.04em;text-transform:uppercase}
+.title.big{font-size:clamp(48px,9vw,160px)}
+.ctitle{margin:0;font:300 clamp(22px,2.9vw,50px)/1.15 var(--head);letter-spacing:.03em;text-transform:uppercase}
+.thai{margin:1em 0 0;font:300 clamp(14px,1.4vw,24px)/1.6 var(--thai);letter-spacing:.05em}
+.dash{display:block;width:44px;height:1px;background:var(--text);opacity:.7;margin-top:1.4em}
+.kicker{display:inline-block;padding-bottom:.8em;border-bottom:1px solid rgba(246,235,221,.4)}
+
+/* ---------- กรอบรูป ---------- */
+.photo{position:absolute;overflow:hidden;background:linear-gradient(150deg,#4a2c24,#1e1014);
+  box-shadow:0 14px 40px rgba(0,0,0,.45)}
+.photo span{position:absolute;inset:0;display:flex;align-items:flex-end;padding:10px 12px;
+  font:400 10px/1.3 var(--mono);color:rgba(255,236,214,.6);word-break:break-all}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+  transform:scale(1.06);transition:transform 5s ease}
+.active .photo img{transform:scale(1)}
+
+/* ลิงก์แหล่งที่มาของภาพ — ไม่เปลี่ยนเลย์เอาต์เดิม */
+.photo .source-link{position:absolute;inset:0;display:block;z-index:1;cursor:pointer}
+.photo .source-link img{width:100%;height:100%}
+.photo .source-hint{position:absolute;inset:auto 12px 12px auto;z-index:2;
+  width:auto;display:block;padding:6px 10px;border-radius:3px;
+  background:rgba(22,12,15,.72);color:#fff0de;font:400 10px/1.5 var(--mono);
+  letter-spacing:.12em;opacity:0;transform:translateY(5px);
+  transition:opacity .2s ease,transform .2s ease;pointer-events:none;word-break:normal}
+.photo .source-link:hover .source-hint,.photo .source-link:focus-visible .source-hint{opacity:1;transform:translateY(0)}
+/* พาดหัวกลางหน้าเป็นข้อความ ไม่บังการคลิกรูปที่อยู่ด้านหลัง */
+.mid{pointer-events:none}
+
+/* ---------- หน้าปก / หน้า Thank you / List of function (โครงเดียวกัน) ---------- */
+.arch{position:absolute;top:9vh;bottom:8vh;width:min(34vw,560px)}
+.arch .photo{inset:0;border-radius:999px 999px 0 0}
+.arch.left{left:var(--pad)}
+.arch.right{right:var(--pad)}
+.side{position:absolute;top:15vh;left:calc(var(--pad) + min(34vw,560px) + 5vw);right:var(--pad)}
+.side.l{left:var(--pad);right:calc(var(--pad) + min(34vw,560px) + 5vw);top:20vh}
+.cover-title{font-size:clamp(52px,10vw,170px);line-height:.9}
+.cols{display:grid;grid-template-columns:1.2fr 1fr;gap:3vw;margin-top:4vh}
+h3{margin:0 0 .5em;font:400 clamp(10px,.85vw,13px)/1.4 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+ul{margin:0;padding:0;list-style:none}
+li{position:relative;padding-left:1.3em;font:300 clamp(13px,1.15vw,19px)/1.75 var(--thai)}
+li::before{content:"";position:absolute;left:0;top:.95em;width:.7em;height:1px;background:var(--accent)}
+
+/* ---------- Profile ---------- */
+.ptitle{position:absolute;left:var(--pad);top:6vh;max-width:58vw}
+.ptext{position:absolute;left:var(--pad);top:19vh;width:min(48vw,760px)}
+.block{margin-bottom:2vh}
+.pgrid{position:absolute;right:var(--pad);top:11vh;bottom:9vh;width:36vw;display:grid;gap:10px;
+  grid-template-columns:1.1fr 1fr;grid-template-rows:1fr 1fr 1fr}
+.pgrid .photo{position:relative}
+.pgrid .photo:nth-child(1){grid-row:1/3}
+.pgrid .photo:nth-child(2){grid-column:2}
+.pgrid .photo:nth-child(3){grid-column:2;grid-row:2}
+.pgrid .photo:nth-child(4){grid-column:1/3;grid-row:3}
+
+/* ---------- Mood & Rooms (รูปเต็มจอ) ---------- */
+.strips{position:absolute;inset:0;display:flex}
+.strips .photo{position:relative;flex:1;box-shadow:none}
+.strips::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 50% 40% at 50% 50%,rgba(10,5,8,.65),rgba(10,5,8,.2) 80%)}
+.mid{position:absolute;inset:0;z-index:2;display:grid;place-items:center;text-align:center}
+.mid .title{color:#fff;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+.mid .mono{color:#fff0de;margin:0 0 1em}
+.palette{position:absolute;z-index:3;left:50%;transform:translateX(-50%);bottom:12vh;display:flex;gap:18px}
+.palette i{width:clamp(26px,3vw,46px);aspect-ratio:1;border-radius:50%;box-shadow:0 0 0 2px rgba(255,255,255,.4)}
+.roomno{position:absolute;z-index:3;left:var(--pad);bottom:5vh;margin:0;color:#fff0de}
+
+/* ซ่อนปุ่มเลื่อนและหมายเลข Room โดยไม่กระทบการเลื่อนด้วยเมาส์/คีย์บอร์ด */
+.hud-bottom, .roomno { display: none !important; }
+
+/* ---------- ปุ่ม + ตัวเลขหน้า ---------- */
+.hud{position:fixed;z-index:10;display:flex;align-items:center;gap:1.4em}
+.hud-top{top:3vh;right:var(--pad)}
+.hud-bottom{bottom:3vh;right:var(--pad)}
+.hud button{font:400 18px/1 var(--mono);padding:8px 14px;border:1px solid rgba(246,235,221,.35);border-radius:50%}
+.hud button:hover{background:rgba(255,178,124,.25)}
+#bar{position:fixed;z-index:10;left:0;top:0;height:3px;width:0;background:var(--accent);transition:width .5s ease}
+
+/* ---------- เอฟเฟกต์ (ใช้แค่ transform กับ opacity เพื่อไม่ให้แล็ค) ---------- */
+.star{position:absolute;z-index:0;width:2px;height:2px;border-radius:50%;background:#ffe2b5;animation:twinkle 3s ease-in-out infinite alternate}
+@keyframes twinkle{from{opacity:.1}to{opacity:.9}}
+.glow{position:absolute;z-index:0;width:60vw;height:40vw;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(255,170,100,.22),transparent);animation:drift 26s ease-in-out infinite alternate}
+.g1{left:-15vw;bottom:-10vh}
+.g2{right:-15vw;top:5vh;animation-duration:34s;animation-delay:-10s}
+@keyframes drift{from{transform:translateX(-6vw)}to{transform:translateX(8vw) translateY(-3vh)}}
+#sand{position:fixed;inset:0;z-index:5;pointer-events:none}
+#wipe{position:fixed;inset:-10% -30%;z-index:8;pointer-events:none;opacity:0;
+  background:linear-gradient(100deg,transparent,rgba(246,208,152,.5) 44%,rgba(255,226,170,.95) 50%,rgba(246,208,152,.5) 56%,transparent);
+  transform:translateX(-80%) skewX(-14deg)}
+#wipe.go{animation:wipe 1s cubic-bezier(.6,0,.3,1)}
+@keyframes wipe{from{opacity:1;transform:translateX(-80%) skewX(-14deg)}to{opacity:1;transform:translateX(80%) skewX(-14deg)}}
+.w{display:inline-block;white-space:nowrap}
+.ch{display:inline-block;opacity:0;transform:translateY(.5em) scaleY(1.2);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.1,1)}
+.active .ch{opacity:1;transform:none;transition-delay:calc(.4s + var(--i)*45ms)}
+.photo{clip-path:inset(0 0 100% 0);transition:clip-path 1.1s cubic-bezier(.2,.7,.1,1) var(--pd,0s)}
+.active .photo{clip-path:inset(0)}
+.photo img{translate:calc(var(--mx,0)*-14px) calc(var(--my,0)*-8px);transition:transform 5s ease,translate .4s ease-out}
+.side,.bottom{translate:calc(var(--mx,0)*10px) calc(var(--my,0)*6px)}
+.strips .photo{transition:clip-path 1.1s cubic-bezier(.2,.7,.1,1) var(--pd,0s),flex .6s ease}
+.strips .photo:hover{flex:1.7}
+.arch .photo:hover img,.pgrid .photo:hover img,.collage .photo:hover img{transform:scale(1.1)}
+
+
+/* ===== CINEMATIC COVER & ENDING ===== */
+.cover-intro{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;isolation:isolate;padding:25px}
+.cover-intro::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse 48% 42% at 50% 50%,rgba(212,121,83,.12),transparent 75%);pointer-events:none}
+.cover-center{position:relative;max-width:96vw;transform:translateY(-1vh)}
+.cover-eyebrow{font:400 clamp(10px,.85vw,13px)/1.6 var(--mono);letter-spacing:.45em;color:var(--accent);margin:0 0 clamp(18px,3vh,34px)}
+.cover-heading{font:300 clamp(72px,12.5vw,225px)/.8 var(--head);letter-spacing:.075em;text-transform:uppercase;margin:0;color:#f6ebdd;text-shadow:0 0 70px rgba(255,174,119,.11)}
+.cover-heading .cover-line{display:block;white-space:nowrap}
+.cover-name{font:300 clamp(13px,1.25vw,20px)/1.8 var(--thai);letter-spacing:.12em;margin:clamp(20px,4vh,45px) 0 0;color:var(--text2)}
+.cover-rule{display:block;width:1px;height:clamp(30px,6vh,65px);margin:25px auto;background:linear-gradient(var(--accent),transparent);opacity:.8}
+.cover-hint{position:absolute;bottom:8vh;left:50%;transform:translateX(-50%);text-align:center;white-space:nowrap;color:rgba(246,235,221,.52);font:400 11px/1.5 var(--mono);letter-spacing:.22em;animation:coverPulse 2.3s ease-in-out infinite alternate}
+@keyframes coverPulse{from{opacity:.35}to{opacity:1}}
+.cover-center .cover-eyebrow,.cover-center .cover-name,.cover-center .cover-rule{opacity:0;animation:coverReveal .9s ease forwards}
+.cover-center .cover-eyebrow{animation-delay:.12s}.cover-center .cover-rule{animation-delay:.75s}.cover-center .cover-name{animation-delay:.85s}
+@keyframes coverReveal{from{opacity:0;filter:blur(10px);transform:translateY(14px)}to{opacity:1;filter:blur(0);transform:translateY(0)}}
+/* เอฟเฟกต์บนชั้นแยก ไม่เปลี่ยนสไลด์อื่น */
+#cover-transition{position:fixed;inset:0;z-index:9;pointer-events:none;visibility:hidden;overflow:hidden}
+#cover-transition.playing{visibility:visible}
+#cover-particles{position:absolute;inset:0;width:100%;height:100%}
+.cover-smoke{position:absolute;inset:-25%;opacity:0;filter:blur(35px);background:radial-gradient(ellipse 30% 25% at 44% 49%,rgba(249,198,155,.38),transparent 73%),radial-gradient(ellipse 28% 30% at 58% 55%,rgba(167,94,75,.42),transparent 72%),radial-gradient(ellipse 45% 28% at 55% 46%,rgba(36,18,22,.6),transparent 75%);mix-blend-mode:screen}
+.playing .cover-smoke{animation:coverSmoke 1.6s ease-out both}
+@keyframes coverSmoke{0%{opacity:0;transform:scale(.7) translateX(-5%)}25%{opacity:.95}75%{opacity:.55}100%{opacity:0;transform:scale(1.75) translateX(12%)}}
+.cover-dissolving .cover-center{animation:coverVanish .32s ease-in forwards}
+.cover-dissolving .cover-hint{opacity:0;animation:none}
+@keyframes coverVanish{to{opacity:0;filter:blur(9px)}}
+@media(max-width:800px){.cover-heading{font-size:clamp(60px,17vw,135px);letter-spacing:.035em}.cover-hint{bottom:11vh;font-size:9px}}
+@media(prefers-reduced-motion:reduce){.cover-center .cover-eyebrow,.cover-center .cover-name,.cover-center .cover-rule{animation:none;opacity:1}.cover-hint{animation:none}}
+
+
+/* ===== ROOM IMAGE FOCUS: keep original layout, let photography lead ===== */
+.slide.room-slide .strips::after{
+  background:linear-gradient(90deg,rgba(10,5,8,.18),rgba(10,5,8,.22));
+  transition:opacity .4s ease;
+}
+.slide.room-slide .strips:has(.photo:hover)::after{opacity:1}
+.slide.room-slide .mid{transition:opacity .35s ease,transform .35s ease}
+.slide.room-slide:has(.strips .photo:hover) .mid{opacity:1;transform:none}
+.slide.room-slide .strips .photo{cursor:default}
+.slide:nth-of-type(n+5) .photo:has(> .source-link){cursor:pointer}
+.slide.room-slide .strips .photo img{filter:none;transition:transform 1s ease,translate .4s ease-out,filter .35s ease}
+.slide.room-slide .strips .photo:hover img{transform:scale(1.045)}
+/* Clearer original images while retaining warm cinematic shading at rest */
+.room-lightbox{position:fixed;inset:0;z-index:100;background:rgba(9,8,8,.96);display:none;align-items:center;justify-content:center;padding:6vh 5vw}
+.room-lightbox.open{display:flex}
+.room-lightbox img{display:block;width:auto;height:auto;max-width:100%;max-height:86vh;object-fit:contain;box-shadow:0 16px 80px rgba(0,0,0,.55)}
+.room-lightbox .lb-close{position:absolute;top:24px;right:28px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35);border-radius:50%;width:44px;height:44px;font-size:26px;line-height:1;z-index:1}
+.room-lightbox .lb-source{position:absolute;bottom:20px;right:5vw;font:400 11px var(--mono);letter-spacing:.15em;color:#fff0de;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:5px}
+.room-lightbox .lb-source[hidden]{display:none}
+@media(max-width:800px){.room-lightbox{padding:70px 12px}.room-lightbox img{max-height:75vh}}
+
+
+/* หน้า Mood & Tone เป็นต้นไป: ปิดการขยายรูปและกรอบภาพเมื่อชี้เมาส์ */
+.slide:nth-of-type(n+5) .strips .photo:hover{flex:1}
+.slide:nth-of-type(n+5) .strips .photo:hover img{transform:scale(1)}
+.slide:nth-of-type(n+5) .strips .photo img{translate:none}
+.slide:nth-of-type(n+5) .arch .photo:hover img{transform:scale(1)}
+
+/* ---------- จอมือถือ ---------- */
+@media (max-width:800px){
+  .collage{height:36vh;top:9vh}
+  .bottom{right:20px;max-width:none}
+  .ptitle{max-width:none;right:20px}
+  .ptext{width:auto;right:20px;top:14vh}
+  .pgrid{left:20px;right:20px;top:auto;width:auto;height:20vh;bottom:9vh;grid-template-columns:repeat(4,1fr);grid-template-rows:1fr}
+  .pgrid .photo:nth-child(n){grid-row:1;grid-column:auto}
+  .arch{left:20px!important;right:20px!important;width:auto;top:8vh;bottom:auto;height:24vh}
+  .arch .photo{border-radius:120px 120px 0 0}
+  .side,.side.l{left:20px;right:20px;top:36vh}
+  .strips{flex-direction:column}
+  .cols{grid-template-columns:1fr 1fr}
+  #hud-cap{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .slide,.rv,.photo img,.ch,.photo{transition:none}
+  .star,.glow{animation:none}
+  #sand,#wipe{display:none}
+}
+
+/* หน้า 4: เฉพาะรายการ Function จัดไว้กลางจอ */
+.function-centered{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:7vh var(--pad);overflow:auto}
+.function-centered-inner{width:min(100%,620px);margin:auto}
+.function-centered-inner>.title{text-align:center}
+.function-centered-inner>.dash{margin:1.5em auto 0}
+.function-only{max-width:520px;margin:3vh auto 0}
+.function-only h3{text-align:center;margin-bottom:1em}
+.function-only ul{columns:2;column-gap:3em}
+.function-only li{break-inside:avoid;font-size:clamp(13px,1.1vw,18px);line-height:1.9}
+@media(max-width:600px){.function-only ul{columns:1}.function-centered{align-items:flex-start;padding-top:10vh}.function-centered-inner>.title{font-size:clamp(44px,10vw,70px)}}
+.function-centered .title{text-align:center;font-size:clamp(52px,7.2vw,112px);line-height:.89}
+.function-centered .dash{margin:3vh auto 0}
+.function-centered .cols{grid-template-columns:1.4fr 1fr;gap:clamp(24px,7vw,110px);margin-top:5vh}
+.function-centered h3{margin-bottom:1.1em}
+.function-centered li{font-size:clamp(13px,1.13vw,18px);line-height:1.7;margin-bottom:.18em}
+@media(max-width:800px){.function-centered{padding:8vh 6vw}.function-centered .cols{gap:5vw;margin-top:4vh}.function-centered .title{font-size:clamp(55px,10vw,85px)}}
+@media(max-width:500px){.function-centered{align-items:flex-start}.function-centered .cols{grid-template-columns:1fr;gap:3vh}.function-centered li{font-size:13px;line-height:1.5}.function-centered .title{font-size:clamp(50px,14vw,75px)}}
+
+/* หน้า 4 — Function cards เรียงกรอบเป็นระเบียบ กลางหน้าจอ */
+.function-centered{padding:clamp(22px,5vh,54px) var(--pad);align-items:center;overflow-y:auto}
+.function-centered-inner{width:min(100%,1120px);margin:auto}
+.function-centered .title{font-size:clamp(53px,6.7vw,105px);line-height:.85;text-align:center}
+.function-centered .dash{margin:clamp(16px,2.4vh,28px) auto 0}
+.function-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,1.25vw,19px);margin:clamp(22px,3.6vh,43px) auto 0}
+.function-card{position:relative;min-height:clamp(93px,12vh,131px);border:1px solid rgba(246,235,221,.24);background:linear-gradient(135deg,rgba(255,178,124,.075),rgba(246,235,221,.018));padding:clamp(13px,1.6vw,24px);display:flex;flex-direction:column;justify-content:space-between;gap:12px;overflow:hidden;transition:border-color .28s,background .28s,transform .28s}
+.function-card:before{content:'';position:absolute;top:0;left:0;width:30px;height:1px;background:var(--accent)}
+.function-card:hover{border-color:rgba(255,178,124,.65);background:rgba(255,178,124,.11);transform:translateY(-3px)}
+.function-card-no{font:400 clamp(12px,1.05vw,16px)/1 var(--mono);color:var(--accent);letter-spacing:.13em}
+.function-card-name{font:300 clamp(16px,1.65vw,26px)/1.22 var(--head);letter-spacing:.025em;color:var(--text)}
+@media(max-width:760px){.function-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.function-centered{align-items:flex-start}.function-card{min-height:100px}.function-card-name{font-size:clamp(19px,3.3vw,25px)}}
+@media(max-width:430px){.function-card-grid{grid-template-columns:1fr}.function-card{min-height:78px}.function-centered .title{font-size:clamp(54px,13vw,78px)}}
+
+/* USER NEEDS — เพิ่มหน้าเดียวโดยคงธีมเดิม */
+.needs-layout{position:absolute;inset:9vh var(--pad) 8vh;display:grid;grid-template-columns:1.25fr .8fr;gap:5vw;align-items:center}
+.needs-heading{font:300 clamp(52px,7vw,112px)/.9 var(--head);letter-spacing:.04em;margin:0 0 3vh}
+.needs-intro{font:300 clamp(13px,1.1vw,17px)/1.7 var(--thai);color:var(--text2);margin:0 0 3vh;max-width:650px}
+.needs-item{padding:12px 0;border-top:1px solid rgba(246,235,221,.22)}
+.needs-item strong{display:block;color:var(--accent);font:400 clamp(12px,1vw,15px)/1.5 var(--thai);margin-bottom:3px}
+.needs-item p{margin:0;color:var(--text2);font:300 clamp(12px,1vw,16px)/1.6 var(--thai)}
+.needs-visual{position:relative;height:68vh;min-height:280px}
+.needs-visual .photo{inset:0;border-radius:180px 180px 0 0}
+.needs-photo-caption{position:absolute;bottom:0;left:0;right:0;padding:45px 18px 17px;background:linear-gradient(transparent,rgba(16,8,11,.9));pointer-events:none;font:400 12px var(--thai)}
+@media(max-width:800px){.needs-layout{inset:7vh 20px 5vh;grid-template-columns:1fr;gap:2vh;align-content:start;overflow-y:auto}.needs-heading{font-size:52px;margin-bottom:2vh}.needs-intro{margin-bottom:2vh}.needs-item{padding:8px 0}.needs-visual{height:26vh;min-height:180px}.needs-visual .photo{border-radius:110px 110px 0 0}}
+
+/* คำอธิบายแนวคิด Mood & Tone */
+.mood-description{max-width:min(690px,85vw);margin:2.2vh auto 0;padding:13px 22px;background:rgba(19,12,13,.68);border:1px solid rgba(246,235,221,.22);border-radius:5px;color:#fff3e6;font:300 clamp(13px,1.1vw,18px)/1.75 var(--thai);text-shadow:0 2px 12px rgba(0,0,0,.7)}
+.slide.mood-slide .mid{padding-bottom:4vh}
+.slide.mood-slide .palette{bottom:8vh}
+@media(max-width:800px){.mood-description{font-size:13px;max-width:88vw;padding:10px 13px}.slide.mood-slide .palette{bottom:5vh;gap:12px}}
+
+/* ชื่อสไตล์บ้านในหน้า Mood & Tone */
+.mood-style-label{display:inline-block;margin:1.4vh auto .3vh;padding:7px 20px;border:1px solid rgba(255,178,124,.65);background:rgba(19,12,13,.68);color:#ffca9e;font:400 clamp(14px,1.5vw,23px)/1.4 var(--mono);letter-spacing:.2em}
+@media(max-width:800px){.mood-style-label{font-size:13px;padding:6px 12px;letter-spacing:.1em}}
+
+/* Special Function: แยกกิจกรรมให้ชัด โดยไม่เพิ่มสไลด์และไม่เปลี่ยนภาพเดิม */
+.special-zones{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;width:min(1020px,90vw);margin:3vh auto 0;text-align:left}
+.special-zone{background:rgba(19,12,13,.82);border:1px solid rgba(246,235,221,.32);padding:clamp(14px,1.8vw,24px);border-top:2px solid var(--accent);min-height:165px}
+.special-zone .en{display:block;font:400 clamp(10px,.9vw,13px)/1.4 var(--mono);letter-spacing:.13em;color:var(--accent);margin-bottom:10px}
+.special-zone strong{display:block;font:400 clamp(15px,1.5vw,22px)/1.5 var(--thai);margin-bottom:8px;color:#fff3e6}
+.special-zone p{margin:0;font:300 clamp(12px,1.03vw,16px)/1.65 var(--thai);color:#f6ebdd}
+.special-intro{font:300 clamp(13px,1.15vw,18px)/1.6 var(--thai);margin:2vh 0 0;color:#fff3e6;text-shadow:0 2px 12px #000}
+@media(max-width:800px){.special-zones{grid-template-columns:1fr;gap:8px;width:88vw;margin:2vh auto 0}.special-zone{min-height:0;padding:10px 14px}.special-zone .en{margin-bottom:3px}.special-zone strong{margin-bottom:2px;font-size:15px}.special-zone p{font-size:12px;line-height:1.4}.special-intro{font-size:12px}.slide.special-slide .title.big{font-size:clamp(44px,9vw,72px)}}
+/* คำอธิบายเหตุผลการเลือกแบบห้อง หน้า 7–17 */
+.room-description{max-width:min(680px,86vw);margin:2.2vh auto 0;padding:13px 21px;background:rgba(19,12,13,.73);border:1px solid rgba(246,235,221,.23);border-radius:5px;color:#fff3e6;font:300 clamp(13px,1.12vw,18px)/1.75 var(--thai);text-shadow:0 2px 12px rgba(0,0,0,.7)}
+.slide.room-slide .mid{padding:0 16px 3vh}
+@media(max-width:800px){.room-description{max-width:90vw;font-size:13px;padding:10px 13px}}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+<canvas id="sand"></canvas>
+<div id="wipe"></div>
+<div id="cover-transition" aria-hidden="true"><div class="cover-smoke"></div><canvas id="cover-particles"></canvas></div>
+<main id="deck"></main>
+<div id="room-lightbox" class="room-lightbox" role="dialog" aria-modal="true" aria-label="ดูรูปห้องขนาดใหญ่"><button class="lb-close" type="button" aria-label="ปิดภาพ">×</button><img alt="รูปห้องขนาดใหญ่"><a class="lb-source" target="_blank" rel="noopener noreferrer" hidden>↗ IMAGE SOURCE</a></div>
+
+<div class="hud hud-top mono"><span id="cap">Cover</span><span id="count">01 / 18</span></div>
+<div class="hud hud-bottom"><button id="prev" aria-label="ก่อนหน้า">&larr;</button><button id="next" aria-label="ถัดไป">&rarr;</button></div>
+
+<script>
+/* =========================================================
+   ส่วนที่ 1: ข้อมูลของแต่ละหน้า (แก้ข้อความตรงนี้ได้เลย)
+   รูปทั้งหมดอยู่ในโฟลเดอร์ "image" ข้างๆ ไฟล์นี้
+   ========================================================= */
+var folder = 'image/';   // ชื่อโฟลเดอร์รูป
+var imageExtensions = ['.png', '.jpg', '.jpeg', '.webp', '.avif', '.gif']; // ลองนามสกุลโดยอัตโนมัติ
+var myName = '0596 พีรพัฒน์(ทีมม์)';
+
+// ใส่ URL ของหน้าเว็บที่เป็นแหล่งต้นทางของแต่ละภาพ (เว้นว่าง = ยังไม่ทราบลิงก์ กดเปิดไม่ได้)
+// ตัวอย่าง: 'living-1': 'https://www.pinterest.com/pin/123456789/',
+var imageSources = {
+  'cover': '',
+  'profileA-1': 'https://www.facebook.com/share/p/1C7grCccVa/?mibextid=wwXIfr',
+  'profileA-2': 'https://www.facebook.com/share/p/1C7grCccVa/?mibextid=wwXIfr',
+  'profileA-3': 'https://spacebar.th/posts/economic-business-thai-china-ornamental-fish',
+  'profileA-4': 'https://pin.it/5Wq1TMayN',
+  'profileB-1': 'https://www.facebook.com/share/p/1C7grCccVa/?mibextid=wwXIfr',
+  'profileB-2': 'https://pin.it/4ctJnrwET',
+  'profileB-3': 'https://pin.it/7GDIRbdek',
+  'profileB-4': 'https://pin.it/3jMbcT1dx',
+  'function': '',
+  'mood-1': 'https://pin.it/3Gk5qT8hS',
+  'mood-2': 'https://pin.it/3vZv1hoFc',
+  'mood-3': 'https://pin.it/3OsJmUpil',
+  'mood-4': 'https://pin.it/62lAurXJ8',
+  'mood-5': 'https://pin.it/5K33jfOUZ',
+  'living-1': 'https://pin.it/69IG7YRRk',
+  'living-2': 'https://pin.it/3oCBwIAOu',
+  'powder-1': 'https://pin.it/6YQZPK2cu',
+  'powder-2': 'https://pin.it/7yG8nDrii',
+  'powder-3': 'https://pin.it/5XnEqPXZS',
+  'kitchen-1': 'https://pin.it/3pl9fkxDr',
+  'kitchen-2': 'https://pin.it/1YKqNB4EA',
+  'dining-1': 'https://pin.it/4crkw84Fn',
+  'dining-2': 'https://pin.it/3iR40zgZD',
+  'bedroom-1': 'https://pin.it/6PJYtbNfu',
+  'bedroom-2': 'https://pin.it/2uZ2thKsM',
+  'closet-1': 'https://pin.it/1thJRZij1',
+  'closet-2': 'https://pin.it/1NGm47OOs',
+  'bathroom-1': 'https://pin.it/6lMAcdr1w',
+  'bathroom-2': 'https://pin.it/3fQ7IZTlE',
+  'bathroom-3': 'https://pin.it/4AhKid2bF',
+  // เพิ่ม URL แหล่งที่มาของภาพใหม่ตรงนี้ (ถ้ายังไม่ทราบให้เว้นว่าง)
+  'bedroom2-1': 'https://pin.it/2hY6I2jbx',
+  'bedroom2-2': 'https://pin.it/2hY6I2jbx',
+  'bathroom2-1': 'https://pin.it/1LLSn0zRo',
+  'bathroom2-2': 'https://pin.it/1LLSn0zRo',
+  'special-1': 'https://pin.it/7i0xbhYy3',
+  'special-2': 'https://pin.it/1r6DllcOk',
+  'laundry-1': 'https://pin.it/45DZivPll',
+  'other-1': 'https://pin.it/3kChha4Rx',
+};
+
+var profiles = [
+  {
+    title: 'Profile &amp; Lifestyle — [อาจารย์หนอน] (อายุ 54 ปี)',
+    pics: ['profileA-1', 'profileA-2', 'profileA-3', 'profileA-4'],
+    blocks: [
+      ['Character & Identity:', 'อาจารย์ / นักวิจัย', 'ผู้ช่วยศาสตราจารย์', 'รักความสะอาด', 'ไม่มีของสะสม'], 
+      ['Daily Routine &amp; Habits:', 'นั่งอ่านหนังสือ', 'ทำความสะอาดบ้าน', 'เข้างานอาทิตย์ละ 2-3 ครั้ง', 'ให้ความสำคัญกับเวลานอนมาก'],
+      ['Passions &amp; Activities:', 'เลี้ยงแมว 3 ตัว', 'เลี้ยงปลาหางนกยูง', 'ปลูกพืชผัก ทําเกษตร', 'สนใจที่จะเลี้ยงไก่ในอนาคต'],
+      ['User need:', 'ต้องการพื้นที่เปิดโล่ง โปร่ง, ไร้ฝุ่น, มีความเป็นธรรมชาติ, ชอบแสงแดด,', 'มีอากาศหมุนเวียนและถ่ายเทได้ดี, มีครัวไทยที่ระบายอากาศได้ดี, และพื้นที่สำหรับสัตว์เลี้ยง']
+    ]
+  },
+  {
+    title: 'Profile &amp; Lifestyle — [อาจารย์วิว] (อายุ 52 ปี)',
+    pics: ['profileB-1', 'profileB-2', 'profileB-3', 'profileB-4'],
+    blocks: [
+      ['Character &amp; Identity:', 'อาจารย์', 'รองผู้อำนวยการโรงพยาบาลแห่งหนึ่ง'],
+      ['Daily Routine &amp; Habits:', 'ชอบการดูแลสุขภาพและออกกำลังกาย', 'ทำงานนอกบ้านอาทิตย์ละ 2-3 ครั้ง'],
+      ['Passions &amp; Activities:', 'อ่านหนังสือ', 'เล่นโยคะ', 'ร้องคาราโอเกะ', 'ชอบทำอาหารมาก'],
+      ['User need:', 'ต้องการพื้นที่พักผ่อนที่สงบและเป็นส่วนตัว,', 'มีพื้นที่สำหรับฝึกโยคะ และห้องครัวที่เหมาะสำหรับการทำอาหาร']
+    ]
+  }
+];
+
+// รายการฟังก์ชันตามโจทย์: 9 กลุ่ม (แบ่งเป็น 11 สไลด์ภาพเพื่อดูชัด)
+var functions = [
+  '1. Living Area', '2. Dining Area', '3. Kitchen Area',
+  '4. Powder Room', '5. Master Bedroom + Walk in Closet',
+  '6. Master Bathroom', '7. Bedroom 2 + Bathroom',
+  '8. Special Function (Cat / Work / Activity)', '9. Other Areas'
+];
+var specials = [];
+
+var moodStyle = '';
+var moodColors = ['#E9DFCF', '#D0AD85', '#B66F4B', '#7F8967', '#4A382F'];
+
+// แต่ละห้อง ใส่ชื่อห้อง กับชื่อไฟล์รูป (ไม่ต้องใส่ .jpg)
+var rooms = [
+  {name: 'Living Area', description: 'ห้องนั่งเล่นที่ดูโปร่งและรับแสงธรรมชาติ เพื่อให้ใช้พักผ่อนและนั่งพูดคุยกับครอบครัวได้สบาย',       pics: ['living-1', 'living-2']},
+  {name: 'Dining Area', description: 'ห้องกินข้าวบรรยากาศอบอุ่นและจัดโต๊ะอาหารให้ใช้งานสะดวก เพราะเจ้าของบ้านชอบทำอาหารและใช้เวลาร่วมกัน',       pics: ['dining-1', 'dining-2']},
+  {name: 'Kitchen Area', description: 'ครัวที่มีพื้นที่เตรียมอาหารเพียงพอและระบายอากาศได้ดี เหมาะกับการทำอาหารเป็นประจำ',      pics: ['kitchen-1', 'kitchen-2']}, //https://pin.it/5AuHpXMOX https://pin.it/3psDtb8iK
+  {name: 'Powder Room', description: 'ห้องน้ำแขกที่เรียบง่ายและดูแลความสะอาดง่าย เพื่อให้คนในบ้านและแขกใช้งานสะดวก',       pics: ['powder-1', 'powder-2', 'powder-3']},
+  {name: 'Master Bedroom', description: 'ห้องนอนที่สงบ สีสบายตา และไม่ตกแต่งมากเกินไป เพื่อให้พักผ่อนได้เต็มที่',    pics: ['bedroom-1', 'bedroom-2']},
+  {name: 'Walk in Closet', description: 'การจัดเก็บเสื้อผ้าเป็นสัดส่วนและหยิบใช้ง่าย ช่วยให้ห้องเป็นระเบียบและทำความสะอาดสะดวก',    pics: ['closet-1', 'closet-2']},
+  {name: 'Master Bathroom', description: 'ห้องน้ำที่ดูโปร่งและแบ่งพื้นที่ใช้งานชัดเจน เพื่อให้ใช้งานได้อย่างสะดวกและดูแลรักษาง่าย',   pics: ['bathroom-1', 'bathroom-2', 'bathroom-3']},
+  {name: 'Bedroom 2', description: 'ห้องนอนที่เรียบง่ายและปรับการใช้งานได้ เพื่อรองรับสมาชิกในครอบครัวหรือแขกที่มาพัก',         pics: ['bedroom2-1', 'bedroom2-2']},
+  {name: 'Bathroom 2', description: 'พื้นที่ใช้งานที่ไม่ซับซ้อนและพื้นผิวทำความสะอาดง่าย เพื่อให้ผู้เข้าพักใช้งานได้สะดวก',        pics: ['bathroom2-1', 'bathroom2-2']},
+  {name: 'Special Function', description: 'แบ่งพื้นที่พิเศษตามกิจกรรมที่เจ้าของบ้านใช้งานจริง', pics: ['special-1', 'special-2'], specialZones: [
+     {title: 'CAT ROOM', thai: 'ห้องแมว', detail: 'พื้นที่สำหรับแมว 3 ตัว แยกมุมพักผ่อนและกระบะทราย เพื่อดูแลความสะอาดง่าย'},
+     {title: 'WORK & READING', thai: 'ห้องทำงาน / อ่านหนังสือ', detail: 'มุมสงบสำหรับอ่านหนังสือและทำงาน มีแสงธรรมชาติและไม่รบกวนพื้นที่พักผ่อน'},
+     {title: 'ACTIVITY SPACE', thai: 'พื้นที่กิจกรรม', detail: 'พื้นที่โล่งสำหรับโยคะ และปรับใช้ร้องคาราโอเกะได้ตามโอกาส'}
+   ]},
+  {name: 'Other Areas', description: 'พื้นที่ซักล้างและพื้นที่จอดรถ มีความทันสมัยและใช้งานง่าย',       pics: ['laundry-1', 'other-1']}
+];
+
+/* =========================================================
+   ส่วนที่ 2: ฟังก์ชันช่วยสร้างหน้า
+   ========================================================= */
+var deck = document.getElementById('deck');
+var slides = [];     // เก็บทุกสไลด์
+var names = [];      // ชื่อหน้า (โชว์มุมขวาบน)
+var now = 0;         // หน้าที่เปิดอยู่
+var canMove = true;  // กันเลื่อนรัวเกินไป
+
+// ดาวระยิบระยับ + แสงส้มลอยไปมาอยู่ข้างหลัง
+for (var k = 0; k < 40; k++) {
+  var star = document.createElement('i');
+  star.className = 'star';
+  star.style.left = Math.random() * 100 + '%';
+  star.style.top = Math.random() * 60 + '%';
+  star.style.animationDelay = '-' + Math.random() * 3 + 's';
+  star.style.animationDuration = (2 + Math.random() * 3) + 's';
+  deck.appendChild(star);
+}
+deck.insertAdjacentHTML('afterbegin', '<div class="glow g1"></div><div class="glow g2"></div>');
+
+// ทำงานได้แม้เปิด HTML จากเครื่องโดยตรง: โหลดรูปจาก image/ โดยลองนามสกุลที่รองรับทีละแบบ
+function tryNextImageExtension(img) {
+  var index = Number(img.dataset.extIndex || 0) + 1;
+  if (index >= imageExtensions.length) {
+    img.onerror = null;
+    img.remove(); // ไม่พบรูปทุกนามสกุล จึงแสดงชื่อไฟล์ในกรอบตามดีไซน์เดิม
+    return;
+  }
+  img.dataset.extIndex = String(index);
+  img.src = folder + img.dataset.imageName + imageExtensions[index];
+}
+
+// สร้างกรอบรูป 1 รูป  (style = ตำแหน่งและขนาด)
+function photo(file, style) {
+  var path = folder + file + imageExtensions[0];
+  var source = (imageSources[file] || '').trim();
+  // อนุญาตเฉพาะเว็บ http/https และเข้ารหัสอักขระสำหรับ HTML attribute
+  if (!/^https?:\/\//i.test(source)) source = '';
+  var safeSource = source.replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+                         .replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  // หากไม่พบไฟล์นามสกุลแรก ให้ลองนามสกุลอื่นตามลำดับโดยไม่ต้องเปลี่ยนชื่อไฟล์
+  var img = '<img src="' + path + '" alt="' + file + '" data-image-name="' + file + '" data-ext-index="0" onerror="tryNextImageExtension(this)">';
+  return '<div class="photo" style="' + (style || '') + '">' +
+         '<span>' + path + '</span>' +
+         (source ? '<a class="source-link" href="' + safeSource + '" target="_blank" rel="noopener noreferrer" title="เปิดแหล่งที่มาของภาพ: ' + file + '" aria-label="ดูแหล่งที่มาของภาพ ' + file + '">' + img + '<span class="source-hint">↗ SOURCE</span></a>' : img) +
+         '</div>';
+}
+
+// สร้างรูปหลายรูปเรียงกัน (ใช้กับหน้า mood และห้องต่างๆ)
+function strips(files) {
+  var html = '';
+  for (var i = 0; i < files.length; i++) {
+    html += photo(files[i]);
+  }
+  return '<div class="strips">' + html + '</div>';
+}
+
+// เพิ่มสไลด์ใหม่เข้าไปใน deck
+function addSlide(caption, html) {
+  var s = document.createElement('section');
+  s.className = 'slide';
+  s.innerHTML = html;
+  deck.appendChild(s);
+  slides.push(s);
+  names.push(caption);
+}
+
+/* =========================================================
+   ส่วนที่ 3: สร้างทุกหน้า
+   ========================================================= */
+
+// หน้า 1: Opening cinematic (ไม่มีรูปภาพ)
+addSlide('Cover',
+  '<div class="cover-intro"><div class="cover-center">' +
+    '<p class="cover-eyebrow">DESIGN PRESENTATION</p>' +
+    '<h1 class="cover-heading"><span class="cover-line">INTERIOR</span><span class="cover-line">DESIGN</span></h1>' +
+    '<span class="cover-rule"></span>' +
+    '<p class="cover-name">' + myName + '</p>' +
+  '</div></div>'
+);
+
+// หน้า 2-3: Profile ของลูกค้าแต่ละคน
+for (var a = 0; a < profiles.length; a++) {
+  var pr = profiles[a];
+  var blocks = '';
+  for (var b = 0; b < pr.blocks.length; b++) {
+    var bl = pr.blocks[b];
+    var items = '';
+    for (var c = 1; c < bl.length; c++) {
+      items += '<li>' + bl[c] + '</li>';
+    }
+    blocks += '<div class="block rv"><h3>' + bl[0] + '</h3><ul>' + items + '</ul></div>';
+  }
+  var pics = '';
+  for (var d = 0; d < pr.pics.length; d++) {
+    pics += photo(pr.pics[d]);
+  }
+  addSlide('Profile ' + (a + 1),
+    '<h2 class="ctitle ptitle rv">' + pr.title + '</h2>' +
+    '<div class="ptext">' + blocks + '</div>' +
+    '<div class="pgrid">' + pics + '</div>');
+}
+
+// หน้าใหม่: User Needs — ความต้องการของผู้อยู่อาศัยและครอบครัวที่มาเยี่ยม
+addSlide('User Needs',
+  '<div class="needs-layout">' +
+    '<div class="rv"><p class="mono"></p>' +
+      '<h1 class="needs-heading">USER NEEDS</h1>' +
+      '<p class="needs-intro">สรุปความต้องการของอาจารย์วิวและอาจารย์หนอน รวมถึงยายและหลานที่มาเยี่ยมเป็นครั้งคราว</p>' +
+      '<div class="needs-item"><strong>01 / พื้นที่พักผ่อน</strong><p>บ้านโปร่ง โล่ง รับแสงธรรมชาติ อากาศถ่ายเทดี และมีมุมสงบเป็นส่วนตัวสำหรับพักผ่อนและอ่านหนังสือ</p></div>' +
+      '<div class="needs-item"><strong>02 / พื้นที่ทำกิจกรรม</strong><p>มีพื้นที่สำหรับโยคะ ทำอาหาร และใช้เวลาร่วมกัน โดยครัวไทยต้องระบายกลิ่นและควันได้ดี</p></div>' +
+      '<div class="needs-item"><strong>03 / ธรรมชาติและสัตว์เลี้ยง</strong><p>มีพื้นที่ปลูกผัก เลี้ยงแมว 3 ตัวและปลาหางนกยูง โดยคำนึงถึงความสะอาดและการดูแลรักษา</p></div>' +
+      '<div class="needs-item"><strong>04 / ครอบครัวที่มาเยี่ยม</strong><p>มีพื้นที่นั่งพูดคุยและทำกิจกรรมกับคุณแม่และหลาน ทางเดินสะดวกและปลอดภัยสำหรับผู้สูงอายุ</p></div>' +
+    '</div>' +
+    '<div class="needs-visual rv">' + photo('family-visit') + '<div class="needs-photo-caption"></div></div>' +
+  '</div>');
+
+// หน้า 4: List of function
+function makeList(arr) {
+  var out = '';
+  for (var i = 0; i < arr.length; i++) {
+    out += '<li>' + arr[i] + '</li>';
+  }
+  return out;
+}
+addSlide('Function',
+  '<div class="function-centered"><div class="function-centered-inner">' +
+    '<h1 class="title rv">List of<br>Function</h1>' +
+    '<span class="dash rv"></span>' +
+    '<div class="function-card-grid">' + functions.map(function(item, index) {
+      var label = item.replace(/^\d+\.\s*/, '');
+      return '<div class="function-card rv"><span class="function-card-no">' + String(index + 1).padStart(2, '0') + '</span><span class="function-card-name">' + label + '</span></div>';
+    }).join('') + '</div>' +
+  '</div></div>');
+
+// หน้า 5: Mood & Tone
+var moodPics = ['mood-1', 'mood-2', 'mood-3', 'mood-4', 'mood-5'];
+var dots = '';
+for (var m = 0; m < moodColors.length; m++) {
+  dots += '<i style="background:' + moodColors[m] + '"></i>';
+}
+addSlide('Mood & Tone',
+  strips(moodPics) +
+  '<div class="mid"><div>' +
+    '<p class="mono rv">' + moodStyle + '</p>' +
+    '<h1 class="title big rv">Mood &amp; Tone</h1>' +
+    '<p class="mood-style-label rv">MODERN NATURAL</p>' +
+    '<p class="mood-description rv">เลือกออกแบบบ้านสไตล์ Modern Natural ผสมความเรียบง่ายทันสมัยกับความเป็นธรรมชาติ ใช้สีครีม น้ำตาล เขียวหม่น และวัสดุไม้ เพื่อสร้างบรรยากาศอบอุ่น สงบ และเหมาะกับการพักผ่อน</p>' +
+  '</div></div>' +
+  '<div class="palette rv">' + dots + '</div>');
+
+slides[slides.length - 1].classList.add('mood-slide');
+
+// หน้า 6-16: ห้องและพื้นที่ทั้งหมดตามโจทย์
+for (var r = 0; r < rooms.length; r++) {
+  var room = rooms[r];
+  var num = '0' + (r + 1);
+  var total = '0' + rooms.length;
+  addSlide(room.name,
+    strips(room.pics) +
+    '<div class="mid"><div><h1 class="title big rv">' + room.name + '</h1>' + (room.specialZones ? '<p class="special-intro rv">' + room.description + '</p><div class="special-zones">' + room.specialZones.map(function(zone){return '<div class="special-zone rv"><span class="en">' + zone.title + '</span><strong>' + zone.thai + '</strong><p>' + zone.detail + '</p></div>';}).join('') + '</div>' : '<p class="room-description rv">' + room.description + '</p>') + '</div></div>' +
+    '<p class="mono roomno rv">Room ' + num + ' / ' + total + '</p>');
+}
+
+/* หน้า Mood & Tone เป็นต้นไป: ใช้ลิงก์แหล่งที่มาจาก imageSources โดยตรง
+   ไม่มีการเปิดภาพขยาย และรูปที่ยังไม่ได้ใส่ URL จะไม่เป็นลิงก์ */
+var roomLightbox = document.getElementById('room-lightbox');
+function closeRoomLightbox(){roomLightbox.classList.remove('open');}
+for (var ri = 0; ri < rooms.length; ri++) {
+  slides[6 + ri].classList.add('room-slide');
+  if (rooms[ri].specialZones) slides[6 + ri].classList.add('special-slide');
+}
+
+// หน้าสุดท้าย: Thank You — cinematic typography แบบหน้าปก ไม่มีรูปภาพ
+addSlide('Thank you',
+  '<div class="cover-intro end-intro"><div class="cover-center">' +
+    '<p class="cover-eyebrow">END OF PRESENTATION</p>' +
+    '<h1 class="cover-heading"><span class="cover-line">THANK</span><span class="cover-line">YOU</span></h1>' +
+    '<span class="cover-rule"></span>' +
+    '<p class="cover-name">' + myName + '</p>' +
+  '</div></div>');
+
+/* =========================================================
+   ส่วนที่ 4: เปลี่ยนหน้า
+   ========================================================= */
+var capEl = document.getElementById('cap');
+var countEl = document.getElementById('count');
+var barEl = document.getElementById('bar');
+
+// แยกหัวข้อใหญ่เป็นตัวอักษร ให้โผล่ขึ้นมาทีละตัว
+var titles = deck.querySelectorAll('.title');
+for (var u = 0; u < titles.length; u++) {
+  var title = titles[u];
+  var lines = title.innerHTML.split('<br>');
+  var no = 0;
+  title.textContent = '';
+  title.classList.remove('rv');
+  for (var v = 0; v < lines.length; v++) {
+    if (v > 0) title.appendChild(document.createElement('br'));
+    var tmp = document.createElement('div');
+    tmp.innerHTML = lines[v];
+    var words = tmp.textContent.split(' ');
+    for (var w = 0; w < words.length; w++) {
+      var wordEl = document.createElement('span');
+      wordEl.className = 'w';
+      for (var x = 0; x < words[w].length; x++) {
+        var ch = document.createElement('span');
+        ch.className = 'ch';
+        ch.textContent = words[w][x];
+        ch.style.setProperty('--i', no++);
+        wordEl.appendChild(ch);
+      }
+      title.appendChild(wordEl);
+      title.appendChild(document.createTextNode(' '));
+    }
+  }
+}
+
+// ให้ข้อความกับรูปในแต่ละหน้าโผล่ทีละอัน
+for (var s = 0; s < slides.length; s++) {
+  var texts = slides[s].querySelectorAll('.rv');
+  for (var t = 0; t < texts.length; t++) {
+    texts[t].style.setProperty('--d', (0.3 + t * 0.15) + 's');
+  }
+  var imgs = slides[s].querySelectorAll('.photo');
+  for (var q = 0; q < imgs.length; q++) {
+    imgs[q].style.setProperty('--pd', (0.2 + q * 0.15) + 's');
+  }
+}
+
+function pad(n) {
+  return n < 10 ? '0' + n : '' + n;
+}
+
+// แสดงหน้าที่ n
+function show(n) {
+  slides[now].classList.remove('active');
+  now = n;
+  slides[now].classList.add('active');
+  capEl.textContent = names[now];
+  countEl.textContent = pad(now + 1) + ' / ' + pad(slides.length);
+  barEl.style.width = ((now + 1) / slides.length * 100) + '%';
+}
+
+
+/* ===== แตกตัวอักษรเป็นฝุ่นฟุ้งตอนออกจากหน้าปก ===== */
+function dissolveCover(onNext) {
+  var layer = document.getElementById('cover-transition');
+  var particleCanvas = document.getElementById('cover-particles');
+  var pctx = particleCanvas.getContext('2d');
+  var heading = slides[0].querySelector('.cover-heading');
+  var rect = heading.getBoundingClientRect();
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  particleCanvas.width = Math.round(innerWidth * dpr);
+  particleCanvas.height = Math.round(innerHeight * dpr);
+  pctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  var sample = document.createElement('canvas');
+  var sc = sample.getContext('2d', {willReadFrequently:true});
+  var w = Math.max(1, Math.round(rect.width));
+  var h = Math.max(1, Math.round(rect.height));
+  sample.width=w;sample.height=h;
+  var style=getComputedStyle(heading);
+  var fontsize=parseFloat(style.fontSize);
+  sc.fillStyle='#f6ebdd';
+  sc.textAlign='center';sc.textBaseline='middle';
+  sc.font='300 '+fontsize+'px "Barlow Condensed", sans-serif';
+  sc.fillText('INTERIOR',w/2,h*.25);
+  sc.fillText('DESIGN',w/2,h*.67);
+  var pixels=sc.getImageData(0,0,w,h).data;
+  var grains=[];
+  var stride=Math.max(3,Math.round(Math.sqrt(w*h/1400)));
+  for(var y=0;y<h;y+=stride){for(var x=0;x<w;x+=stride){
+    if(pixels[(y*w+x)*4+3]>100){
+      grains.push({x:rect.left+x,y:rect.top+y,vx:(Math.random()-.28)*8,vy:(Math.random()-.55)*5,
+        r:Math.random()*2.1+.55,alpha:1,delay:Math.random()*.32});
+    }
+  }}
+  layer.classList.remove('playing'); void layer.offsetWidth;
+  layer.classList.add('playing');
+  slides[0].classList.add('cover-dissolving');
+  var start=performance.now(),switched=false;
+  function frame(time){
+    var elapsed=(time-start)/1000;
+    pctx.clearRect(0,0,innerWidth,innerHeight);
+    for(var i=0;i<grains.length;i++){
+      var g=grains[i],t=Math.max(0,elapsed-g.delay);
+      if(!t)continue;
+      var fade=Math.max(0,1-t/1.16);
+      pctx.fillStyle='rgba(249,218,189,'+(fade*.87)+')';
+      pctx.beginPath();
+      pctx.arc(g.x+g.vx*t*24+30*t*t,g.y+g.vy*t*27-25*t*t,g.r*(1+t*1.7),0,Math.PI*2);
+      pctx.fill();
+    }
+    if(elapsed>.74&&!switched){switched=true;onNext();}
+    if(elapsed<1.6){requestAnimationFrame(frame);}else{
+      layer.classList.remove('playing');
+      slides[0].classList.remove('cover-dissolving');
+      pctx.clearRect(0,0,innerWidth,innerHeight);
+    }
+  }
+  requestAnimationFrame(frame);
+}
+
+// ไปหน้าถัดไป (dir = 1) หรือย้อนกลับ (dir = -1)
+function move(dir) {
+  if (!canMove) return;
+  var n = now + dir;
+  if (n < 0) n = slides.length - 1;
+  if (n >= slides.length) n = 0;
+  canMove = false;
+  // เอฟเฟกต์แตกสลาย + หมอก เฉพาะตอนออกจากหน้า 1 ไปหน้า 2
+  if (now === 0 && n === 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    dissolveCover(function () {
+      show(n);
+      wind = 8;
+      setTimeout(function () { canMove = true; }, 350);
+    });
+    return;
+  }
+  show(n);
+  wind = 8;  // ทรายพัดแรงตอนเปลี่ยนหน้า
+  wipe.classList.remove('go');
+  void wipe.offsetWidth;  // รีเซ็ตแอนิเมชันให้เล่นใหม่ได้
+  wipe.classList.add('go');
+  setTimeout(function () { canMove = true; }, 800);
+}
+
+/* =========================================================
+   ส่วนที่ 5: เอฟเฟกต์ทราย + ขยับตามเมาส์
+   ========================================================= */
+var wipe = document.getElementById('wipe');
+var canvas = document.getElementById('sand');
+var ctx = canvas.getContext('2d');
+var grains = [];
+var wind = 1;
+
+function resize() {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+resize();
+addEventListener('resize', resize);
+
+for (var g = 0; g < 90; g++) {
+  grains.push({
+    x: Math.random() * innerWidth,
+    y: Math.random() * innerHeight,
+    speed: 0.5 + Math.random() * 2,
+    size: 1 + Math.random() * 1.5
+  });
+}
+
+// วาดเม็ดทรายทุกเฟรม (มีแค่ 90 เม็ด เลยไม่หนัก)
+function drawSand() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = 'rgba(255,214,160,0.5)';
+  for (var i = 0; i < grains.length; i++) {
+    var gr = grains[i];
+    gr.x += gr.speed * wind;
+    gr.y += Math.sin(gr.x * 0.01) * 0.3;
+    if (gr.x > canvas.width) {
+      gr.x = 0;
+      gr.y = Math.random() * canvas.height;
+    }
+    ctx.fillRect(gr.x, gr.y, gr.size * wind, gr.size);
+  }
+  wind += (1 - wind) * 0.03;  // ค่อยๆ ลมสงบลง
+  requestAnimationFrame(drawSand);
+}
+drawSand();
+
+// ขยับรูปกับข้อความนิดหน่อยตามเมาส์
+var mouseX = 0;
+var mouseY = 0;
+var waiting = false;
+document.addEventListener('mousemove', function (e) {
+  mouseX = e.clientX / innerWidth - 0.5;
+  mouseY = e.clientY / innerHeight - 0.5;
+  if (waiting) return;
+  waiting = true;
+  requestAnimationFrame(function () {
+    slides[now].style.setProperty('--mx', mouseX.toFixed(3));
+    slides[now].style.setProperty('--my', mouseY.toFixed(3));
+    waiting = false;
+  });
+});
+
+document.getElementById('next').onclick = function () { move(1); };
+document.getElementById('prev').onclick = function () { move(-1); };
+
+// ปุ่มคีย์บอร์ด
+document.addEventListener('keydown', function (e) {
+  if (roomLightbox.classList.contains('open')) { if(e.key==='Escape')closeRoomLightbox(); return; }
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') move(1);
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') move(-1);
+});
+
+// ล้อเมาส์
+document.addEventListener('wheel', function (e) {
+  if (roomLightbox.classList.contains('open')) return;
+  if (Math.abs(e.deltaY) < 20) return;
+  move(e.deltaY > 0 ? 1 : -1);
+}, {passive: true});
+
+// ปัดนิ้วบนมือถือ
+var startX = 0;
+document.addEventListener('touchstart', function (e) {
+  startX = e.touches[0].clientX;
+}, {passive: true});
+document.addEventListener('touchend', function (e) {
+  var diff = e.changedTouches[0].clientX - startX;
+  if (Math.abs(diff) > 50) move(diff < 0 ? 1 : -1);
+}, {passive: true});
+
+// เริ่มที่หน้าแรก
+setTimeout(function () { show(0); }, 100);
+</script>
+</body>
+</html>

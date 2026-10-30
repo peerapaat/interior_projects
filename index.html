@@ -3,1264 +3,906 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Interior Design</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@200;300;400;500;600&family=Noto+Sans+Thai:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<title>Interior Design — Book Presentation</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500&family=Noto+Sans+Thai:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--h:min(84vh,62vw);--w:calc(var(--h)*.74);--head:'Barlow Condensed','Noto Sans Thai',sans-serif;--thai:'Noto Sans Thai',sans-serif;color-scheme:dark}
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;background:#1a0f12}
-body{font-family:var(--thai);overflow:hidden}
-.bg{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 70% 60% at 85% 8%,rgba(255,150,90,.18),transparent 60%),linear-gradient(160deg,#33201a,#1a0f12 55%,#120a10);overflow:hidden}
-.bg::after{content:"";position:absolute;left:0;right:0;bottom:0;height:22%;background:linear-gradient(to top,rgba(122,74,72,.35),transparent);clip-path:polygon(0 60%,15% 40%,35% 55%,55% 30%,75% 50%,100% 35%,100% 100%,0 100%)}
-.star{position:absolute;width:2px;height:2px;border-radius:50%;background:#ffe2b5;animation:tw 3s ease-in-out infinite alternate}
-@keyframes tw{from{opacity:.1}to{opacity:.9}}
-.glow{position:absolute;width:60vw;height:40vw;border-radius:50%;background:radial-gradient(closest-side,rgba(255,170,100,.22),transparent);animation:dr 26s ease-in-out infinite alternate}
-.g1{left:-15vw;bottom:-10vh}.g2{right:-15vw;top:5vh;animation-duration:34s;animation-delay:-10s}
-@keyframes dr{from{transform:translateX(-6vw)}to{transform:translateX(8vw) translateY(-3vh)}}
-#fx{position:fixed;inset:0;z-index:1;pointer-events:none}
-.wrap{position:fixed;inset:0;z-index:2;display:grid;place-items:center;perspective:2600px}
-.stage{transform-style:preserve-3d;transform:rotateX(calc(9deg + var(--my,0)*-5deg)) rotateY(calc(var(--mx,0)*8deg))}
-.book{position:relative;width:calc(var(--w)*2);height:var(--h);transform-style:preserve-3d;transition:translate 1.2s cubic-bezier(.5,0,.2,1)}
-.book::after{content:"";position:absolute;left:4%;right:4%;bottom:-3.5vh;height:4vh;background:radial-gradient(closest-side,rgba(0,0,0,.6),transparent);filter:blur(8px);transform:translateZ(-1px)}
-.book::before{display:none!important} /* Remove paper strip that protruded beyond cover */
-.book{filter:drop-shadow(0 1.8vh 2.8vh rgba(0,0,0,.28))}
-.leaf{position:absolute;left:var(--w);top:0;width:var(--w);height:100%;transform-origin:left center;transform-style:preserve-3d;z-index:calc(100 - var(--i));transition:transform 1.2s cubic-bezier(.6,0,.25,1),z-index 0s linear .6s}
-.leaf.f{transform:rotateY(-180deg);z-index:calc(100 + var(--i))}
-.pg{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;container-type:size;color:var(--fg)}
-.back{transform:rotateY(180deg)}
-.pg::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;background:rgba(30,12,8,.6)}
-.tn .pg::after{animation:sh 1.2s ease}
-@keyframes sh{0%{opacity:0}45%{opacity:.5}100%{opacity:0}}
-.pp{--fg:#2b1b16;--mu:#6b5547;--ac:#b66f4b;--ln:rgba(43,27,22,.22);--gs:rgba(182,111,75,.38)}
-.pp.front{background:linear-gradient(90deg,rgba(70,35,22,.32),rgba(70,35,22,.08) 6%,transparent 15%),radial-gradient(ellipse at 30% 15%,#f7eddc,#eadcc3);border-radius:0 4px 4px 0}
-.pp.back{background:linear-gradient(270deg,rgba(70,35,22,.32),rgba(70,35,22,.08) 6%,transparent 15%),radial-gradient(ellipse at 70% 15%,#f7eddc,#eadcc3);border-radius:4px 0 0 4px}
-.lea{--fg:#f6ebdd;--mu:rgba(246,235,221,.7);--ac:#ffb27c;--ln:rgba(246,235,221,.3);--gs:rgba(255,178,124,.3);background:radial-gradient(circle at 62% 18%,rgba(210,118,79,.22),transparent 34%),radial-gradient(circle at 50% 65%,rgba(22,10,14,.35),transparent 56%),linear-gradient(160deg,#4b2c22 0%,#24141a 56%,#11070d 100%);box-shadow:inset 0 0 0 1px rgba(255,245,233,.02),inset 2.6cqw 0 3.4cqw rgba(0,0,0,.34),inset -.9cqw 0 1.6cqw rgba(255,190,145,.05)}
-.lea.front{border-radius:0 10px 10px 0}.lea.back{border-radius:10px 0 0 10px}
-.lea::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4.8cqw;background:linear-gradient(90deg,rgba(0,0,0,.58),rgba(255,178,124,.13) 48%,rgba(0,0,0,.08));box-shadow:inset -1px 0 0 rgba(255,220,183,.08);pointer-events:none}
-.lea::after{content:"";position:absolute;inset:2.6cqw 2.2cqw 2.6cqw 4.4cqw;border-radius:.9cqw 1.2cqw 1.2cqw .9cqw;box-shadow:inset 0 0 0 1px rgba(255,178,124,.10), inset 0 0 5cqw rgba(255,178,124,.035);pointer-events:none}
-.lea.front{box-shadow:inset -0.45cqw 0 1.2cqw rgba(0,0,0,.22), inset -0.12cqw 0 0 rgba(211,179,140,.22)}
-.pc{position:absolute;inset:0;padding:12cqw 11cqw;display:flex;flex-direction:column;justify-content:center}
-.pc.c{align-items:center;text-align:center}
-.h{margin:0;font:200 13cqw/.92 var(--head);letter-spacing:.05em;text-transform:uppercase}
-.h.sm{font-size:11cqw}
-.th{margin:0;font:200 10.5cqw/1.2 var(--thai)}
-.cl{display:block;font-size:17cqw;line-height:.84;letter-spacing:.07em}
-.cover .cl{text-shadow:0 0 40px rgba(255,174,119,.18),0 2px 10px rgba(0,0,0,.22);letter-spacing:.09em}
-.cover .nm{letter-spacing:.1em;color:rgba(246,235,221,.58)}
-.cover .rule{height:9cqw;margin:5cqw auto;background:linear-gradient(rgba(255,178,124,.75),transparent)}
-.cover .hint{bottom:8cqw;opacity:.7}
-.w{display:inline-block;white-space:nowrap}
-.ch{display:inline-block;opacity:0;transform:translateY(.5em) scaleY(1.2);transition:opacity .6s ease,transform .7s ease}
-.vis .ch{opacity:1;transform:none;transition:opacity .9s ease calc(.7s + var(--i,0)*50ms),transform 1s cubic-bezier(.2,.7,.1,1) calc(.7s + var(--i,0)*50ms)}
-.r{opacity:0;filter:blur(6px);transform:translateY(3cqw);transition:opacity .5s,filter .5s,transform .5s}
-.vis .r{opacity:1;filter:none;transform:none;transition:opacity .9s ease var(--d,.8s),filter .9s ease var(--d,.8s),transform .9s cubic-bezier(.2,.7,.1,1) var(--d,.8s)}
-.dash{display:block;width:10cqw;height:1px;background:var(--ac);margin:4cqw 0}
-.c .dash{margin:4cqw auto}
-.tg{margin:0;font:300 4.4cqw/1.6 var(--thai);letter-spacing:.05em;color:var(--mu)}
-.nm{margin:0;font:300 3.3cqw/1.8 var(--thai);letter-spacing:.14em;color:var(--mu)}
-.rule{display:block;width:1px;height:12cqw;margin:6cqw auto;background:linear-gradient(var(--ac),transparent)}
-ul{margin:5cqw 0 0;padding:0;list-style:none}
-li{position:relative;padding-left:7cqw;font:300 4.6cqw/1.95 var(--thai);letter-spacing:.03em}
-li::before{content:"";position:absolute;left:0;top:.98em;width:4cqw;height:1px;background:var(--ac)}
-.g{margin-top:7cqw}
-.it{display:flex;align-items:baseline;gap:4cqw;padding:1.9cqw 0;border-top:1px solid var(--ln)}
-.it.col{flex-direction:column;gap:.6cqw;padding:2.6cqw 0}
-.it b{font:300 4.9cqw/1.4 var(--thai)}
-.it span{font:300 3.6cqw/1.6 var(--thai);color:var(--mu)}
-.it i{font:400 3.4cqw/1 var(--head);letter-spacing:.2em;color:var(--ac);font-style:normal}
-.it em{font:300 4.7cqw/1.3 var(--head);letter-spacing:.04em;font-style:normal}
-.pal{display:flex;gap:3cqw;margin-top:9cqw}
-.pal i{width:10.5cqw;aspect-ratio:1;border-radius:50%;box-shadow:0 0 0 1px rgba(43,27,22,.3)}
-.ghost{position:absolute;right:-2cqw;bottom:-8cqw;font:200 62cqw/.8 var(--head);color:transparent;-webkit-text-stroke:1px var(--gs);pointer-events:none;opacity:0;transform:translateY(8cqw);transition:opacity .5s,transform .5s}
-.back .ghost{right:auto;left:-2cqw}
-.vis .ghost{opacity:1;transform:none;transition:opacity 1.4s .6s,transform 1.6s cubic-bezier(.2,.7,.1,1) .6s}
-.fo{position:absolute;bottom:6cqw;font:400 3cqw/1 var(--head);letter-spacing:.25em;color:var(--mu)}
-.front .fo{right:9cqw}.back .fo{left:9cqw}
-.arch{position:absolute;left:24cqw;right:24cqw;top:22cqw;bottom:22cqw;border:1px solid var(--ac);border-radius:999px 999px 0 0;opacity:.7}
-.arch.in{left:30cqw;right:30cqw;top:28cqw;bottom:22cqw;opacity:.4}
-.hint{position:absolute;bottom:11cqw;left:0;right:0;text-align:center;font:300 4.5cqw/1 var(--head);letter-spacing:.5em;color:var(--mu);animation:pu 2.3s ease-in-out infinite alternate}
-@keyframes pu{from{opacity:.3}to{opacity:1}}
-@media(prefers-reduced-motion:reduce){.book,.leaf,.ch,.r,.ghost{transition:none!important}.star,.glow,.hint,.tn .pg::after{animation:none}#fx{display:none}}
+/* ========================================================
+   รูปแบบเว็บ: ปรับสี/ขนาดหนังสือใน :root เท่านั้น
+   เนื้อหาและรูปทั้งหมดแก้ได้ที่ส่วน "แก้ข้อมูลเว็บตรงนี้" ด้านล่าง
+   ======================================================== */
+:root {
+  --h: min(84vh, 62vw);
+  --w: calc(var(--h) * .74);
+  --head: 'Barlow Condensed', 'Noto Sans Thai', sans-serif;
+  --thai: 'Noto Sans Thai', sans-serif;
+  /* ==============================================================
+     ✏️✏️ จุดปรับฟอนต์ทุกหน้า — แก้เลขตรงนี้อย่างเดียว ✏️✏️
+     Ctrl + F แล้วค้นหา "ตั้งค่าฟอนต์แยกหมวด"
 
-/* Image spreads: genuine photo areas remain visible even without photo files */
-.pc.room,.pc.profile,.pc.mood {justify-content:flex-start;padding:10cqw 9cqw 9cqw}
-.pc.room .h{font-size:10.5cqw;line-height:1.02;overflow-wrap:anywhere}
-.pc.room .tg{font-size:3.65cqw;line-height:1.45;margin-top:2cqw}
-.pc.room .dash{margin:3cqw 0}
-.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2cqw;width:100%;min-height:0;flex:1;margin-top:5cqw}
-.gallery.one{grid-template-columns:1fr}
-.gallery.three{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr))}
-.gallery.three .slot:first-child{grid-row:span 2}
-.slot{position:relative;min-width:0;min-height:0;overflow:hidden;border:1px solid rgba(140,101,71,.4);background:linear-gradient(140deg,#e3d3b9,#d0bea2);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:1cqw;color:#836c55}
-.slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s}
-.slot img.ready{opacity:1}
-.slot .photo-icon{font-size:10cqw;line-height:1}
-.slot .photo-label{font:400 3.2cqw/1.35 var(--thai);padding:0 2cqw}
-.slot .photo-file{font:300 2.6cqw/1.3 var(--head);overflow-wrap:anywhere;padding:0 2cqw}
-.slot:has(img.ready) .photo-icon,.slot:has(img.ready) .photo-label,.slot:has(img.ready) .photo-file{display:none}
-.pc.profile .th{font-size:9cqw}
-.pc.profile ul{margin:2cqw 0}
-.pc.profile li{font-size:3.25cqw;line-height:1.5;padding-left:5cqw}
-.pc.profile li::before{width:3cqw;top:.8em}
-.pc.profile .gallery{flex:1;margin-top:2cqw;min-height:32cqw}
-.pc.mood .h{font-size:10cqw}
-.pc.mood .pal{margin-top:4cqw}
-.pc.mood .gallery{margin-top:5cqw}
-.pc.room .g{margin:2cqw 0 0}
-.pc.room .it.col{padding:1cqw 0}
-.pc.room .it.col b{font-size:3.5cqw}
-.pc.room .ghost{display:none}
-/* Distinct paper sheet remains visible at the midpoint of a flip */
-.leaf{will-change:auto}
-.leaf .pg{transform-style:preserve-3d;-webkit-backface-visibility:hidden}
+     เพิ่มตัวเลข = ฟอนต์ใหญ่ขึ้น / ลดตัวเลข = ฟอนต์เล็กลง
+     ตัวอย่าง 3.5cqw -> 4cqw หรือ 3cqw
+     หน่วย cqw ขยายย่อตามความกว้างของหน้าหนังสือ
+     ไม่ต้องแก้ font-size ที่อื่น และไม่ต้องแก้ JavaScript
+     ============================================================== */
 
-/* Layout refinements - original physical 3D book and turn motion preserved */
-.pc.content-page{justify-content:flex-start;align-items:stretch;overflow:auto;padding:10cqw 9cqw 9cqw;scrollbar-width:thin;scrollbar-color:#bfa98c transparent}
-.content-page .h{font-size:11cqw;line-height:1.0;overflow-wrap:anywhere}
-.content-page .h.sm{font-size:9.5cqw}
-.content-page .th{font-size:7cqw;font-weight:300;line-height:1.2}
-.eyebrow{margin:0 0 2cqw;font:400 2.75cqw/1.4 var(--head);letter-spacing:.15em;color:#a15d43}
-.detail-intro{font:300 3.65cqw/1.72 var(--thai);color:#554133;margin:3cqw 0 4cqw}
-.profile-blocks{display:grid;grid-template-columns:1fr 1fr;gap:3cqw 4cqw;margin-top:4cqw}
-.profile-block{padding-top:2cqw;border-top:1px solid #bcaa92;min-width:0}
-.profile-block h3{font:400 2.45cqw/1.4 var(--head);letter-spacing:.045em;color:#a15d43;margin:0 0 1cqw;overflow-wrap:anywhere}
-.profile-block ul{margin:0}.profile-block li{font-size:2.7cqw;line-height:1.48;padding-left:4cqw;letter-spacing:0}
-.profile-block li::before{width:2.2cqw;top:.8em}
-.pc.gallery-page{padding:4cqw;justify-content:stretch;overflow:hidden}
-.gallery-page .gallery{flex:1;margin:0;min-height:0;width:100%}
-.gallery.four{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr))}
-.gallery.five{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr))}
-.gallery:has(>.slot:nth-child(5)){grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr))}
-.gallery:has(>.slot:nth-child(5)) .slot:first-child{grid-row:span 2}
-.slot{border-radius:2px}.slot .photo-icon{font-size:10cqw}.slot .photo-file{font-size:2.9cqw}
-.slot .image-source{position:absolute;z-index:4;right:1cqw;bottom:1cqw;background:#211810d9;padding:1cqw 1.4cqw;text-decoration:none;color:#f7ead9;font:400 2.3cqw var(--head);letter-spacing:.1em;opacity:0;transition:opacity .2s}
-.slot:hover .image-source,.slot .image-source:focus-visible{opacity:1}
-.item-detail{border-top:1px solid #c9b9a3;padding:2.1cqw 0}
-.item-detail strong{display:block;font:400 3.45cqw/1.4 var(--thai);color:#a15d43}
-.item-detail p{margin:.5cqw 0 0;color:#574534;font:300 3cqw/1.5 var(--thai)}
-.zone-en{font:400 2.3cqw var(--head);color:#a15d43;letter-spacing:.1em}
-.fn-grid{display:grid;grid-template-columns:1fr 1fr;gap:2cqw 3cqw;margin-top:4cqw}
-.fn-item{border-top:1px solid #cbbba2;padding:2cqw 0;font:300 3.25cqw/1.35 var(--head);overflow-wrap:anywhere}
-.fn-item span{color:#a15d43;display:block;font-size:2.5cqw;margin-bottom:1cqw}
-.style-name{font:400 4cqw var(--head);letter-spacing:.15em;color:#a15d43;margin:5cqw 0}
-.content-page .pal{margin-top:4cqw}.content-page .pal i{width:11cqw}
-/* Ensure image source actions are directly clickable on the 3D page */
-.slot .image-source{opacity:1!important;z-index:30!important;pointer-events:auto!important;cursor:pointer!important;display:flex;align-items:center;justify-content:center;min-width:76px;min-height:32px;right:1cqw;bottom:1cqw;border:1px solid rgba(255,240,220,.35);border-radius:3px;user-select:none}
-.slot .image-source:hover{background:#6c4530!important}
-.slot{isolation:isolate}
-/* Make 3D facing sides remain visible and avoid browser compositing flashes */
-.leaf,.pg{backface-visibility:visible}.pg{backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:translateZ(0)}
-.pg.back{transform:rotateY(180deg)}
+  /* ===== 01. ปกหน้า INTERIOR DESIGN ===== */
+  --size-cover-title: 15cqw;            /* คำว่า INTERIOR / DESIGN */
+  --size-cover-overline: 2.95cqw;       /* DESIGN PRESENTATION */
+  --size-cover-name: 3.4cqw;           /* ชื่อและรหัสใต้ปก */
+  --size-cover-hint: 3.4cqw;           /* ลูกศรบอกให้พลิกหน้า */
+
+  /* ===== 02. หน้า PROFILE & LIFESTYLE ===== */
+  --size-profile-overline: 2.95cqw;     /* PROFILE & LIFESTYLE / 01 */
+  --size-profile-title: 5.9cqw;        /* ชื่ออาจารย์ */
+  --size-profile-section: 3.55cqw;     /* Character, Daily Routine, User need */
+  --size-profile-text: 2.80cqw;        /* รายละเอียดในแต่ละหมวด */
+
+  /* ===== 03. หน้า USER NEEDS ===== */
+  --size-needs-title: 8.2cqw;          /* USER NEEDS */
+  --size-needs-intro: 3.00cqw;         /* คำอธิบายใต้หัวข้อ */
+  --size-needs-section: 3.55cqw;       /* 01 / พื้นที่พักผ่อน เป็นต้น */
+  --size-needs-text: 2.80cqw;          /* คำอธิบายแต่ละข้อ */
+
+  /* ===== 04. หน้า LIST OF FUNCTION ===== */
+  --size-function-title: 8.2cqw;       /* LIST OF FUNCTION */
+  --size-function-category: 3.55cqw;   /* PUBLIC / PRIVATE / EXTERIOR */
+  --size-function-item: 3.8cqw;        /* Living Area / Dining Area ฯลฯ */
+
+  /* ===== 05. หน้า MOOD & TONE ===== */
+  --size-mood-title: 8.2cqw;           /* MOOD & TONE */
+  --size-mood-style: 3.55cqw;          /* MODERN NATURAL */
+  --size-mood-description: 2.80cqw;    /* ย่อหน้าคอนเซปต์ */
+  --size-mood-inspiration-title: 3.55cqw; /* INSPIRATION */
+  --size-mood-inspiration-text: 2.80cqw;/* ข้อความ Inspiration */
+
+  /* ===== 06. หน้ารายละเอียดห้องทุกห้อง ===== */
+  --size-room-overline: 2.95cqw;       /* ROOM 01 / SPECIAL FUNCTION */
+  --size-room-title: 8.2cqw;           /* Living Area / Master Bedroom ฯลฯ */
+  --size-room-description: 3.20cqw;    /* ข้อความรายละเอียดห้อง */
+  --size-room-tone-label: 3.55cqw;     /* TONE COLOR */
+
+  /* ===== 07. ข้อความตำแหน่งรูป (กรณียังไม่ได้ใส่ภาพ) ===== */
+  --size-image-filename: 3.4cqw;       /* ชื่อรูปในหน้ารวมรูป */
+  --size-mood-image-filename: 2.95cqw; /* ชื่อรูปใน 5 ช่อง MOOD */
+  --size-room-image-placeholder: 3.4cqw; /* ภาพตัวอย่างห้อง */
+  --size-board-title: 8.2cqw;          /* MOOD & TONE หน้าภาพรวมแต่ละห้อง */
+  --size-board-roomname: 3.4cqw;       /* ชื่อห้องใต้ MOOD & TONE */
+  --size-board-filename: 2.95cqw;      /* ชื่อไฟล์รูป Mood Board */
+
+  /* ===== 08. หน้า THANK YOU ===== */
+  --size-thank-title: 15cqw;           /* THANK / YOU */
+  --size-thank-name: 3.4cqw;           /* ชื่อและรหัสใต้หน้า */
+
+  color-scheme: dark;
 
 
-/* Typography clarity patch: preserve original 3D book + content */
-.stage{transform:rotateX(calc(4deg + var(--my,0)*-2deg)) rotateY(calc(var(--mx,0)*3deg))}
-.h{font-weight:400}
-.th{font-weight:400}
-.cover .cl{font-weight:400;letter-spacing:.075em;text-shadow:0 1px 1px rgba(0,0,0,.14)}
-.nm,.tg,.detail-intro,.item-detail p,.profile-block li,.fn-item,.fn-item span,.profile-block h3,.item-detail strong,.style-name,.eyebrow,.zone-en{font-weight:400}
-.nm{color:var(--mu)}
-.lea .nm{color:rgba(255,246,236,.84)}
-.content-page .detail-intro,.content-page .item-detail p,.content-page .profile-block li{color:#382820}
-.r{filter:none!important;transition:opacity .65s ease,transform .65s ease!important}
-.vis .r{filter:none!important}
-.ch{filter:none!important}
-.pg,.pc{ -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility }
+  .detail-intro {
+    white-space: pre-line;
+  }
 
 
-/* LEGIBILITY PATCH: text is readable at presentation viewing distance */
-.stage{transform:none!important}
-.book{filter:none!important}
-.pg{ -webkit-font-smoothing:auto; text-rendering:optimizeLegibility }
-.pc.content-page{padding:8cqw 8cqw 7cqw}
-.content-page .th{font-size:7.7cqw!important;font-weight:500!important;line-height:1.18;color:#241b16}
-.profile-blocks{grid-template-columns:1fr;gap:2cqw;margin-top:4cqw}
-.profile-block{padding:2.4cqw 0 0}
-.profile-block h3{font:500 3.55cqw/1.4 var(--thai)!important;color:#8d3f28!important;letter-spacing:0!important;margin-bottom:1.6cqw}
-.profile-block li{font:400 3.85cqw/1.55 var(--thai)!important;color:#241a16!important;padding-left:4.5cqw!important;letter-spacing:0!important}
-.profile-block li::before{width:2.4cqw;top:.85em;background:#a24d31}
-.eyebrow{font-size:3.2cqw!important;color:#914e36!important;font-weight:500!important}
-.content-page .detail-intro,.content-page .item-detail p{font-size:3.8cqw!important;color:#2b211c!important;line-height:1.6}
-.item-detail strong{font-size:4cqw!important}
-.fn-item{font-size:3.7cqw!important;color:#2b211c}
-.pc.content-page{scrollbar-color:#b79b77 #e9ddc7}
-
-/* FIX: All content must stay inside a single paper page; no internal scrollbars. */
-.pc.content-page{overflow:hidden!important;scrollbar-width:none!important;padding:7.4cqw 8cqw 6.5cqw!important}
-.pc.content-page::-webkit-scrollbar{display:none!important}
-.pc.profile-details .th{font-size:7cqw!important;line-height:1.14!important;margin:0 0 1.5cqw!important}
-.pc.profile-details .eyebrow{font-size:2.8cqw!important;margin:0 0 1.5cqw!important}
-.pc.profile-details .profile-blocks{display:flex!important;flex-direction:column!important;gap:1.45cqw!important;margin-top:2.6cqw!important;align-content:start}
-.pc.profile-details .profile-block{padding:1.1cqw 0 0!important;min-width:0}
-.pc.profile-details .profile-block h3{font:500 2.35cqw/1.32 var(--thai)!important;color:#8d3f28!important;letter-spacing:0!important;margin:0 0 .55cqw!important;overflow-wrap:break-word}
-.pc.profile-details .profile-block ul{margin:0!important;padding:0!important}
-.pc.profile-details .profile-block li{font:400 2.42cqw/1.34 var(--thai)!important;color:#241a16!important;padding-left:2.9cqw!important;letter-spacing:0!important;overflow-wrap:anywhere}
-.pc.profile-details .profile-block li::before{width:1.7cqw!important;top:.76em!important}
-.pc.profile-details .profile-block:nth-child(4) li{font-size:2.3cqw!important;line-height:1.32!important}
-.pc.profile-details .eyebrow{margin-bottom:1.2cqw!important}
-.pc.profile-details .th{margin-bottom:1.2cqw!important}
-.pc.profile-details .profile-block + .profile-block{margin-top:.1cqw!important}
-/* The rest of the pages stay as laid out, without their own scroll regions. */
-.pc.room-details .detail-intro{font-size:3.5cqw!important;line-height:1.53!important}
-.pc.room-details .item-detail{padding:1.35cqw 0!important}
-.pc.room-details .item-detail p{font-size:3.05cqw!important;line-height:1.44!important}
-.pc.room-details .item-detail strong{font-size:3.3cqw!important}
-.pc.user-needs .h{font-size:10.1cqw!important;line-height:1.0!important}
-.pc.user-needs .detail-intro{font-size:3.25cqw!important;line-height:1.45!important;margin:2.1cqw 0 2.8cqw!important}
-.pc.user-needs .item-detail{padding:1.55cqw 0!important}
-.pc.user-needs .item-detail strong{font-size:3.45cqw!important;line-height:1.28!important}
-.pc.user-needs .item-detail p{font-size:3.1cqw!important;line-height:1.42!important}
-.pc.content-page .h{line-height:1.05!important}
-
-
-/* Full image is the source link: no visible SOURCE button. */
-.slot .image-source,
-.slot:hover .image-source,
-.slot .image-source:focus-visible{
-  position:absolute!important;
-  inset:0!important;
-  width:100%!important;
-  height:100%!important;
-  display:block!important;
-  padding:0!important;
-  margin:0!important;
-  border:0!important;
-  border-radius:0!important;
-  background:transparent!important;
-  box-shadow:none!important;
-  opacity:1!important;
-  transform:none!important;
-  z-index:30!important;
-  cursor:pointer!important;
-  pointer-events:auto!important;
-  min-width:0!important;
-  min-height:0!important;
 }
-.slot .image-source:focus-visible{outline:2px solid #b66f4b!important;outline-offset:-2px!important}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; background: #1a0f12; }
+body { overflow: hidden; font-family: var(--thai); }
 
-/* Living Area / image-side composition: background + independently sourced objects */
-.pc.composition-page{padding:4cqw!important;overflow:hidden!important}
-.living-composition{position:relative;width:100%;height:100%;overflow:hidden;background:#d4c4ab;isolation:isolate;border-radius:2px}
-.composition-bg{position:absolute;inset:0;z-index:0;background:linear-gradient(145deg,#ded3c2,#bcae97);overflow:hidden}
-.composition-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.composition-bg .comp-empty{position:absolute;inset:0;display:grid;place-items:center;white-space:pre-line;text-align:center;padding:5%;font:400 3.2cqw/1.55 var(--thai);color:#513d2f;background:#dfd2bd}
-.composition-bg:has(img.ready) .comp-empty{display:none}
-.composition-bg:after{content:'';pointer-events:none;position:absolute;inset:0;background:linear-gradient(180deg,#0000 74%,#0002)}
-.comp-bg-source{position:absolute;inset:0;z-index:1;display:block;cursor:pointer}
-.comp-item{position:absolute;z-index:var(--z,3);left:var(--x);top:var(--y);width:var(--witem);height:var(--hitem);display:flex;align-items:center;justify-content:center;border:1px dashed rgba(255,252,245,.92);background:rgba(106,91,73,.22);box-shadow:0 .6cqw 1.5cqw rgba(0,0,0,.08);text-align:center;overflow:hidden;transform:rotate(var(--rot,0deg));border-radius:2px}
-.comp-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;pointer-events:none;filter:drop-shadow(0 5px 6px #0005)}
-.comp-item img.ready{opacity:1}
-.comp-item:has(img.ready){background:#f6efe6;border:.32cqw solid rgba(249,244,236,.95);box-shadow:0 .9cqw 1.9cqw rgba(0,0,0,.18),0 .2cqw .45cqw rgba(0,0,0,.08)}
-.comp-item span{font:500 2.55cqw/1.32 var(--thai);color:#fff8ef;text-shadow:0 1px 3px #000;max-width:93%;padding:3px;overflow-wrap:anywhere;text-align:center}
-.comp-item small{display:block;font-size:1.82cqw;font-weight:400}
-.comp-item:has(img.ready) span{display:none}
-.comp-link{position:absolute;inset:0;z-index:4;cursor:pointer}
-.comp-item:has(.comp-link):hover{outline:2px solid #dfb77e;outline-offset:-2px}
-.comp-legend{position:absolute;z-index:11;left:2%;top:2%;padding:1.1cqw 1.6cqw;background:rgba(23,13,11,.8);color:#f6ebdd;font:500 2.5cqw var(--head);letter-spacing:.1em;pointer-events:none}
-.composition-bg .comp-bg-source:focus-visible,.comp-link:focus-visible{outline:3px solid #fff;outline-offset:-3px}
+/* พื้นหลังและอนุภาค */
+.bg { position: fixed; inset: 0; overflow: hidden; z-index: 0;
+  background: radial-gradient(ellipse 70% 60% at 85% 8%, rgba(255,150,90,.18), transparent 60%), linear-gradient(160deg,#33201a,#1a0f12 55%,#120a10); }
+.bg::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 22%;
+  background: linear-gradient(to top,rgba(122,74,72,.35),transparent);
+  clip-path: polygon(0 60%,15% 40%,35% 55%,55% 30%,75% 50%,100% 35%,100% 100%,0 100%); }
+.glow { position: absolute; width: 60vw; height: 40vw; border-radius: 50%;
+  background: radial-gradient(closest-side,rgba(255,170,100,.22),transparent); animation: drift 26s ease-in-out infinite alternate; }
+.g1 { left:-15vw; bottom:-10vh; }
+.g2 { right:-15vw; top:5vh; animation-duration:34s; animation-delay:-10s; }
+.star { position:absolute; width:2px; height:2px; border-radius:50%; background:#ffe2b5; animation:twinkle 3s ease-in-out infinite alternate; }
+@keyframes drift { from {transform:translateX(-6vw)} to {transform:translate(8vw,-3vh)} }
+@keyframes twinkle { from {opacity:.1} to {opacity:.9} }
+#fx { position:fixed; inset:0; z-index:1; pointer-events:none; }
 
-/* Living Area: left-page style notes and photographic reference */
-.pc.living-details{padding:8.2cqw 8cqw 6.5cqw!important;display:flex;flex-direction:column;overflow:hidden!important}
-.living-details .h{font-size:10.5cqw!important;margin-bottom:0}
-.living-details .detail-intro{font-size:3.1cqw!important;line-height:1.45!important;margin:3cqw 0 2cqw!important}
-.living-notes{display:flex;flex-wrap:wrap;gap:1cqw 2.2cqw;align-items:center;border-top:1px solid #cfbda3;padding-top:2.2cqw;margin-top:1cqw}
-.living-notes .note-heading{width:100%;font:500 2.5cqw/1.25 var(--head);letter-spacing:.13em;color:#9b5d41}
-.living-notes span{font:400 2.55cqw/1.3 var(--thai);color:#5b4838;white-space:nowrap}
-.living-palette{display:flex;gap:1.3cqw;margin-top:1.5cqw}
-.living-palette i{width:6.3cqw;height:3.2cqw;border-radius:1cqw;box-shadow:0 0 0 1px #927d6577}
-.living-reference{position:relative;flex:1;min-height:0;margin-top:3cqw;border:1px solid #ccbaa1;background:#dbc8af;overflow:hidden}
-.living-reference img{width:100%;height:100%;object-fit:cover;display:none}
-.living-reference img.ready{display:block}
-.living-reference .ref-missing{position:absolute;inset:0;display:grid;place-items:center;font:400 2.6cqw var(--thai);text-align:center;padding:3cqw;color:#715943}
-.living-reference:has(img.ready) .ref-missing{display:none}
-.living-reference .ref-caption{position:absolute;left:0;bottom:0;background:#281d16d9;color:#f4e9d8;padding:1cqw 1.8cqw;font:500 2.2cqw var(--head);letter-spacing:.07em;pointer-events:none}
-.living-reference .ref-link{position:absolute;inset:0;z-index:3;cursor:pointer}
-.living-reference .ref-link:focus-visible{outline:3px solid #a15d43;outline-offset:-3px}
-/* Images missing locally show custom placeholders, not broken image icons */
-.composition-bg img:not(.ready),.comp-item img:not(.ready){display:none}
+/* โมเดลหนังสือและเอฟเฟกต์เปิดหน้า */
+.wrap { position:fixed; inset:0; z-index:2; display:grid; place-items:center; perspective:2600px; }
+.stage { transform-style:preserve-3d; }
+.book { position:relative; width:calc(var(--w) * 2); height:var(--h); transform-style:preserve-3d;
+  transition:translate 1.2s cubic-bezier(.5,0,.2,1); }
+.book::after { content:''; position:absolute; left:4%; right:4%; bottom:-3.5vh; height:4vh;
+  background:radial-gradient(closest-side,rgba(0,0,0,.6),transparent); filter:blur(8px); transform:translateZ(-1px); }
+.leaf { position:absolute; left:var(--w); top:0; width:var(--w); height:100%; transform-origin:left center;
+  transform-style:preserve-3d; z-index:calc(100 - var(--i)); transition:transform 1.2s cubic-bezier(.6,0,.25,1),z-index 0s linear .6s; }
+.leaf.f { transform:rotateY(-180deg); z-index:calc(100 + var(--i)); }
+.pg { position:absolute; inset:0; overflow:hidden; container-type:size; color:var(--fg);
+  backface-visibility:hidden; -webkit-backface-visibility:hidden; transform:translateZ(0);
+  text-rendering:optimizeLegibility; }
+.pg.back { transform:rotateY(180deg); }
+.pg::after { content:''; position:absolute; inset:0; pointer-events:none; opacity:0; background:rgba(30,12,8,.6); }
+.tn .pg::after { animation:page-shadow 1.2s ease; }
+@keyframes page-shadow { 0%,100%{opacity:0} 45%{opacity:.5} }
+.pp { --fg:#2b1b16; --mu:#6b5547; --ac:#b66f4b; --ln:rgba(43,27,22,.22); }
+.pp.front { background:linear-gradient(90deg,rgba(70,35,22,.32),rgba(70,35,22,.08) 6%,transparent 15%),radial-gradient(ellipse at 30% 15%,#f7eddc,#eadcc3); border-radius:0 4px 4px 0; }
+.pp.back { background:linear-gradient(270deg,rgba(70,35,22,.32),rgba(70,35,22,.08) 6%,transparent 15%),radial-gradient(ellipse at 70% 15%,#f7eddc,#eadcc3); border-radius:4px 0 0 4px; }
+.lea { --fg:#f6ebdd; --mu:rgba(255,246,236,.84); --ac:#ffb27c; --ln:rgba(246,235,221,.3);
+  background:radial-gradient(circle at 62% 18%,rgba(210,118,79,.22),transparent 34%),radial-gradient(circle at 50% 65%,rgba(22,10,14,.35),transparent 56%),linear-gradient(160deg,#4b2c22,#24141a 56%,#11070d);
+  box-shadow:inset 0 0 0 1px rgba(255,245,233,.02),inset 2.6cqw 0 3.4cqw rgba(0,0,0,.34); }
+.lea.front { border-radius:0 10px 10px 0; box-shadow:inset -.45cqw 0 1.2cqw rgba(0,0,0,.22),inset -.12cqw 0 0 rgba(211,179,140,.22); }
+.lea.back { border-radius:10px 0 0 10px; }
+.lea::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4.8cqw;
+  background:linear-gradient(90deg,rgba(0,0,0,.58),rgba(255,178,124,.13) 48%,rgba(0,0,0,.08)); pointer-events:none; }
+.lea::after { content:''; position:absolute; inset:2.6cqw 2.2cqw 2.6cqw 4.4cqw; border-radius:.9cqw 1.2cqw 1.2cqw .9cqw;
+  box-shadow:inset 0 0 0 1px rgba(255,178,124,.10),inset 0 0 5cqw rgba(255,178,124,.035); pointer-events:none; }
 
-/* Requested targeted edits: centered tone palette; no page numbers */
-.living-details .living-notes{justify-content:center;text-align:center}
-.living-details .living-notes .note-heading{width:100%;text-align:center;font-size:3.15cqw;letter-spacing:.15em}
-.living-details .living-palette{justify-content:center;align-items:center;gap:1.9cqw}
-.fo{display:none!important}
+/* ตัวหนังสือทั่วไป */
+.pc { position:absolute; inset:0; padding:12cqw 11cqw; display:flex; flex-direction:column; justify-content:center; }
+.pc.c { align-items:center; text-align:center; }
+.h { margin:0; font:400 var(--size-room-title)/1.08 var(--head); letter-spacing:.035em; text-transform:uppercase; }
+.cl { display:block; font-size:var(--size-cover-title); line-height:.91; letter-spacing:.05em; }
+.th { margin:0; font:500 var(--size-profile-title)/1.2 var(--thai); }
+.eyebrow { margin:0 0 1.6cqw; font:500 var(--size-room-overline)/1.4 var(--head); letter-spacing:.11em; color:#914e36; }
+.dash { display:block; width:10cqw; height:1px; background:var(--ac); margin:3cqw 0; }
+.nm { margin:0; font:400 var(--size-cover-name)/1.6 var(--thai); letter-spacing:.08em; color:var(--mu); }
+.rule { display:block; width:1px; height:9cqw; margin:6cqw auto; background:linear-gradient(var(--ac),transparent); }
+.cover .eyebrow { font-size:var(--size-cover-overline); }
+.cover .cl { font-size:var(--size-cover-title); text-shadow:0 1px 1px rgba(0,0,0,.14); }
+.cover .nm { font-size:var(--size-cover-name); color:rgba(246,235,221,.58); }
+.thank-you-page .cl { font-size:var(--size-thank-title); }
+.thank-you-page .nm { font-size:var(--size-thank-name); }
+.hint { position:absolute; bottom:11cqw; left:0; right:0; text-align:center;
+  font:400 var(--size-cover-hint)/1 var(--head); letter-spacing:.35em; color:var(--mu); animation:twinkle 2.3s ease-in-out infinite alternate; }
+.arch { position:absolute; left:24cqw; right:24cqw; top:22cqw; bottom:22cqw; border:1px solid var(--ac); border-radius:999px 999px 0 0; opacity:.7; }
+.arch.in { left:30cqw; right:30cqw; top:28cqw; opacity:.4; }
+.r { opacity:0; transform:translateY(3cqw); transition:opacity .65s ease, transform .65s ease; }
+.vis .r { opacity:1; transform:none; transition-delay:.6s; }
 
-/* Dining reference and mood colors align with Living spread. */
-.dining-reference img.ready{display:block;width:100%;height:100%;object-fit:contain}
-.dining-details .living-notes{justify-content:center;text-align:center}
-.dining-details .living-notes .note-heading{text-align:center;width:100%;font-size:3.15cqw;letter-spacing:.15em}
-.dining-details .living-palette{justify-content:center;gap:1.9cqw}
-/* Kitchen inherits Living/Dining page style; no reference imagery is embedded. */
-.kitchen-reference img.ready{display:block;width:100%;height:100%;object-fit:contain}
-.kitchen-details .living-notes{justify-content:center;text-align:center}
-.kitchen-details .living-notes .note-heading{text-align:center;width:100%;font-size:3.15cqw;letter-spacing:.15em}
-.kitchen-details .living-palette{justify-content:center;gap:1.9cqw}
+/* เนื้อหา PROFILE / USER NEEDS / คำอธิบายห้อง */
+.pc.content-page { justify-content:flex-start; padding:8cqw 8.2cqw 7cqw; overflow:hidden; }
+.content-page .h { font-size:var(--size-room-title); line-height:1.08; overflow-wrap:anywhere; }
+.content-page .detail-intro { margin:2.8cqw 0 2.5cqw; font:400 var(--size-room-description)/1.55 var(--thai); color:#33251d; }
+.profile-details .th { font-size:var(--size-profile-title); line-height:1.2; margin-bottom:1.8cqw; color:#241b16; }
+.profile-details .eyebrow { font-size:var(--size-profile-overline); }
+.profile-blocks { display:flex; flex-direction:column; gap:1.9cqw; margin-top:2.5cqw; }
+.profile-block { padding-top:1.5cqw; border-top:1px solid #bcaa92; min-width:0; }
+.profile-block h3 { font:500 var(--size-profile-section)/1.32 var(--thai); color:#8d3f28; margin:0 0 .7cqw; }
+.profile-block ul { list-style:none; margin:0; padding:0; }
+.profile-block li { position:relative; font:400 var(--size-profile-text)/1.43 var(--thai); color:#241a16; padding-left:3.3cqw; overflow-wrap:anywhere; }
+.profile-block li::before { content:''; position:absolute; left:0; top:.76em; width:1.7cqw; height:1px; background:#a24d31; }
+/* ทุกหมวดใน Profile ใช้ขนาดเดียวกัน ไม่มีการแอบย่อเฉพาะหมวด User need */
+.item-detail { border-top:1px solid #c9b9a3; padding:2.1cqw 0; }
+.item-detail strong { display:block; font:500 var(--size-needs-section)/1.32 var(--thai); color:#a15d43; }
+.item-detail p { margin:.65cqw 0 0; font:400 var(--size-needs-text)/1.48 var(--thai); color:#33251d; }
+.user-needs .h { font-size:var(--size-needs-title); }
+.user-needs .detail-intro { font-size:var(--size-needs-intro); line-height:1.52; margin:2.6cqw 0 3.2cqw; }
+.user-needs .item-detail strong { font-size:var(--size-needs-section); }
 
-.pc.extra-area-details .h{font-size:9.4cqw!important;line-height:1.04!important}
-.pc.extra-area-details .detail-intro{font-size:3.08cqw!important;line-height:1.46!important;margin:2.4cqw 0 1.5cqw!important}
+/* LIST OF FUNCTION — 5 หมวด */
+.pc.function-index-page { justify-content:flex-start; padding:8cqw 8cqw 7cqw; overflow:hidden; color:#31241e; font-family:var(--head); }
+.function-index-head .eyebrow { font-size:var(--size-function-category); margin:0 0 1.2cqw; }
+.function-index-title { margin:0; font:500 var(--size-function-title)/1.05 var(--head); letter-spacing:.035em; }
+.function-index-head .dash { width:12cqw; margin:2.3cqw 0 2.7cqw; }
+.function-index-head-right .dash { margin:0 0 2.7cqw; }
+.function-index-group { margin:0 0 2.05cqw; }
+.function-index-group h3 { margin:0 0 1cqw; font:500 var(--size-function-category)/1.3 var(--head); letter-spacing:.12em; color:#a15d43; }
+.function-index-item { padding:.8cqw 0; border-top:1px solid #cbbba2; }
+.function-index-name { font:500 var(--size-function-item)/1.32 var(--head); color:#31241e; overflow-wrap:break-word; }
 
-/* Function index — no image gallery on either facing page. */
-.pc.function-index-page{
-  justify-content:flex-start;align-items:stretch;
-  padding:7cqw 7.5cqw 6.5cqw!important;
-  overflow:hidden!important;color:#31241e;
+/* หน้ารูป PROFILE / MOOD & TONE */
+.pc.gallery-page { padding:4cqw; justify-content:stretch; overflow:hidden; }
+.gallery { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(2,minmax(0,1fr)); gap:2cqw; width:100%; height:100%; }
+.gallery.one { grid-template-columns:1fr; grid-template-rows:1fr; }
+.gallery.mood-gallery { grid-template-columns:repeat(5,minmax(0,1fr)); grid-template-rows:1fr; gap:1cqw; }
+.pc.mood-gallery-page { padding:1.2cqw 1.4cqw; }
+.slot { position:relative; min-width:0; min-height:0; overflow:hidden; border:1px solid rgba(140,101,71,.4);
+  background:linear-gradient(140deg,#e3d3b9,#d0bea2); display:flex; justify-content:center; align-items:center; text-align:center; }
+.slot img { position:absolute; inset:0; display:none; width:100%; height:100%; object-fit:cover; object-position:var(--photo-x,50%) var(--photo-y,50%); }
+.slot img.ready { display:block; transform:scale(var(--photo-zoom,1)); transform-origin:var(--photo-x,50%) var(--photo-y,50%); }
+.photo-file { font:400 var(--size-image-filename)/1.45 var(--thai); padding:2cqw; color:#836c55; overflow-wrap:anywhere; }
+.slot:has(img.ready) .photo-file { display:none; }
+.mood-gallery .photo-file { font-size:var(--size-mood-image-filename); }
+.style-name { font:500 var(--size-mood-style)/1.35 var(--head); letter-spacing:.12em; color:#a15d43; margin:4cqw 0; }
+.pal { display:flex; gap:3cqw; margin-top:4cqw; }
+.pal i { width:11cqw; aspect-ratio:1; border-radius:50%; box-shadow:0 0 0 1px #927d6577; }
+
+/* ป้ายระบุหมายเลขห้อง / ประเภทพื้นที่ / โซน ให้เหมือนกันทุกหน้า */
+.room-meta { font-size:var(--size-room-overline); line-height:1.5; letter-spacing:.035em; overflow-wrap:normal; }
+
+/* หน้าห้อง: ข้อความ + รูปอ้างอิงด้านซ้าย และ Mood Board สำเร็จรูปด้านขวา */
+.pc.living-details { padding:8.2cqw 8.2cqw 6.5cqw; display:flex; flex-direction:column; overflow:hidden; }
+.living-details .h { font-size:var(--size-room-title); line-height:1.08; }
+.living-details .detail-intro { font-size:var(--size-room-description); line-height:1.52; margin:3cqw 0 2.4cqw; }
+.living-notes { display:flex; justify-content:center; align-items:center; border-top:1px solid #cfbda3; padding-top:2.2cqw; margin-top:1cqw; }
+.note-heading { font:500 var(--size-room-tone-label)/1.25 var(--head); letter-spacing:.13em; color:#9b5d41; }
+.living-palette { display:flex; justify-content:center; gap:1.9cqw; margin-top:1.5cqw; }
+.living-palette i { width:6.3cqw; height:3.2cqw; border-radius:1cqw; box-shadow:0 0 0 1px #927d6577; }
+.living-reference { position:relative; flex:1; min-height:0; margin-top:3cqw; border:1px solid #ccbaa1; background:#dbc8af; overflow:hidden; }
+.living-reference img { width:100%; height:100%; display:none; object-fit:cover; object-position:var(--photo-x,50%) var(--photo-y,50%); }
+.living-reference img.ready { display:block; transform:scale(var(--photo-zoom,1)); transform-origin:var(--photo-x,50%) var(--photo-y,50%); }
+.ref-missing { position:absolute; inset:0; display:grid; place-items:center; font:400 var(--size-room-image-placeholder)/1.5 var(--thai); color:#715943; text-align:center; padding:3cqw; overflow-wrap:anywhere; }
+.living-reference:has(img.ready) .ref-missing { display:none; }
+.pc.extra-area-details .h { font-size:var(--size-room-title); }
+.pc.extra-area-details .detail-intro { font-size:var(--size-room-description); line-height:1.52; margin:2.7cqw 0 2cqw; }
+.pc.single-board-page { padding:3cqw; }
+.single-room-board { position:relative; flex:1; min-height:0; display:flex; justify-content:center; align-items:center; background:rgba(0,0,0,.075); overflow:hidden; }
+.single-room-board img { display:none; position:absolute; inset:0; width:100%; height:100%; object-fit:contain; }
+.single-room-board img.ready { display:block; }
+.single-board-placeholder { display:flex; flex-direction:column; gap:2.7cqw; align-items:center; color:#755c49; padding:5cqw; overflow-wrap:anywhere; }
+.single-board-placeholder strong { font:500 var(--size-board-title)/1.1 var(--head); letter-spacing:.08em; }
+.single-board-placeholder span { font:400 var(--size-board-roomname)/1.4 var(--thai); }
+.single-board-placeholder small { font:400 var(--size-board-filename)/1.5 var(--thai); }
+.single-room-board:has(img.ready) .single-board-placeholder { display:none; }
+
+/* ========================================================
+   MOOD & TONE — หน้าแรงบันดาลใจ / ตำแหน่งวงกลมสี
+   ======================================================== */
+.pc.mood-story-page {
+  justify-content: flex-start;
+  padding: 8cqw 8.2cqw 7cqw;
+  overflow: hidden;
 }
-.function-index-head{flex-shrink:0}
-.function-index-head .eyebrow{margin:0 0 1.2cqw!important;font-size:2.55cqw!important}
-.function-index-title{
-  margin:0;font:400 9.3cqw/.91 var(--head);
-  letter-spacing:.045em;color:#34241e;
+.mood-story-page .h {
+  font-size: var(--size-mood-title);
+  line-height: 1.08;
+  letter-spacing: .035em;
+  white-space: nowrap;
 }
-.function-index-cont{font-size:8.5cqw}
-.function-index-head .dash{margin:2.2cqw 0 3.4cqw;width:13cqw}
-.function-index-group{margin:0 0 2.3cqw}
-.function-index-group h3{
-  margin:0 0 1.1cqw;font:500 2.65cqw/1.25 var(--head);
-  letter-spacing:.15em;color:#a15d43;
+.mood-story-page .style-name {
+  margin: 4.1cqw 0 3.6cqw;
+  font: 500 var(--size-mood-style)/1.35 var(--head);
+  letter-spacing: .155em;
 }
-.function-index-item{
-  display:grid;grid-template-columns:5.6cqw minmax(0,1fr);
-  gap:1.5cqw;align-items:center;padding:1.75cqw 0;
-  border-top:1px solid #cbbba2;
+.mood-story-page .detail-intro {
+  margin: 0;
+  font: 400 var(--size-mood-description)/1.57 var(--thai);
+  color: #443328;
+  overflow-wrap: anywhere;
 }
-.function-index-num{font:500 2.9cqw/1 var(--head);color:#a15d43}
-.function-index-name{font:400 3.55cqw/1.24 var(--head),var(--thai);overflow-wrap:break-word}
-.function-index-right{padding-left:9cqw!important}
-
-/* Uniform typography on both sides of the 3D function spread */
-.pc.function-index-page{font-family:var(--head);-webkit-font-smoothing:auto!important;text-rendering:optimizeLegibility!important}
-.function-index-title{font-weight:500!important}
-.function-index-group h3{font-weight:500!important;font-size:3.05cqw}
-.function-index-name{font-family:var(--head)!important;font-weight:500!important;font-size:3.5cqw!important}
-.function-index-num{font-weight:500!important}
-.function-index-right .function-index-head{min-height:12.7cqw}
-.function-index-right .function-index-head .dash{margin:2cqw 0 3.3cqw}
-.function-index-group{margin-bottom:3.2cqw}
-.function-index-item{padding:1.66cqw 0}
-
-/* Keep both index columns equally legible when a page is resting. */
-.pc.function-index-page,
-.pc.function-index-page .function-index-item,
-.pc.function-index-page .function-index-head,
-.pc.function-index-page .function-index-group{
-  filter:none!important;
-  text-shadow:none!important;
-  -webkit-font-smoothing:auto!important;
-  font-synthesis:none;
-  backface-visibility:visible;
-}
-.function-index-left .function-index-name,
-.function-index-right .function-index-name{
-  font-family:var(--head)!important;
-  font-size:3.5cqw!important;
-  font-weight:500!important;
-  color:#31241e!important;
-}
-.function-index-head-right{min-height:0!important}
-.function-index-head-right .dash{margin:0 0 3.3cqw!important}
-
-/* BOOK-WIDE TEXT CLARITY: use the same type rendering for every page. */
-.pg, .pg.front, .pg.back, .pc, .pc *:not(.slot img):not(.comp-item img) {
-  -webkit-font-smoothing:auto!important;
-  text-rendering:optimizeLegibility!important;
-}
-.pg .pc, .pg .pc h1, .pg .pc h2, .pg .pc h3,
-.pg .pc p, .pg .pc li, .pg .pc b, .pg .pc strong,
-.pg .pc .eyebrow, .pg .pc span:not(.cl):not(.ch) {
-  filter:none!important;
-  -webkit-text-stroke:0 transparent;
-}
-/* Remove text blur and ghost-like effects without changing the page-turn effect. */
-.r, .vis .r, .ch, .vis .ch {filter:none!important; text-shadow:none}
-/* Keep real font weights available on every page, rather than synthesized bold. */
-.pc, .pc * {font-synthesis:none}
-/* Standardize all general reading text independently of front/back pages. */
-.pc.content-page .detail-intro, .pc.content-page .item-detail p,
-.pc.content-page .profile-block li, .pc.living-details .detail-intro {
-  font-family:var(--thai)!important;
-  font-weight:400!important;
-  color:#33251d!important;
-}
-.pc .eyebrow, .pc .note-heading, .pc .function-index-name,
-.pc .function-index-group h3, .pc .function-index-num {
-  opacity:1!important;
-}
-
-/* LIST OF FUNCTION: names only, without chapter numbering. */
-.function-index-item{display:block!important;padding-left:0!important}
-.function-index-num{display:none!important}
-
-/* Mood & Tone image spread: 5 tall vertical panels */
-.pc.mood-gallery-page{padding:1.2cqw 1.4cqw;justify-content:stretch;overflow:hidden}
-.gallery.mood-gallery,
-.gallery.mood-gallery.four{
-  display:grid;
-  grid-template-columns:repeat(5,minmax(0,1fr));
-  grid-template-rows:1fr;
-  gap:1cqw;
+/* วงกลมสีอยู่กึ่งกลางในแนวนอน ไม่ชิดซ้าย */
+.mood-story-page .mood-color-wrap {
+  display:flex;
   width:100%;
-  height:100%;
+  justify-content:center;
+  margin-top:6cqw;
+}
+.mood-story-page .pal {
+  width:100%;
   margin:0;
-  align-items:stretch;
+  gap:2.3cqw;
+  justify-content:center;
+  align-items:center;
 }
-.mood-gallery .slot{height:100%;min-height:0;border:1px solid rgba(255,255,255,.35);background:#d0bea2;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);border-radius:0;display:flex;justify-content:center;align-items:center}
-.mood-gallery .slot img{object-fit:cover}
-.mood-gallery .slot .photo-icon{display:none}
-.mood-gallery .slot .photo-file{font:300 2.15cqw/1.3 var(--head);letter-spacing:.04em;color:rgba(58,41,31,.45);padding:0 1cqw;text-align:center}
-.mood-gallery .slot:has(img.ready) .photo-file{display:none}
-
-
-/* All photos fill their frames. Fine-tune any single image via photoFraming. */
-.living-reference img.ready,
-.dining-reference img.ready,.kitchen-reference img.ready,
-.gallery .slot img.ready,.mood-gallery .slot img.ready,
-.composition-bg img.ready,.comp-item img.ready{
-  object-fit:cover!important;
-  object-position:var(--photo-x,50%) var(--photo-y,50%)!important;
-  transform:scale(var(--photo-zoom,1))!important;
-  transform-origin:var(--photo-x,50%) var(--photo-y,50%)!important;
+.mood-story-page .pal i {
+  flex:0 0 9.7cqw;
+  width:9.7cqw;
+  height:9.7cqw;
 }
-.living-reference .ref-caption{display:none!important}
-
-
-/* Source-attribution feedback. No permanent text overlays on photos. */
-#source-notice{position:fixed;z-index:999999;left:50%;bottom:4vh;transform:translate(-50%,12px);background:rgba(34,24,19,.96);color:#f5e7d7;border:1px solid #9b785f;border-radius:6px;padding:12px 18px;max-width:min(90vw,530px);font:400 15px/1.5 sans-serif;box-shadow:0 8px 30px #0007;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;text-align:center}
-#source-notice.show{opacity:1;transform:translate(-50%,0)}
-.slot:has(img.ready),.living-reference:has(img.ready),.comp-item:has(img.ready),.composition-bg:has(img.ready){cursor:pointer}
-
-/* MOOD BOARDS — subtle dark backing over paper, without the old full background image */
-.pc.composition-page {background:transparent!important;}
-.pc.composition-page .living-composition {
-  background:rgba(0,0,0,.075)!important;
-  border:0!important;
-  box-shadow:inset 0 0 0 1px rgba(67,48,36,.06)!important;
-  border-radius:0!important;
+.mood-inspiration {
+  width:100%;
+  margin-top:6.1cqw;
+  padding-top:4cqw;
+  border-top:1px solid rgba(115,87,64,.27);
 }
-.pc.composition-page .composition-bg {display:none!important;}
-.pc.composition-page .comp-item {
-  background:transparent!important;
-  border:1px dashed rgba(255,248,238,.52);
-  box-shadow:none;
+.mood-inspiration h2 {
+  margin:0 0 2.3cqw;
+  font:500 var(--size-mood-inspiration-title)/1.35 var(--head);
+  letter-spacing:.17em;
+  color:#a15d43;
 }
-.pc.composition-page .comp-item:has(img.ready) {
-  background:transparent!important;
-  border:0!important;
-  box-shadow:none!important;
+.mood-inspiration p {
+  margin:0;
+  font:400 var(--size-mood-inspiration-text)/1.57 var(--thai);
+  color:#665142;
+  overflow-wrap:anywhere;
 }
-.pc.composition-page .comp-item img.ready {
-  width:100%;height:100%;
-  background:transparent!important;
-  border:0!important;
-  box-shadow:none!important;
-  filter:none!important;
-  object-fit:contain!important;
-}
-/* JPEG photographs should keep their native opaque appearance and fill the slot. */
-.pc.composition-page .comp-item img.ready.photo-opaque {object-fit:cover!important;}
 
-/* One finished Mood & Tone PNG/JPG for each room; show the whole image without cropping. */
-.pc.single-board-page{padding:3cqw!important;background:transparent!important}
-.pc.single-board-page .single-room-board{position:relative;flex:1;width:100%;height:100%;min-height:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.075);border:0;overflow:hidden}
-.pc.single-board-page .single-room-board img.ready{position:absolute;inset:0;width:100%;height:100%;object-fit:contain!important;object-position:center!important;transform:none!important;opacity:1!important;display:block}
-.single-board-placeholder{display:flex;flex-direction:column;gap:2.7cqw;align-items:center;text-align:center;color:#755c49;padding:5cqw;overflow-wrap:anywhere}
-.single-board-placeholder strong{font:500 5cqw var(--head);letter-spacing:.14em}
-.single-board-placeholder span{font:400 3cqw var(--thai)}
-.single-board-placeholder small{font:400 2.5cqw/1.5 var(--thai)}
-.single-room-board:has(img.ready) .single-board-placeholder{display:none}
+/* หน้าจอแนวเล็ก: ลดระยะห่างเฉพาะ LIST OF FUNCTION ไม่ย่อฟอนต์จนอ่านยาก */
+@container (max-height: 580px) {
+  .function-index-group { margin-bottom: 1.15cqw; }
+  .function-index-group h3 { margin-bottom: .55cqw; }
+  .function-index-item { padding: .42cqw 0; }
+  .function-index-head .dash { margin-bottom: 1.6cqw; }
+}
 
+@media(prefers-reduced-motion:reduce) {
+  .book, .leaf, .r { transition:none!important; }
+  .star, .glow, .hint, .tn .pg::after { animation:none!important; }
+  #fx { display:none; }
+}
 </style>
 </head>
 <body>
 <div class="bg" id="bg"><div class="glow g1"></div><div class="glow g2"></div></div>
 <canvas id="fx"></canvas>
-<div class="wrap"><div class="stage"><div class="book" id="book"></div></div></div>
+<div class="wrap"><div class="stage"><div class="book" id="book" aria-label="Interior Design Flipbook"></div></div></div>
 <script>
-var NAME='0596 พีรพัฒน์(ทีมม์)',N=0;
-/* ข้อมูลต้นฉบับจาก index(8).html: ข้อความครบและชื่อไฟล์รูปเดิม */
-var folder = 'image/';   // โฟลเดอร์หลัก (เดิม)
-// จัดรูปให้เป็นหมวดหมู่ได้โดยไม่ต้องแก้ชื่อไฟล์: image/living/living-2.jpg
-// ถ้าไม่พบไฟล์ในโฟลเดอร์ย่อย ระบบจะลองค้นใน image/ แบบเก่าให้เอง
-var photoFolders = {
-  living:'living', dining:'dining', kitchen:'kitchen', powder:'powder',
-  bedroom1:'bedroom1', closet:'closet', masterbath:'masterbath',
-  bedroom2:'bedroom2', bathroom2:'bathroom2',
-  cat:'cat', work:'work', ev:'ev', laundry:'laundry', drying:'drying',
-  mood:'mood', profile:'profile', general:'general'
-};
-function folderForPhoto(name){
-  if(/^(?:living-)/.test(name))return photoFolders.living;
-  if(/^(?:dining-)/.test(name))return photoFolders.dining;
-  if(/^(?:kitchen-)/.test(name))return photoFolders.kitchen;
-  if(/^(?:powder-)/.test(name))return photoFolders.powder;
-  if(/^(?:bedroom1-|bedroom-)/.test(name))return photoFolders.bedroom1;
-  if(/^(?:closet-)/.test(name))return photoFolders.closet;
-  if(/^(?:masterbath-|bathroom-)/.test(name))return photoFolders.masterbath;
-  if(/^(?:bedroom2-)/.test(name))return photoFolders.bedroom2;
-  if(/^(?:bathroom2-)/.test(name))return photoFolders.bathroom2;
-  if(/^(?:cat-)/.test(name))return photoFolders.cat;
-  if(/^(?:work-)/.test(name))return photoFolders.work;
-  if(/^(?:ev-)/.test(name))return photoFolders.ev;
-  if(/^(?:laundry-)/.test(name))return photoFolders.laundry;
-  if(/^(?:drying-)/.test(name))return photoFolders.drying;
-  if(/^(?:mood-)/.test(name))return photoFolders.mood;
-  if(/^(?:profileA-|profileB-)/.test(name))return photoFolders.profile;
-  return photoFolders.general;
-}
-function photoPath(name){return folder+folderForPhoto(name)+'/'+name;}
-
-var imageExtensions = ['.png', '.jpg', '.jpeg', '.webp', '.avif', '.gif']; // รูปทุกภาพรองรับ PNG / JPG โดยไม่ต้องเปลี่ยนนามสกุล
-
-// ปรับการครอปภาพแยกรูป: zoom 1=เต็มกรอบ, 1.15=ซูมเข้า 15%; x/y จุดกึ่งกลางภาพเป็นเปอร์เซ็นต์
-// ตัวอย่าง 'dining-reference': {zoom:1.15, x:50, y:40},
-// ใช้ชื่อไฟล์โดยไม่ใส่นามสกุล เช่น living-2, mood-1, dining-green-wall
-var photoFraming = {
-  // 'dining-reference': {zoom:1.05, x:50, y:48},
+// ========================================================
+// ✏️ แก้ข้อมูลเว็บตรงนี้ (Ctrl+F ค้นคำว่า "แก้ข้อมูลเว็บตรงนี้")
+//    ปรับขนาดฟอนต์: เลื่อนไปต้นไฟล์ ค้นหา "ตั้งค่าฟอนต์แยกหมวด"
+//    1. ชื่อเจ้าของงานอยู่ที่ SETTINGS.name
+//    2. ข้อมูลผู้ใช้อยู่ที่ PROFILES และ USER_NEEDS
+//    3. หน้า LIST OF FUNCTION แก้ที่ FUNCTION_LIST ด้านล่าง
+//    4. ชื่อห้อง/คำอธิบาย/รูป/สี อยู่ที่ ROOMS
+//    5. ข้อความ INSPIRATION อยู่ที่ SETTINGS.styleInspiration
+//    6. รูป: image/<folder>/<ชื่อไฟล์>.png หรือ .jpg
+//       ถ้าเปิดไฟล์ HTML เดี่ยว ๆ ระบบจะลองโหลดรูปจาก GitHub Pages ให้ด้วย
+// ========================================================
+const SETTINGS = {
+  name: '0596 พีรพัฒน์(ทีมม์)',
+  imageFolder: 'image/',  // รูปในเครื่อง: วางโฟลเดอร์ image ไว้ข้างไฟล์ HTML
+  // รูปสำรองบนเว็บของคุณ: เปิด HTML ที่ดาวน์โหลดมาเดี่ยว ๆ ก็โหลดรูปได้ (ต้องมีอินเทอร์เน็ต)
+  // ถ้าเปลี่ยน GitHub repository ให้แก้ URL 2 บรรทัดนี้
+  onlineImageFolders: [
+    'https://peerapaat.github.io/interior_projects/image/',
+    'https://peerapaat.github.io/interior_project/image/'
+  ],
+  imageExtensions: ['png','jpg','jpeg','webp','avif','gif'],
+  styleName: 'MODERN NATURAL',
+  styleDescription: 'เลือกออกแบบบ้านสไตล์ Modern Natural ผสมความเรียบง่ายทันสมัยกับความเป็นธรรมชาติ ใช้สีครีม น้ำตาล เขียวหม่น และวัสดุไม้ เพื่อสร้างบรรยากาศอบอุ่น สงบ และเหมาะกับการพักผ่อน',
+  // ✏️ ข้อความ INSPIRATION หน้า MOOD & TONE (แก้ได้ตรงนี้)
+  styleInspiration: 'แรงบันดาลใจมาจากการใช้ชีวิตของทั้งสองคนที่ชอบธรรมชาติและความสงบ ผมเลยออกแบบบ้านให้เชื่อมต่อกับสวนและเปิดรับวิวทะเลสาบ มีพื้นที่พักผ่อน ทำงาน และทำกิจกรรมร่วมกัน รวมถึงพื้นที่สำหรับสัตว์เลี้ยง เพื่อให้บ้านอยู่สบายและตอบโจทย์กับชีวิตประจำวัน',
+  styleColors: ['#E9DFCF','#D0AD85','#B66F4B','#7F8967','#4A382F'],
+  moodImages: ['mood-1','mood-2','mood-3','mood-4','mood-5'],
+  // อยากเลื่อนรูปเฉพาะภาพ: 'living-2': {zoom:1.1, x:50, y:45},
+  photoFraming: {}
 };
 
-var myName = '0596 พีรพัฒน์(ทีมม์)';
-
-// ใส่ URL ของหน้าเว็บที่เป็นแหล่งต้นทางของแต่ละภาพ (เว้นว่าง = ยังไม่ทราบลิงก์ กดเปิดไม่ได้)
-// ตัวอย่าง: 'living-1': 'https://www.pinterest.com/pin/123456789/',
-var imageSources = {
-  'cover': '',
-  'profileA-1': 'https://www.facebook.com/share/p/1C7grCccVa/?mibextid=wwXIfr',
-  'profileA-2': 'https://www.facebook.com/share/p/1C7grCccVa/?mibextid=wwXIfr',
-  'profileA-3': 'https://spacebar.th/posts/economic-business-thai-china-ornamental-fish',
-  'profileA-4': 'https://pin.it/5Wq1TMayN',
-  'profileB-1': 'https://www.facebook.com/share/p/1C7grCccVa/?mibextid=wwXIfr',
-  'profileB-2': 'https://pin.it/4ctJnrwET',
-  'profileB-3': 'https://pin.it/7GDIRbdek',
-  'profileB-4': 'https://pin.it/3jMbcT1dx',
-  'function': '',
-  'mood-1': 'https://pin.it/3Gk5qT8hS',
-  'mood-2': 'https://pin.it/3vZv1hoFc',
-  'mood-3': 'https://pin.it/3OsJmUpil',
-  'mood-4': 'https://pin.it/62lAurXJ8',
-  'mood-5': 'https://pin.it/5K33jfOUZ',
-  'living-1': 'https://pin.it/69IG7YRRk',
-  'living-2': 'https://pin.it/3oCBwIAOu',
-  'powder-1': 'https://pin.it/6YQZPK2cu',
-  'powder-2': 'https://pin.it/7yG8nDrii',
-  'powder-3': 'https://pin.it/5XnEqPXZS',
-  'kitchen-1': 'https://pin.it/3pl9fkxDr',
-  'kitchen-2': 'https://pin.it/1YKqNB4EA',
-  'dining-1': 'https://pin.it/4crkw84Fn',
-  'dining-2': 'https://pin.it/3iR40zgZD',
-  'bedroom-1': 'https://pin.it/6PJYtbNfu',
-  'bedroom-2': 'https://pin.it/2uZ2thKsM',
-  'closet-1': 'https://pin.it/1thJRZij1',
-  'closet-2': 'https://pin.it/1NGm47OOs',
-  'bathroom-1': 'https://pin.it/6lMAcdr1w',
-  'bathroom-2': 'https://pin.it/3fQ7IZTlE',
-  'bathroom-3': 'https://pin.it/4AhKid2bF',
-  // เพิ่ม URL แหล่งที่มาของภาพใหม่ตรงนี้ (ถ้ายังไม่ทราบให้เว้นว่าง)
-  'bedroom2-1': 'https://pin.it/2hY6I2jbx',
-  'bedroom2-2': 'https://pin.it/2hY6I2jbx',
-  'bathroom2-1': 'https://pin.it/1LLSn0zRo',
-  'bathroom2-2': 'https://pin.it/1LLSn0zRo',
-  'special-1': 'https://pin.it/7i0xbhYy3',
-  'special-2': 'https://pin.it/1r6DllcOk',
-  'laundry-1': 'https://pin.it/45DZivPll',
-  'other-1': 'https://pin.it/3kChha4Rx',
+const FUNCTION_LIST = {
+  'PUBLIC': [
+    'Living Area',
+    'Dining Area',
+    'Powder Room',
+    'Foyer Room',
+    'Hall Room',
+  ],
+  'SEMI-PUBLIC': [
+    'Kitchen Area',
+  ],
+  'SEMI-PRIVATE': [
+    'Cat Room',
+    'Work Space',
+    'Laundry Area',
+    'Storage Room',
+  ],
+  'PRIVATE': [
+    'Master Bedroom',
+    'Master Bathroom',
+    'Walk in Closet',
+    'Bedroom 2',
+    'Bathroom 2',
+  ],
+  'EXTERIOR': [
+    'Garage',
+    'Garden 1',
+    'Garden 2',
+    'Drying Area',
+    'Vegetable Plot',
+  ],
 };
+// ====================================================================
+// จบส่วนแก้ LIST OF FUNCTION / โค้ดส่วนอื่นไม่ต้องไปแตะ
+// ====================================================================
 
-// ============================================================
-// ⭐ ตั้งค่าลิงก์ภาพตรงนี้ — ชื่อไฟล์รูปไม่ต้องมีโฟลเดอร์/นามสกุล ⭐
-// ใส่ URL ต้นทางของรูปภายในเครื่อง เช่น image/dining/dining-reference.jpg
-// ตัวอย่าง: 'dining-reference': 'https://pin.it/xxxxxxx',
-// ค่าที่เว้นว่าง '' = รูปนั้นยังไม่มีลิงก์แหล่งที่มา
-// ไม่ต้องแก้ส่วนอื่นของโค้ด
-// ============================================================
-var easyImageLinks = {
-  // ROOM 01–09 : รูปห้องตัวอย่างฝั่งซ้าย
-  'living-2':             'https://pin.it/3oCBwIAOu',
-  'dining-reference':     '',  // <<< วางลิงก์รูป Dining Area ที่นี่
-  'kitchen-reference':    'https://pin.it/1YKqNB4EA',
-  'powder-reference':     'https://pin.it/5XnEqPXZS',
-  'bedroom1-reference':   'https://pin.it/2uZ2thKsM',
-  'closet-reference':     'https://pin.it/1NGm47OOs',
-  'masterbath-reference': 'https://pin.it/3fQ7IZTlE',
-  'bedroom2-reference':   'https://pin.it/2hY6I2jbx',
-  'bathroom2-reference':  '',
-  'family-visit': 'https://kenh14.vn/ong-ba-hay-noi-5-cau-nay-tuong-yeu-thuong-nhung-thuc-ra-ngam-ngam-hai-chau-215260104143033536.chn',
-  // OTHER AREAS / SPECIAL FUNCTION : รูปห้องตัวอย่างฝั่งซ้าย
-  'cat-reference':        'https://pin.it/1QsLeMz6R',
-  'work-reference':       'https://pin.it/3jv6fbIw4',
-  'ev-reference':         'https://pin.it/3mf3aevzR',
-  'laundry-reference':    'https://pin.it/4Dal3L4LL',
-  'drying-reference':     'https://pin.it/4M4Fq6gW3',
-  // เพิ่มชื่อไฟล์รูป Mood Board พร้อม URL ที่นี่ได้ เช่น:
-  // 'dining-green-wall': 'https://example.com/original-photo',
-
-  // ===== แหล่งที่มา Mood Board / ภาพองค์ประกอบ (เติมลิงก์ด้านขวา) =====
-  // BATHROOM
-  'bathroom-1': '',
-  'bathroom-2': '',
-  'bathroom-3': '',
-  // BATHROOM2
-  'bathroom2-1': '',
-  'bathroom2-2': '',
-  'bathroom2-board': '',
-  'bathroom2-floor-tile': '',
-  'bathroom2-greenery': '',
-  'bathroom2-mirror': '',
-  'bathroom2-rug-texture': '',
-  'bathroom2-stone-wall': '',
-  'bathroom2-warm-light': '',
-  'bathroom2-wood': '',
-  // BEDROOM
-  'bedroom-1': '',
-  'bedroom-2': '',
-  'bedroom-bed-frame': '',
-  'bedroom-bedding': '',
-  'bedroom-board': '',
-  'bedroom-ceiling-slat': '',
-  'bedroom-greenery': '',
-  'bedroom-pendant': '',
-  'bedroom-rug-texture': '',
-  'bedroom-stone-wall': '',
-  // BEDROOM2
-  'bedroom2-1': '',
-  'bedroom2-2': '',
-  'bedroom2-board': '',
-  'bedroom2-greenery': '',
-  'bedroom2-lighting': '',
-  'bedroom2-linen': '',
-  'bedroom2-rug-texture': '',
-  'bedroom2-style-ref': '',
-  'bedroom2-wood-floor': '',
-  'bedroom2-wood-slat': '',
-  // CAT
-  'cat-board': '',
-  'cat-fabric': '',
-  'cat-floor': '',
-  'cat-greenery': '',
-  'cat-light': '',
-  'cat-style': '',
-  'cat-wall': '',
-  'cat-wood-texture': '',
-  // CLOSET
-  'closet-1': '',
-  'closet-2': '',
-  'closet-board': '',
-  'closet-brass-detail': '',
-  'closet-deep-green-wall': '',
-  'closet-greenery': '',
-  'closet-mirror': '',
-  'closet-rug-texture': '',
-  'closet-wood-cabinet': '',
-  'closet-wood-floor': '',
-  // DINING
-  'dining-board': '',
-  'dining-fabric-chair': 'https://pin.it/4WhybKhAQ',
-  'dining-green-wall': 'https://pin.it/4vmuxsgVS',
-  'dining-lighting': 'https://pin.it/3Jal2hN5e',
-  'dining-material-wood': 'https://pin.it/22IpKpa8K',
-  'dining-rug-texture': 'https://pin.it/732ZPLf5O',
-  'dining-style-ref': 'https://pin.it/60dc1s7uE',
-  'dining-window-light': 'https://pin.it/5L4jhpUjo',
-  // DRYING
-  'drying-board': '',
-  'drying-floor': '',
-  'drying-greenery': '',
-  'drying-rail': '',
-  'drying-screen': '',
-  'drying-style': '',
-  'drying-sunlight': '',
-  'drying-wood': '',
-  // EV
-  'ev-board': '',
-  'ev-charger-ref': '',
-  'ev-floor': '',
-  'ev-greenery': '',
-  'ev-light': '',
-  'ev-roof': '',
-  'ev-style': '',
-  'ev-wall': '',
-  // KITCHEN
-  'kitchen-1': '',
-  'kitchen-2': '',
-  'kitchen-board': '',
-  'kitchen-countertop': 'https://pin.it/6cJVmeIdb',
-  'kitchen-floor-texture': 'https://pin.it/7mFniIsBV',
-  'kitchen-glass-roof': 'kitchen-glass-roof',
-  'kitchen-material-wood': 'https://pin.it/3EwzdKAZw',
-  'kitchen-metal-detail': 'https://pin.it/6mKjRICcK',
-  'kitchen-plants': 'https://pin.it/4T9I75u7b',
-  'kitchen-style-ref': '',
-  // LAUNDRY
-  'laundry-1': '',
-  'laundry-basket': '',
-  'laundry-board': '',
-  'laundry-counter-wood': '',
-  'laundry-fabric': '',
-  'laundry-floor': '',
-  'laundry-light': '',
-  'laundry-style': '',
-  'laundry-wall-tile': '',
-  // LIVING
-  'living-1': '',
-  'living-board': '',
-  'living-board-main': '',
-  'living-greenery': 'https://pin.it/oMjsx8KNf',
-  'living-material-wood': 'https://pin.it/6E0ej6HbN',
-  'living-rug-texture': 'https://pin.it/57t3A9Y1j',
-  'living-table-inspo': 'https://pin.it/1LX4UIp13',
-  'living-style-ref': 'https://pin.it/m4ptBxC2L',
-  'living-fabric': 'https://pin.it/2ufUb4a9Z',
-  // MASTERBATH
-  'masterbath-board': '',
-  'masterbath-floor-stone': '',
-  'masterbath-greenery': '',
-  'masterbath-mirror': '',
-  'masterbath-style-ref': '',
-  'masterbath-vanity-wood': '',
-  'masterbath-wall-tile': '',
-  'masterbath-wood-slat': '',
-  // MOOD
-  'mood-1': '',
-  'mood-2': '',
-  'mood-3': '',
-  'mood-4': '',
-  'mood-5': '',
-  // OTHER
-  'other-1': '',
-  // POWDER
-  'powder-1': '',
-  'powder-2': '',
-  'powder-3': '',
-  'powder-board': '',
-  'powder-ceramic': 'https://pin.it/3snrFTwsJ',
-  'powder-green-wall': 'https://pin.it/5BvAWUq7v',
-  'powder-lighting': '',
-  'powder-material-wood': 'https://pin.it/3YigBag3l',
-  'powder-mirror': 'https://pin.it/6MgmT2kY5',
-  'powder-plants': '',
-  'powder-rug-texture': '',
-  // PROFILE
-  'profileA-1': '',
-  'profileA-2': '',
-  'profileA-3': '',
-  'profileA-4': '',
-  'profileB-1': '',
-  'profileB-2': '',
-  'profileB-3': '',
-  'profileB-4': '',
-  // SPECIAL
-  'special-1': '',
-  'special-2': '',
-  // WORK
-  'work-board': '',
-  'work-curtain': '',
-  'work-desk-texture': '',
-  'work-floor': '',
-  'work-light': '',
-  'work-style': '',
-  'work-wall': '',
-  'work-wood': '',
-
-};
-// รวมลิงก์ที่เพิ่มกับแหล่งที่มาเดิมโดยอัตโนมัติ
-Object.keys(easyImageLinks).forEach(function(name){
-  if(easyImageLinks[name]) imageSources[name] = easyImageLinks[name];
-});
-
-var profiles = [
+const PROFILES = [
   {
-    title: 'Profile &amp; Lifestyle — [อาจารย์หนอน] (อายุ 54 ปี)',
-    pics: ['profileA-1', 'profileA-2', 'profileA-3', 'profileA-4'],
-    blocks: [
-      ['Character & Identity:', 'อาจารย์ / นักวิจัย', 'ผู้ช่วยศาสตราจารย์', 'รักความสะอาด', 'ไม่มีของสะสม'], 
-      ['Daily Routine &amp; Habits:', 'นั่งอ่านหนังสือ', 'ทำความสะอาดบ้าน', 'เข้างานอาทิตย์ละ 2-3 ครั้ง', 'ให้ความสำคัญกับเวลานอนมาก'],
-      ['Passions &amp; Activities:', 'เลี้ยงแมว 3 ตัว', 'เลี้ยงปลาหางนกยูง', 'ปลูกพืชผัก ทําเกษตร', 'สนใจที่จะเลี้ยงไก่ในอนาคต'],
-      ['User need:', 'ต้องการพื้นที่เปิดโล่ง โปร่ง, ไร้ฝุ่น, มีความเป็นธรรมชาติ, ชอบแสงแดด,', 'มีอากาศหมุนเวียนและถ่ายเทได้ดี, มีครัวไทยที่ระบายอากาศได้ดี, และพื้นที่สำหรับสัตว์เลี้ยง']
+    "title": "อาจารย์หนอน (อายุ 54 ปี)",
+    "pics": [
+      "profileA-1",
+      "profileA-2",
+      "profileA-3",
+      "profileA-4"
+    ],
+    "blocks": [
+      [
+        "Character & Identity:",
+        "อาจารย์ / นักวิจัย",
+        "ผู้ช่วยศาสตราจารย์",
+        "รักความสะอาด",
+        "ไม่มีของสะสม"
+      ],
+      [
+        "Daily Routine & Habits:",
+        "นั่งอ่านหนังสือ",
+        "ทำความสะอาดบ้าน",
+        "เข้างานอาทิตย์ละ 2-3 ครั้ง",
+        "ให้ความสำคัญกับเวลานอนมาก"
+      ],
+      [
+        "Passions & Activities:",
+        "เลี้ยงแมว 3 ตัว",
+        "เลี้ยงปลาหางนกยูง",
+        "ปลูกพืชผัก ทําเกษตร",
+        "สนใจที่จะเลี้ยงไก่ในอนาคต"
+      ],
+      [
+        "User need:",
+        "ต้องการพื้นที่เปิดโล่ง โปร่ง, ไร้ฝุ่น, มีความเป็นธรรมชาติ, ชอบแสงแดด,",
+        "มีอากาศหมุนเวียนและถ่ายเทได้ดี, มีครัวไทยที่ระบายอากาศได้ดี และพื้นที่สำหรับสัตว์เลี้ยง"
+      ]
     ]
   },
   {
-    title: 'Profile &amp; Lifestyle — [อาจารย์วิว] (อายุ 52 ปี)',
-    pics: ['profileB-1', 'profileB-2', 'profileB-3', 'profileB-4'],
-    blocks: [
-      ['Character &amp; Identity:', 'อาจารย์', 'รองผู้อำนวยการโรงพยาบาลแห่งหนึ่ง'],
-      ['Daily Routine &amp; Habits:', 'ชอบการดูแลสุขภาพและออกกำลังกาย', 'ทำงานนอกบ้านอาทิตย์ละ 2-3 ครั้ง'],
-      ['Passions &amp; Activities:', 'อ่านหนังสือ', 'เล่นโยคะ', 'ร้องคาราโอเกะ', 'ชอบทำอาหารมาก'],
-      ['User need:', 'ต้องการพื้นที่พักผ่อนที่สงบและเป็นส่วนตัว,', 'มีพื้นที่สำหรับฝึกโยคะ และห้องครัวที่เหมาะสำหรับการทำอาหาร']
+    "title": "อาจารย์วิว (อายุ 52 ปี)",
+    "pics": [
+      "profileB-1",
+      "profileB-2",
+      "profileB-3",
+      "profileB-4"
+    ],
+    "blocks": [
+      [
+        "Character & Identity:",
+        "อาจารย์",
+        "รองผู้อำนวยการโรงพยาบาลแห่งหนึ่ง"
+      ],
+      [
+        "Daily Routine & Habits:",
+        "ชอบการดูแลสุขภาพและออกกำลังกาย",
+        "ทำงานนอกบ้านอาทิตย์ละ 2-3 ครั้ง"
+      ],
+      [
+        "Passions & Activities:",
+        "อ่านหนังสือ",
+        "เล่นโยคะ",
+        "ร้องคาราโอเกะ",
+        "ชอบทำอาหารมาก"
+      ],
+      [
+        "User need:",
+        "ต้องการพื้นที่พักผ่อนที่สงบและเป็นส่วนตัว,",
+        "มีพื้นที่สำหรับฝึกโยคะ และห้องครัวที่เหมาะสำหรับการทำอาหาร"
+      ]
     ]
   }
 ];
 
-// รายการฟังก์ชันตามโจทย์: 9 กลุ่ม (แบ่งเป็น 11 สไลด์ภาพเพื่อดูชัด)
-var functions = [
-  '1. Living Area', '2. Dining Area', '3. Kitchen Area',
-  '4. Powder Room', '5. Master Bedroom + Walk in Closet',
-  '6. Master Bathroom', '7. Bedroom 2 + Bathroom',
-  '8. Special Function (Cat / Work)', '9. Other Areas (EV / Laundry / Drying)'
-];
-var specials = [];
-
-var moodStyle = '';
-var moodColors = ['#E9DFCF', '#D0AD85', '#B66F4B', '#7F8967', '#4A382F'];
-
-// แต่ละห้อง ใส่ชื่อห้อง กับชื่อไฟล์รูป (ไม่ต้องใส่ .jpg)
-var rooms = [
-  {name: 'Living Area', description: 'ห้องนั่งเล่นที่ดูโปร่งและรับแสงธรรมชาติ เพื่อให้ใช้พักผ่อนและนั่งพูดคุยกับครอบครัวได้สบาย',       pics: ['living-1', 'living-2']},
-  {name: 'Dining Area', description: 'ห้องกินข้าวบรรยากาศอบอุ่นและจัดโต๊ะอาหารให้ใช้งานสะดวก เพราะเจ้าของบ้านชอบทำอาหารและใช้เวลาร่วมกัน',       pics: ['dining-1', 'dining-2']},
-  {name: 'Kitchen Area', description: 'ครัวที่มีพื้นที่เตรียมอาหารเพียงพอและระบายอากาศได้ดี เหมาะกับการทำอาหารเป็นประจำ',      pics: ['kitchen-1', 'kitchen-2']}, //https://pin.it/5AuHpXMOX https://pin.it/3psDtb8iK
-  {name: 'Powder Room', description: 'ห้องน้ำแขกที่เรียบง่ายและดูแลความสะอาดง่าย เพื่อให้คนในบ้านและแขกใช้งานสะดวก',       pics: ['powder-1', 'powder-2', 'powder-3']},
-  {name: 'Master Bedroom', description: 'ห้องนอนที่สงบ สีสบายตา และไม่ตกแต่งมากเกินไป เพื่อให้พักผ่อนได้เต็มที่',    pics: ['bedroom-1', 'bedroom-2']},
-  {name: 'Walk in Closet', description: 'การจัดเก็บเสื้อผ้าเป็นสัดส่วนและหยิบใช้ง่าย ช่วยให้ห้องเป็นระเบียบและทำความสะอาดสะดวก',    pics: ['closet-1', 'closet-2']},
-  {name: 'Master Bathroom', description: 'ห้องน้ำที่ดูโปร่งและแบ่งพื้นที่ใช้งานชัดเจน เพื่อให้ใช้งานได้อย่างสะดวกและดูแลรักษาง่าย',   pics: ['bathroom-1', 'bathroom-2', 'bathroom-3']},
-  {name: 'Bedroom 2', description: 'ห้องนอนที่เรียบง่ายและปรับการใช้งานได้ เพื่อรองรับสมาชิกในครอบครัวหรือแขกที่มาพัก',         pics: ['bedroom2-1', 'bedroom2-2']},
-  {name: 'Bathroom 2', description: 'พื้นที่ใช้งานที่ไม่ซับซ้อนและพื้นผิวทำความสะอาดง่าย เพื่อให้ผู้เข้าพักใช้งานได้สะดวก',        pics: ['bathroom2-1', 'bathroom2-2']},
-  // SPECIAL FUNCTION — one room/area per spread
-  {name:'Cat Room', description:'ห้องสำหรับแมว 3 ตัว มีมุมพักผ่อน ปีนเล่น และที่ซ่อนตัว แยกโซนกระบะทรายให้ระบายอากาศและทำความสะอาดง่าย', group:'SPECIAL FUNCTION', moodKey:'cat', ref:'cat-reference'},
-  {name:'Work Space', description:'ห้องทำงานและอ่านหนังสือที่เงียบ มีแสงธรรมชาติแบบไม่แยงตา พื้นที่โต๊ะทำงานและชั้นหนังสือเป็นระเบียบ', group:'SPECIAL FUNCTION', moodKey:'work', ref:'work-reference'},
-  // OTHER AREAS — each zone has its own separate spread
-  {name:'EV Parking', description:'พื้นที่จอดรถ EV ที่มีทางเข้าออกสะดวก พื้นทนทาน ไม่ลื่น และกำหนดจุดชาร์จพร้อมระยะเข้าถึงอย่างปลอดภัย', group:'OTHER AREAS', moodKey:'ev', ref:'ev-reference'},
-  {name:'Laundry Area', description:'มุมซักผ้าแยกจากส่วนพักผ่อน มีพื้นกันลื่น พื้นที่วางเครื่องซักผ้า เคาน์เตอร์พับผ้า และพื้นที่เก็บผลิตภัณฑ์ซักล้าง', group:'OTHER AREAS', moodKey:'laundry', ref:'laundry-reference'},
-  {name:'Drying Area', description:'พื้นที่ตากผ้าที่รับลมและแดดอย่างพอเหมาะ มีความเป็นส่วนตัว น้ำระบายได้ และเชื่อมต่อโซนซักผ้าอย่างสะดวก โดยบริเวณภายนอกมีเพียงแปลงผักสวนครัวขนาดเล็กเป็นมุมเสริม ไม่ใช่สวนหรือแปลงปลูกขนาดใหญ่', group:'OTHER AREAS', moodKey:'drying', ref:'drying-reference'},
+const USER_NEEDS = [
+  [
+    "01 / พื้นที่พักผ่อน",
+    "บ้านโปร่ง โล่ง รับแสงธรรมชาติ อากาศถ่ายเทดี และมีมุมสงบเป็นส่วนตัวสำหรับพักผ่อนและอ่านหนังสือ"
+  ],
+  [
+    "02 / พื้นที่ทำกิจกรรม",
+    "มีพื้นที่สำหรับโยคะ ทำอาหาร และใช้เวลาร่วมกัน โดยครัวไทยต้องระบายกลิ่นและควันได้ดี"
+  ],
+  [
+    "03 / ธรรมชาติและสัตว์เลี้ยง",
+    "มีพื้นที่ปลูกผัก เลี้ยงแมว 3 ตัวและปลาหางนกยูง โดยคำนึงถึงความสะอาดและการดูแลรักษา"
+  ],
+  [
+    "04 / ครอบครัวที่มาเยี่ยม",
+    "มีพื้นที่นั่งพูดคุยและทำกิจกรรมกับคุณแม่และหลาน ทางเดินสะดวกและปลอดภัยสำหรับผู้สูงอายุ"
+  ]
 ];
 
-/* =========================================================
-   ส่วนที่ 2: ฟังก์ชันช่วยสร้างหน้า
-   ========================================================= */
+const ROOMS = [
+  // ROOM : Living Area
+  {
+    name: "Living Area",
+    description: "ห้องนั่งเล่นที่ดูโปร่งและรับแสงธรรมชาติ \nเพื่อให้ใช้พักผ่อนและนั่งพูดคุยกับครอบครัวได้สบาย",
+  
+    folder: "living",
+    reference: "living-2",
+    board: "living-board",
+    zone: "PUBLIC",
+    colors: ["#E9E2D5","#BEA184","#866344","#64734C","#383C31"],
+  },
+  // ROOM : Dining Area
+  {
+    name: "Dining Area",
+    description: "ห้องกินข้าวบรรยากาศอบอุ่นและจัดโต๊ะอาหาร \nให้ใช้งานสะดวกเพราะเจ้าของบ้านชอบทำอาหารและใช้เวลาร่วมกัน",
+    folder: "dining",
+    reference: "dining-reference",
+    board: "dining-board",
+    zone: "PUBLIC",
+    colors: ["#E9E4D8","#B7AA91","#806F59","#65764D","#3E4032"],
+  },
+  // ROOM : Kitchen Area
+  {
+    name: "Kitchen Area",
+    description: "ครัวที่มีพื้นที่เตรียมอาหารเพียงพอ \nและระบายอากาศได้ดีเหมาะกับการทำอาหารเป็นประจำ",
+    folder: "kitchen",
+    reference: "kitchen-reference",
+    board: "kitchen-board",
+    zone: "SEMI-PUBLIC",
+    colors: ["#F0E6D4","#B97A48","#835734","#6C8555","#474B41"],
+  },
+  // ROOM : Powder Room
+  {
+    name: "Powder Room",
+    description: "ห้องน้ำแขกที่เรียบง่ายและดูแล \nความสะอาดง่ายเพื่อให้คนในบ้านและแขกใช้งานสะดวก",
+    folder: "powder",
+    reference: "powder-reference",
+    board: "powder-board",
+    zone: "PUBLIC",
+    colors: ["#E8E3D9","#AA967C","#71624E","#58674A","#30352D"],
+  },
+  // ROOM : Master Bedroom
+  {
+    name: "Master Bedroom",
+    description: "ห้องนอนที่สงบสีสบายตา \nและไม่ตกแต่งมากเกินไปเพื่อให้พักผ่อนได้เต็มที่",
+    folder: "bedroom1",
+    reference: "bedroom1-reference",
+    board: "bedroom-board",
+    zone: "PRIVATE",
+    colors: ["#EBE5D9","#C5B59F","#947B60","#758166","#484337"],
+  },
+  // ROOM : Walk in Closet
+  {
+    name: "Walk in Closet",
+    description: "การจัดเก็บเสื้อผ้าเป็นสัดส่วนและหยิบใช้ง่าย \nช่วยให้ห้องเป็นระเบียบและทำความสะอาดสะดวก",
+    folder: "closet",
+    reference: "closet-reference",
+    board: "closet-board",
+    zone: "PRIVATE",
+    colors: ["#E9DDC7","#BD9165","#926845","#554535","#79765C"],
+  },
+  // ROOM : Master Bathroom
+  {
+    name: "Master Bathroom",
+    description: "ห้องน้ำที่ดูโปร่งและแบ่งพื้นที่ใช้งานชัดเจน \nเพื่อให้ใช้งานได้อย่างสะดวกและดูแลรักษาง่าย",
+    folder: "masterbath",
+    reference: "masterbath-reference",
+    board: "masterbath-board",
+    zone: "PRIVATE",
+    colors: ["#E7DBCD","#CAB69B","#A68A6B","#786E5B","#49483E"],
+  },
+  // ROOM : Bedroom 2
+  {
+    name: "Bedroom 2",
+    description: "ห้องนอนที่เรียบง่ายและปรับการใช้งานได้ \nเพื่อรองรับสมาชิกในครอบครัวหรือแขกที่มาพัก",
+    folder: "bedroom2",
+    reference: "bedroom2-reference",
+    board: "bedroom2-board",
+    zone: "PRIVATE",
+    colors: ["#EEE7DC","#C4AD91","#A5876B","#758266","#5C4A39"],
+  },
+  // ROOM : Bathroom 2
+  {
+    name: "Bathroom 2",
+    description: "พื้นที่ใช้งานที่ไม่ซับซ้อนและพื้นผิว \nทำความสะอาดง่ายเพื่อให้ผู้เข้าพักใช้งานได้สะดวก",
+    folder: "bathroom2",
+    reference: "bathroom2-reference",
+    board: "bathroom2-board",
+    zone: "PRIVATE",
+    colors: ["#DCD2BE","#AA8F6D","#806A4F","#657051","#393D32"],
+  },
+  // SPECIAL FUNCTION : Cat Room
+  {
+    name: "Cat Room",
+    description: "ห้องสำหรับแมว 3 ตัว มีมุมพักผ่อน ปีนเล่น และที่ซ่อนตัว \nแยกโซนกระบะทรายให้ระบายอากาศและทำความสะอาดง่าย",
+    folder: "cat",
+    reference: "cat-reference",
+    board: "cat-board",
+    zone: "SEMI-PRIVATE",
+    colors: ["#F1E5DD","#D8B6A7","#BD9384","#A48372","#6F5B51"],
+  },
+  // SPECIAL FUNCTION : Work Space
+  {
+    name: "Work Space",
+    description: "ห้องทำงานและอ่านหนังสือที่เงียบ มีแสงธรรมชาติ \nแบบไม่แยงตาพื้นที่โต๊ะทำงานและชั้นหนังสือเป็นระเบียบ",
+    folder: "work",
+    reference: "work-reference",
+    board: "work-board",
+    zone: "SEMI-PRIVATE",
+    colors: ["#F0EDE5","#C9BBA9","#A99A83","#8A977D","#5D6253"],
+  },
+  // EXTERIOR : Garage
+  {
+    name: "Garage",
+    description: "พื้นที่จอดรถ EV ที่มีทางเข้าออกสะดวก พื้นทนทาน \nไม่ลื่นและกำหนดจุดชาร์จพร้อมระยะเข้าถึงอย่างปลอดภัย",
+    folder: "ev",
+    reference: "ev-reference",
+    board: "ev-board",
+    zone: "EXTERIOR",
+    colors: ["#DBD6D2","#A9A29C","#777878","#46494B","#BA956F"],
+  },
+  // OTHER AREAS : Laundry Area
+  {
+    name: "Laundry Area",
+    description: "มุมซักผ้าแยกจากส่วนพักผ่อน มีพื้นกันลื่น พื้นที่ \nวางเครื่องซักผ้า เคาน์เตอร์พับผ้า และพื้นที่เก็บผลิตภัณฑ์ซักล้าง",
+    folder: "laundry",
+    reference: "laundry-reference",
+    board: "laundry-board",
+    zone: "SEMI-PUBLIC",
+    colors: ["#EAE8DC","#C8BB9F","#A58D71","#77916B","#6A6455"],
+  },
+  // OTHER AREAS : Drying Area
+  {
+    name: "Drying Area",
+    description: "พื้นที่ตากผ้าที่รับลมและแดดอย่างเหมาะสม \nมีความเป็นส่วนตัวน้ำระบายได้และเชื่อมต่อโซนซักผ้าอย่างสะดวก",
+    folder: "drying",
+    reference: "drying-reference",
+    board: "drying-board",
+    zone: "EXTERIOR",
+    colors: ["#EFEBE3","#D0C2AB","#B2A089","#A6B79D","#847764"],
+  },
+  // เพิ่มตาม LIST OF FUNCTION : Foyer Room
+  {
+    name: "Foyer Room",
+    description: "พื้นที่ต้อนรับก่อนเข้าสู่ตัวบ้านช่วยเปลี่ยนบรรยากาศจากภายนอก \nสู่ภายในมีมุมถอดรองเท้าและเก็บของใช้ก่อนเข้าบ้าน",
+    folder: "foyer",
+    reference: "foyer-reference",
+    board: "foyer-board",
+    zone: "PUBLIC",
+    colors: ["#E7DED0","#B99D7A","#987A59","#786D54","#555342"],
+  },
+  // เพิ่มตาม LIST OF FUNCTION : Hall Room
+  {
+    name: "Hall Room",
+    description: "พื้นที่เชื่อมต่อห้องต่าง ๆ ให้เดินได้สะดวก \nและไม่อึดอัดเน้นแสงธรรมชาติและทางเดินที่ชัดเจน",
+    folder: "hall",
+    reference: "hall-reference",
+    board: "hall-board",
+    zone: "PUBLIC",
+    colors: ["#E8DDCB","#C6AF8B","#A27E55","#806A53","#504538"],
+  },
+  // เพิ่มตาม LIST OF FUNCTION : Storage Room
+  {
+    name: "Storage Room",
+    description: "พื้นที่เก็บอุปกรณ์และของใช้ภายในบ้านให้เป็นระเบียบ \nใช้ชั้นเก็บของที่หยิบง่ายและดูแลทำความสะอาดสะดวก",
+    folder: "storage",
+    reference: "storage-reference",
+    board: "storage-board",
+    zone: "SEMI-PRIVATE",
+    colors: ["#E0D6C5","#BCA382","#947353","#6E5A44","#484538"],
+  },
+  // เพิ่มตาม LIST OF FUNCTION : Garden 1
+  {
+    name: "Garden 1",
+    description: "สวนบริเวณด้านหน้าบ้านช่วยสร้างบรรยากาศร่มรื่น \nตั้งแต่ทางเข้าเลือกต้นไม้ที่ดูแลง่ายและจัดทางเดินเชื่อมเข้าสู่บ้าน",
+    folder: "garden1",
+    reference: "garden1-reference",
+    board: "garden1-board",
+    zone: "EXTERIOR",
+    colors: ["#D5D4BA","#AAAC8C","#697E55","#405C38","#827257"],
+  },
+  // เพิ่มตาม LIST OF FUNCTION : Garden 2
+  {
+    name: "Garden 2",
+    description: "สวนพักผ่อนหลังบ้าน \nเน้นความธรรมชาติและพื้นที่ ที่สายตามีอากาศถ่ายเทที่ดี",
+    folder: "garden2",
+    reference: "garden2-reference",
+    board: "garden2-board",
+    zone: "EXTERIOR",
+    colors: ["#E4E1D3","#B4BA9D","#7E9A64","#496A3F","#787564"],
+  },
+  // เพิ่มตาม LIST OF FUNCTION : Vegetable Plot
+  {
+    name: "Vegetable Plot",
+    description: "พื้นที่ปลูกผักสวนครัวสำหรับใช้งานใน \nชีวิตประจำวันจัดให้มีแสงแดดเพียงพอและทางเดินดูแลง่าย",
+    folder: "vegetable",
+    reference: "vegetable-reference",
+    board: "vegetable-board",
+    zone: "EXTERIOR",
+    colors: ["#DAD3B7","#A9B282","#678345","#3F5E2E","#756346"],
+  },
+];
 
-function p2(n){return n<10?'0'+n:''+n}
-function T(x,c){return '<h1 class="h '+(c||'')+'">'+x+'</h1>'}
-function pc(h,c){return '<div class="pc '+(c||'')+'">'+h+'</div>'}
-function safe(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
-function gallery(names,extraClass){return '<div class="gallery '+((extraClass||'')+' '+(names.length===1?'one':names.length===3?'three':names.length>=4?'four':'')).trim()+'">'+names.map(function(n){
- var link=imageSources[n]||'';var box='<div class="slot"><span class="photo-icon">▧</span><span class="photo-file">image/'+safe(n)+'</span><img data-photo="'+safe(n)+'" alt="'+safe(n)+'">';
- return box+(link&&/^https?:\/\//i.test(link)?'<a class="image-source" href="'+safe(link)+'" target="_blank" rel="noopener noreferrer" title="คลิกภาพเพื่อเปิดแหล่งที่มา" aria-label="เปิดแหล่งที่มาของภาพ '+safe(n)+'"></a>':'')+'</div>'}).join('')+'</div>'}
-function initializePhotos(){document.querySelectorAll('img[data-photo]').forEach(function(im){if(im.dataset.init)return;im.dataset.init='1';var i=0,name=im.dataset.photo;var crop=photoFraming[name]||{};im.style.setProperty('--photo-zoom',String(Math.max(1,Number(crop.zoom)||1)));im.style.setProperty('--photo-x',String(crop.x===undefined?50:crop.x)+'%');im.style.setProperty('--photo-y',String(crop.y===undefined?50:crop.y)+'%');function next(){if(i>=imageExtensions.length*2){im.removeAttribute('src');return}var ext=imageExtensions[i%imageExtensions.length];var base=i<imageExtensions.length?photoPath(name):folder+name;im.src=base+ext;i++}im.addEventListener('load',function(){im.classList.add('ready');im.classList.toggle('photo-opaque',/\.(jpe?g)$/i.test(im.currentSrc||im.src));});im.addEventListener('error',next);next()})}
-function textPage(content,kind){return pc(content,'content-page '+(kind||''))}
-function imagePage(names){return pc(gallery(names),'gallery-page')}
-function moodToneImagePage(names){return pc(gallery(names,'mood-gallery'),'gallery-page mood-gallery-page')}
-// แก้ข้อมูลตรงนี้ได้เอง — ไฟล์รูปอยู่ใน image/; รูปของตกแต่งควรเป็น PNG/WebP พื้นหลังโปร่งใส
-// พื้นหลังเริ่มต้นใช้ living-1 ของเดิม; จะเปลี่ยนเป็น 'living-background' ก็ได้
-var livingComposition = {
-  label:'LIVING AREA · MOOD BOARD',
-  background: {file:'living-board', source:''},
-  items: [
-    {name:'ผนัง / บรรยากาศหลัก', file:'living-style-ref', source:'', x:7, y:9, w:35, h:40, z:2, rot:-3},
-    {name:'วัสดุไม้', file:'living-material-wood', source:'', x:9, y:58, w:40, h:23, z:2, rot:-2},
-    {name:'ภาพรวมสไตล์', file:'living-board-main', source:'', x:42, y:15, w:33, h:28, z:6, rot:2},
-    {name:'ผ้าบุ / โซฟา', file:'living-fabric', source:'', x:31, y:16, w:22, h:17, z:7, rot:4},
-    {name:'ต้นไม้ / Greenery', file:'living-greenery', source:'', x:72, y:10, w:20, h:32, z:5, rot:3},
-    {name:'โต๊ะไม้', file:'living-table-inspo', source:'', x:61, y:51, w:24, h:18, z:6, rot:3},
-    {name:'Texture / พรม', file:'living-rug-texture', source:'', x:50, y:71, w:32, h:16, z:4, rot:-1}
-  ]
-};
-// Dining Area: room background and individually sourced furnishing photos.
-// Supply transparent PNG/WebP files in the image/ folder and put their URLs in source.
-var diningComposition = {
-  label:'DINING AREA · MOOD BOARD',
-  background:{file:'dining-board', source:''},
-  items:[
-    {name:'ผนังต้นไม้',file:'dining-green-wall',source:'',x:7,y:9,w:31,h:42,z:2,rot:-3},
-    {name:'ภาพรวมสไตล์',file:'dining-style-ref',source:'',x:41,y:15,w:31,h:27,z:6,rot:2},
-    {name:'พื้น / พรมทอ',file:'dining-rug-texture',source:'',x:47,y:63,w:39,h:22,z:2,rot:-2},
-    {name:'โต๊ะไม้ / Material',file:'dining-material-wood',source:'',x:55,y:48,w:23,h:18,z:7,rot:3},
-    {name:'โคมไฟหวาย',file:'dining-lighting',source:'',x:69,y:11,w:18,h:18,z:7,rot:4},
-    {name:'เก้าอี้ผ้า',file:'dining-fabric-chair',source:'',x:14,y:53,w:23,h:17,z:5,rot:-4},
-    {name:'หน้าต่าง / แสง',file:'dining-window-light',source:'',x:73,y:31,w:16,h:29,z:5,rot:2}
-  ]
-};
-// ROOM 03: placeholder-only kitchen composition; the supplied kitchen image is inspiration only.
-var kitchenComposition = {
-  label:'KITCHEN AREA · MOOD BOARD',
-  background:{file:'kitchen-board',source:''},
-  items:[
-    {name:'หลังคากระจก',file:'kitchen-glass-roof',source:'',x:9,y:8,w:44,h:27,z:2,rot:-3},
-    {name:'ตู้ไม้ / Material',file:'kitchen-material-wood',source:'',x:61,y:13,w:25,h:35,z:3,rot:2},
-    {name:'ท็อปหิน / Concrete',file:'kitchen-countertop',source:'',x:8,y:59,w:44,h:22,z:2,rot:-2},
-    {name:'ต้นไม้ในครัว',file:'kitchen-plants',source:'',x:42,y:34,w:23,h:28,z:7,rot:4},
-    {name:'ภาพรวมสไตล์',file:'kitchen-style-ref',source:'',x:49,y:56,w:31,h:22,z:6,rot:3},
-    {name:'อุปกรณ์โลหะ / ดำ',file:'kitchen-metal-detail',source:'',x:70,y:52,w:16,h:15,z:8,rot:-3},
-    {name:'พื้นกระเบื้อง',file:'kitchen-floor-texture',source:'',x:61,y:79,w:25,h:12,z:4,rot:1}
-  ]
-};
-// ROOM 04 — Powder Room: reference image is intentionally not embedded.
-var powderComposition = {
-  label:'POWDER ROOM · MOOD BOARD',
-  background:{file:'powder-board',source:''},
-  items:[
-    {name:'สีผนังเขียวเข้ม',file:'powder-green-wall',source:'',x:56,y:8,w:31,h:40,z:2,rot:3},
-    {name:'กระจก / Reflection',file:'powder-mirror',source:'',x:8,y:10,w:24,h:27,z:3,rot:-4},
-    {name:'วัสดุไม้',file:'powder-material-wood',source:'',x:29,y:11,w:24,h:17,z:5,rot:2},
-    {name:'โคมไฟ / Warm Light',file:'powder-lighting',source:'',x:11,y:35,w:18,h:17,z:6,rot:-3},
-    {name:'เซรามิกขาว',file:'powder-ceramic',source:'',x:36,y:39,w:24,h:18,z:8,rot:-2},
-    {name:'ต้นไม้ตกแต่ง',file:'powder-plants',source:'',x:72,y:44,w:17,h:28,z:6,rot:1},
-    {name:'Texture / พรม',file:'powder-rug-texture',source:'',x:54,y:73,w:27,h:13,z:4,rot:2}
-  ]
-};
-// ROOM 05 — Bedroom 1: inspiration-only mood board with freer composition.
-var bedroom1Composition = {
-  label:'BEDROOM 1 · MOOD BOARD',
-  background:{file:'bedroom-board',source:''},
-  items:[
-    {name:'ผนังหินธรรมชาติ',file:'bedroom-stone-wall',source:'',x:49,y:8,w:38,h:41,z:2,rot:4},
-    {name:'เตียงไม้ / Form',file:'bedroom-bed-frame',source:'',x:34,y:43,w:40,h:22,z:5,rot:-3},
-    {name:'เพดานไม้ระแนง',file:'bedroom-ceiling-slat',source:'',x:12,y:9,w:33,h:20,z:3,rot:-2},
-    {name:'ผ้าปู / Linen',file:'bedroom-bedding',source:'',x:13,y:36,w:23,h:17,z:7,rot:5},
-    {name:'พรม / Texture',file:'bedroom-rug-texture',source:'',x:8,y:68,w:41,h:18,z:2,rot:-4},
-    {name:'โคมไฟหวาย',file:'bedroom-pendant',source:'',x:72,y:24,w:17,h:22,z:8,rot:3},
-    {name:'ต้นไม้ / Tropical Green',file:'bedroom-greenery',source:'',x:76,y:56,w:14,h:28,z:6,rot:2}
-  ]
-};
+// ========================================================
+// ระบบแสดงผล: ปกติไม่ต้องแก้ส่วนนี้
+// ========================================================
+const $ = (sel) => document.querySelector(sel);
+const esc = (value) => String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const pad = n => String(n).padStart(2,'0');
+const box = (content, type='') => `<div class="pc ${type}">${content}</div>`;
+const heading = text => `<h1 class="h">${esc(text)}</h1>`;
+const contentPage = (content, type='') => box(content, `content-page ${type}`);
 
-// ROOM 06 — Walk in Closet / moodboard only; all reference photos added by the user.
-var closetComposition = {
- label:'WALK IN CLOSET · MOOD BOARD',
- background:{file:'closet-board',source:''},
- items:[
-  {name:'ตู้ไม้ / ผิวไม้หลัก',file:'closet-wood-cabinet',source:'',x:53,y:8,w:37,h:47,z:2,rot:2},
-  {name:'ผนังสีเขียวเข้ม',file:'closet-deep-green-wall',source:'',x:10,y:10,w:37,h:39,z:2,rot:-3},
-  {name:'พื้นไม้ธรรมชาติ',file:'closet-wood-floor',source:'',x:8,y:69,w:45,h:23,z:2,rot:-2},
-  {name:'กระจกเงา',file:'closet-mirror',source:'',x:70,y:39,w:19,h:30,z:6,rot:-3},
-  {name:'พรมลายวินเทจ / Texture',file:'closet-rug-texture',source:'',x:41,y:69,w:39,h:19,z:5,rot:3},
-  {name:'ต้นไม้ / Natural Accent',file:'closet-greenery',source:'',x:21,y:53,w:21,h:23,z:8,rot:-5},
-  {name:'วัสดุโลหะสีทอง',file:'closet-brass-detail',source:'',x:77,y:12,w:13,h:15,z:9,rot:3}
- ]
-};
-// ROOM 07 — Master Bathroom; moodboard reference image supplied for visual guidance only.
-var masterBathComposition = {
- label:'MASTER BATHROOM · MOOD BOARD',
- background:{file:'masterbath-board',source:''},
- items:[
-  {name:'กระเบื้องผนังสีอุ่น',file:'masterbath-wall-tile',source:'',x:7,y:10,w:45,h:38,z:2,rot:-2},
-  {name:'ผิวไม้ระแนง',file:'masterbath-wood-slat',source:'',x:66,y:8,w:25,h:43,z:2,rot:3},
-  {name:'พื้นหินสีเบจ',file:'masterbath-floor-stone',source:'',x:8,y:65,w:47,h:23,z:2,rot:-3},
-  {name:'ไม้เคาน์เตอร์ / Texture',file:'masterbath-vanity-wood',source:'',x:40,y:43,w:35,h:25,z:6,rot:-4},
-  {name:'กระจก / แสงสะท้อน',file:'masterbath-mirror',source:'',x:73,y:37,w:18,h:24,z:8,rot:2},
-  {name:'ต้นไม้โทนเขียว',file:'masterbath-greenery',source:'',x:72,y:64,w:19,h:24,z:9,rot:-3},
-  {name:'ภาพรวมบรรยากาศ',file:'masterbath-style-ref',source:'',x:22,y:30,w:31,h:27,z:8,rot:2}
- ]
-};
-// ROOM 08 — Bedroom 2. A calming, botanical mood board; reference photo is NOT embedded.
-var bedroom2Composition = {
- label:'BEDROOM 2 · MOOD BOARD',
- background:{file:'bedroom2-board',source:''},
- items:[
-  {name:'ผนังไม้ระแนง / วัสดุหลัก',file:'bedroom2-wood-slat',source:'',x:9,y:9,w:43,h:44,z:2,rot:-3},
-  {name:'พื้นไม้สีอ่อน',file:'bedroom2-wood-floor',source:'',x:46,y:66,w:43,h:22,z:2,rot:3},
-  {name:'ผ้าปูเตียงสีครีม / Linen',file:'bedroom2-linen',source:'',x:55,y:12,w:32,h:24,z:4,rot:3},
-  {name:'แสงอบอุ่น / Warm Light',file:'bedroom2-lighting',source:'',x:40,y:35,w:25,h:18,z:7,rot:5},
-  {name:'ต้นไม้สีเขียวธรรมชาติ',file:'bedroom2-greenery',source:'',x:12,y:56,w:28,h:29,z:5,rot:-4},
-  {name:'พรม / ลายผ้า',file:'bedroom2-rug-texture',source:'',x:44,y:51,w:28,h:20,z:6,rot:-3},
-  {name:'ภาพรวมสไตล์',file:'bedroom2-style-ref',source:'',x:67,y:38,w:22,h:23,z:8,rot:4}
- ]
-};
-// ROOM 09 — Bathroom 2. Stone and wood dominate; accents overlap sparingly.
-var bathroom2Composition = {
- label:'BATHROOM 2 · MOOD BOARD',
- background:{file:'bathroom2-board',source:''},
- items:[
-  {name:'กระเบื้องหินสีเบจ / ผนังหลัก',file:'bathroom2-stone-wall',source:'',x:9,y:14,w:44,h:42,z:2,rot:2},
-  {name:'พื้นกระเบื้องสีธรรมชาติ',file:'bathroom2-floor-tile',source:'',x:12,y:64,w:45,h:23,z:2,rot:-3},
-  {name:'ท็อปเคาน์เตอร์ไม้',file:'bathroom2-wood',source:'',x:58,y:12,w:28,h:34,z:3,rot:-4},
-  {name:'กระจกและผิวสะท้อน',file:'bathroom2-mirror',source:'',x:42,y:31,w:25,h:24,z:7,rot:4},
-  {name:'แสงไฟ Warm White',file:'bathroom2-warm-light',source:'',x:70,y:44,w:18,h:17,z:8,rot:-2},
-  {name:'พรมเส้นใยธรรมชาติ',file:'bathroom2-rug-texture',source:'',x:56,y:69,w:31,h:17,z:4,rot:3},
-  {name:'ต้นไม้ / Natural Green',file:'bathroom2-greenery',source:'',x:12,y:47,w:25,h:21,z:6,rot:-5}
- ]
-};
-function bedroom2TextPage(room,index){
- var refHref=safeURL(imageSources['bedroom2-reference']);
- var visual='<div class="living-reference bedroom2-reference"><span class="ref-missing">พื้นที่ใส่ภาพ Bedroom 2<br>image/bedroom2-reference.jpg</span><img data-photo="bedroom2-reference" alt="ภาพห้องนอน 2 ที่เลือกเอง">'+(refHref?'<a class="ref-link" href="'+safe(refHref)+'" target="_blank" rel="noopener noreferrer" aria-label="แหล่งที่มาภาพ Bedroom 2"></a>':'')+'</div>';
- var colors=['#f1e8da','#c3a27e','#926844','#687654','#40382d'];
- var palette='<div class="living-notes"><span class="note-heading">TONE COLOR</span></div><div class="living-palette">'+colors.map(function(c){return '<i style="background:'+c+'"></i>'}).join('')+'</div>';
- return textPage('<p class="eyebrow">ROOM '+p2(index+1)+' / '+p2(rooms.length)+'</p>'+T(room.name)+'<span class="dash"></span><p class="detail-intro">'+room.description+'</p>'+palette+visual,'room-details living-details bedroom2-details');
+// ไฟล์รูปใช้ชื่อไม่ต้องมีนามสกุล ภาพรองรับ PNG/JPG และรูปแบบอื่นใน SETTINGS
+function imgTag(file, folder, alt=file) {
+  // โหลดภาพทันทีแม้ยังอยู่ด้านหลังหนังสือ 3D เพื่อไม่ให้แสดงหน้าว่างเวลาเปิดหน้า
+  return `<img data-photo="${esc(file)}" data-folder="${esc(folder)}" alt="${esc(alt)}">`;
 }
-function bathroom2TextPage(room,index){
- var refHref=safeURL(imageSources['bathroom2-reference']);
- var visual='<div class="living-reference bathroom2-reference"><span class="ref-missing">พื้นที่ใส่ภาพ Bathroom 2<br>image/bathroom2-reference.jpg</span><img data-photo="bathroom2-reference" alt="ภาพห้องน้ำ 2 ที่เลือกเอง">'+(refHref?'<a class="ref-link" href="'+safe(refHref)+'" target="_blank" rel="noopener noreferrer" aria-label="แหล่งที่มาภาพ Bathroom 2"></a>':'')+'</div>';
- var colors=['#e9dfce','#c4b39c','#99846c','#927455','#526047'];
- var palette='<div class="living-notes"><span class="note-heading">TONE COLOR</span></div><div class="living-palette">'+colors.map(function(c){return '<i style="background:'+c+'"></i>'}).join('')+'</div>';
- return textPage('<p class="eyebrow">ROOM '+p2(index+1)+' / '+p2(rooms.length)+'</p>'+T(room.name)+'<span class="dash"></span><p class="detail-intro">'+room.description+'</p>'+palette+visual,'room-details living-details bathroom2-details');
+function imageGallery(files, folder, layout='') {
+  return box(`<div class="gallery ${layout}">${files.map(file =>
+    `<div class="slot"><span class="photo-file">${esc(file)}</span>${imgTag(file,folder)}</div>`
+  ).join('')}</div>`, `gallery-page ${layout==='mood-gallery'?'mood-gallery-page':''}`);
 }
-function powderTextPage(room,index){
- var refHref=safeURL(imageSources['powder-reference']);
- var visual='<div class="living-reference powder-reference"><span class="ref-missing">พื้นที่ใส่ภาพห้อง Powder Room<br>image/powder-reference.jpg</span><img data-photo="powder-reference" alt="ภาพ Powder Room ที่เลือกเอง">'+(refHref?'<a class="ref-link" href="'+safe(refHref)+'" target="_blank" rel="noopener noreferrer" aria-label="แหล่งที่มาของภาพ Powder Room"></a>':'')+'</div>';
- var colors=['#ede0cd','#b98a56','#565634','#262a1b','#6e5944'];
- var palette='<div class="living-notes"><span class="note-heading">TONE COLOR</span></div><div class="living-palette">'+colors.map(function(c){return '<i style="background:'+c+'"></i>'}).join('')+'</div>';
- return textPage('<p class="eyebrow">ROOM '+p2(index+1)+' / '+p2(rooms.length)+'</p>'+T(room.name)+'<span class="dash"></span><p class="detail-intro">'+room.description+'</p>'+palette+visual,'room-details living-details powder-details');
+function colorsHtml(colors, circles=false) {
+  return `<div class="${circles?'pal':'living-palette'}">${colors.map(c => `<i style="background:${esc(c)}"></i>`).join('')}</div>`;
 }
-function kitchenTextPage(room,index){
- var refHref=safeURL(imageSources['kitchen-reference']);
- var visual='<div class="living-reference kitchen-reference"><span class="ref-missing">พื้นที่ใส่ภาพห้อง Kitchen Area<br>image/kitchen/kitchen-reference.jpg</span><img data-photo="kitchen-reference" alt="ภาพครัวที่เลือกเอง">'+(refHref?'<a class="ref-link" href="'+safe(refHref)+'" target="_blank" rel="noopener noreferrer" aria-label="แหล่งที่มาของภาพครัว"></a>':'')+'</div>';
- var colors=['#eadfc9','#c99865','#9b6c3f','#617c48','#525753'];
- var palette='<div class="living-notes"><span class="note-heading">TONE COLOR</span></div><div class="living-palette">'+colors.map(function(c){return '<i style="background:'+c+'"></i>'}).join('')+'</div>';
- return textPage('<p class="eyebrow">ROOM '+p2(index+1)+' / '+p2(rooms.length)+'</p>'+T(room.name)+'<span class="dash"></span><p class="detail-intro">'+room.description+'</p>'+palette+visual,'room-details living-details kitchen-details');
+function referenceHtml(room) {
+  return `<div class="living-reference"><span class="ref-missing">ภาพตัวอย่าง ${esc(room.name)}<br>image/${esc(room.folder)}/${esc(room.reference)}.jpg หรือ .png</span>${imgTag(room.reference,room.folder,room.name)}</div>`;
 }
-function diningTextPage(room,index){
- var refHref=safeURL(imageSources["dining-reference"]);
- var visual='<div class="living-reference dining-reference"><span class="ref-missing">พื้นที่ใส่ภาพห้อง Dining Area<br>image/dining/dining-reference.jpg</span><img data-photo="dining-reference" alt="ภาพห้องอาหารที่เลือกเอง">'+(refHref?'<a class="ref-link" href="'+safe(refHref)+'" target="_blank" rel="noopener noreferrer" aria-label="แหล่งที่มาของภาพห้องอาหาร"></a>':'')+'</div>';
- var colors=['#e8dfcd','#caa77b','#7e9462','#386035','#4d3627'];
- var palette='<div class="living-notes"><span class="note-heading">TONE COLOR</span></div><div class="living-palette">'+colors.map(function(c){return '<i style="background:'+c+'"></i>'}).join('')+'</div>';
- return textPage('<p class="eyebrow">ROOM '+p2(index+1)+' / '+p2(rooms.length)+'</p>'+T(room.name)+'<span class="dash"></span><p class="detail-intro">'+room.description+'</p>'+palette+visual,'room-details living-details dining-details');
+// ป้ายหัวข้อห้องทุกหน้าใช้มาตรฐานเดียวกัน: เลขลำดับ / หมวดหน้าที่ / โซนจาก LIST OF FUNCTION
+const FUNCTION_ZONE_BY_NAME = Object.fromEntries(
+  Object.entries(FUNCTION_LIST).flatMap(([zone, names]) => names.map(name => [name, zone]))
+);
+function roomCategory(room) {
+  if (['Cat Room', 'Work Space'].includes(room.name)) return 'SPECIAL FUNCTION';
+  if (['Laundry Area', 'Drying Area', 'Storage Room'].includes(room.name)) return 'SERVICE AREA';
+  if (FUNCTION_ZONE_BY_NAME[room.name] === 'EXTERIOR') return 'EXTERIOR AREA';
+  return 'MAIN FUNCTION';
 }
-function bedroom1TextPage(room,index){
- var refHref=safeURL(imageSources['bedroom1-reference']);
- var visual='<div class="living-reference bedroom-reference"><span class="ref-missing">พื้นที่ใส่ภาพห้อง Bedroom 1<br>image/bedroom1-reference.jpg</span><img data-photo="bedroom1-reference" alt="ภาพห้องนอนที่เลือกเอง">'+(refHref?'<a class="ref-link" href="'+safe(refHref)+'" target="_blank" rel="noopener noreferrer" aria-label="แหล่งที่มาของภาพห้องนอน"></a>':'')+'</div>';
- var colors=['#efe5d5','#c6a27b','#8d745c','#4f5e3a','#2f261e'];
- var palette='<div class="living-notes"><span class="note-heading">TONE COLOR</span></div><div class="living-palette">'+colors.map(function(c){return '<i style="background:'+c+'"></i>'}).join('')+'</div>';
- return textPage('<p class="eyebrow">ROOM '+p2(index+1)+' / '+p2(rooms.length)+'</p>'+T(room.name)+'<span class="dash"></span><p class="detail-intro">'+room.description+'</p>'+palette+visual,'room-details living-details bedroom1-details');
+function roomText(room, index) {
+  const zone = FUNCTION_ZONE_BY_NAME[room.name] || room.zone || 'UNASSIGNED';
+  const subtitle = `ROOM ${pad(index+1)} / ${pad(ROOMS.length)} &nbsp; / &nbsp; ${roomCategory(room)} &nbsp; / &nbsp; ${zone} ZONE`;
+  const html = `<p class="eyebrow room-meta">${subtitle}</p>${heading(room.name)}<span class="dash"></span>`+
+    `<p class="detail-intro">${esc(room.description)}</p>`+
+    `<div class="living-notes"><span class="note-heading">TONE COLOR</span></div>`+
+    colorsHtml(room.colors)+referenceHtml(room);
+  return contentPage(html,`room-details living-details ${index>=9?'extra-area-details':''}`);
 }
+function roomBoard(room) {
+  return box(`<div class="single-room-board"><div class="single-board-placeholder"><strong>MOOD & TONE</strong>`+
+    `<span>${esc(room.name.toUpperCase())}</span><small>image/${esc(room.folder)}/${esc(room.board)}.png หรือ .jpg</small></div>`+
+    imgTag(room.board,room.folder,`${room.name} Mood Board`)+`</div>`, 'gallery-page single-board-page');
+}
+function profileText(profile, index) {
+  const blocks=profile.blocks.map(part => `<section class="profile-block"><h3>${esc(part[0])}</h3>`+
+    `<ul>${part.slice(1).map(t=>`<li>${esc(t)}</li>`).join('')}</ul></section>`).join('');
+  return contentPage(`<p class="eyebrow">PROFILE & LIFESTYLE / ${pad(index+1)}</p><h2 class="th">${esc(profile.title)}</h2><div class="profile-blocks">${blocks}</div>`,'profile-details');
+}
+function zoning(title) {
+  const names = FUNCTION_LIST[title] || [];
+  return `<section class="function-index-group"><h3>${esc(title)}</h3>${names.map(name =>
+    `<div class="function-index-item"><span class="function-index-name">${esc(name)}</span></div>`).join('')}</section>`;
+}
+const functionCount = Object.values(FUNCTION_LIST).reduce((total, names) => total + names.length, 0);
 
-function closetTextPage(room,index){
- var refHref=safeURL(imageSources['closet-reference']);
- var visual='<div class="living-reference closet-reference"><span class="ref-missing">พื้นที่ใส่ภาพ Walk in Closet<br>image/closet-reference.jpg</span><img data-photo="closet-reference" alt="ภาพห้องแต่งตัวที่เลือกเอง">'+(refHref?'<a class="ref-link" href="'+safe(refHref)+'" target="_blank" rel="noopener noreferrer" aria-label="แหล่งที่มาภาพห้องแต่งตัว"></a>':'')+'</div>';
- var colors=['#eee1cb','#c29667','#6c4d31','#343827','#ae8860'];
- var palette='<div class="living-notes"><span class="note-heading">TONE COLOR</span></div><div class="living-palette">'+colors.map(function(c){return '<i style="background:'+c+'"></i>'}).join('')+'</div>';
- return textPage('<p class="eyebrow">ROOM '+p2(index+1)+' / '+p2(rooms.length)+'</p>'+T(room.name)+'<span class="dash"></span><p class="detail-intro">'+room.description+'</p>'+palette+visual,'room-details living-details closet-details');
-}
-function masterBathTextPage(room,index){
- var refHref=safeURL(imageSources['masterbath-reference']);
- var visual='<div class="living-reference masterbath-reference"><span class="ref-missing">พื้นที่ใส่ภาพ Master Bathroom<br>image/masterbath-reference.jpg</span><img data-photo="masterbath-reference" alt="ภาพห้องน้ำหลักที่เลือกเอง">'+(refHref?'<a class="ref-link" href="'+safe(refHref)+'" target="_blank" rel="noopener noreferrer" aria-label="แหล่งที่มาภาพห้องน้ำหลัก"></a>':'')+'</div>';
- var colors=['#eee1ce','#c9ad8d','#9e8065','#66533c','#757d58'];
- var palette='<div class="living-notes"><span class="note-heading">TONE COLOR</span></div><div class="living-palette">'+colors.map(function(c){return '<i style="background:'+c+'"></i>'}).join('')+'</div>';
- return textPage('<p class="eyebrow">ROOM '+p2(index+1)+' / '+p2(rooms.length)+'</p>'+T(room.name)+'<span class="dash"></span><p class="detail-intro">'+room.description+'</p>'+palette+visual,'room-details living-details masterbath-details');
-}
-function safeURL(url){return /^https?:\/\//i.test(url||'')?String(url):''}
-function compositionPage(config){
- // ROOM Mood & Tone: one pre-composed image per room, PNG/JPG supported.
- // Put the finished image at image/<room>/<room>-board.png (or .jpg).
- var board = config.background && config.background.file;
- var label = config.label || 'ROOM · MOOD & TONE';
- var link = safeURL(imageSources[board] || easyImageLinks[board] || (config.background && config.background.source) || '');
- var html = '<div class="single-room-board slot"'+(link?' data-source="'+safe(link)+'"':'')+'>'
-   + '<span class="single-board-placeholder"><strong>MOOD & TONE</strong><span>'+safe(label)+'</span><small>วางภาพสำเร็จรูปที่ image/'+safe(folderForPhoto(board))+'/'+safe(board)+'.png หรือ .jpg</small></span>'
-   + '<img data-photo="'+safe(board)+'" alt="'+safe(label)+'">'
-   + '</div>';
- return pc(html,'gallery-page composition-page single-board-page');
-}
-
-/* ROOM 10–15: separated Special Function and Other Areas; small vegetable patch is part of outdoor context, not a separate room. */
-var extraMoodBoards = {
-  cat:{label:'CAT ROOM · MOOD BOARD',background:{file:'cat-board',source:''},colors:['#eee5d5', '#c0a17f', '#7d9172', '#80634d', '#d0c5ae'],items:[
-    {name:'ผนังสีอุ่น / พื้นหลัง',file:'cat-wall',source:'',x:7,y:10,w:41,h:43,z:2,rot:-2},
-    {name:'พื้นกันลื่น / ไม้',file:'cat-floor',source:'',x:40,y:66,w:48,h:25,z:2,rot:3},
-    {name:'พื้นผิวไม้ปีนเล่น',file:'cat-wood-texture',source:'',x:54,y:11,w:31,h:24,z:5,rot:3},
-    {name:'ผ้าพักผ่อน',file:'cat-fabric',source:'',x:20,y:42,w:26,h:19,z:6,rot:-4},
-    {name:'ช่องแสงธรรมชาติ',file:'cat-light',source:'',x:44,y:35,w:25,h:22,z:7,rot:2},
-    {name:'ต้นไม้ปลอดภัยสำหรับแมว',file:'cat-greenery',source:'',x:69,y:38,w:20,h:27,z:6,rot:-2},
-    {name:'ภาพบรรยากาศห้องแมว',file:'cat-style',source:'',x:11,y:72,w:29,h:16,z:5,rot:3},
-  ]},
-  work:{label:'WORK SPACE · MOOD BOARD',background:{file:'work-board',source:''},colors:['#eee7da', '#ad936f', '#6e543c', '#596b5a', '#dbcbb5'],items:[
-    {name:'ผนัง / สีหลัก',file:'work-wall',source:'',x:49,y:8,w:39,h:42,z:2,rot:2},
-    {name:'พื้นไม้ธรรมชาติ',file:'work-floor',source:'',x:7,y:67,w:42,h:23,z:2,rot:-3},
-    {name:'ไม้ชั้นหนังสือ',file:'work-wood',source:'',x:9,y:11,w:30,h:37,z:4,rot:-2},
-    {name:'แสงอ่านหนังสือ',file:'work-light',source:'',x:60,y:37,w:23,h:22,z:6,rot:-4},
-    {name:'ผ้าม่านกรองแสง',file:'work-curtain',source:'',x:27,y:32,w:28,h:20,z:7,rot:4},
-    {name:'ผิวโต๊ะ / Texture',file:'work-desk-texture',source:'',x:40,y:61,w:30,h:17,z:6,rot:2},
-    {name:'ภาพรวมบรรยากาศ',file:'work-style',source:'',x:14,y:49,w:25,h:20,z:7,rot:-2},
-  ]},
-  ev:{label:'EV PARKING · MOOD BOARD',background:{file:'ev-board',source:''},colors:['#ddd7cc', '#9f9e91', '#626c63', '#343b39', '#b58f6c'],items:[
-    {name:'พื้นคอนกรีตกันลื่น',file:'ev-floor',source:'',x:6,y:57,w:54,h:34,z:2,rot:-2},
-    {name:'ผนัง / ระแนง',file:'ev-wall',source:'',x:48,y:8,w:39,h:42,z:2,rot:3},
-    {name:'วัสดุหลังคา',file:'ev-roof',source:'',x:10,y:9,w:37,h:31,z:3,rot:-3},
-    {name:'แสงสว่างทางเดิน',file:'ev-light',source:'',x:50,y:40,w:24,h:18,z:6,rot:3},
-    {name:'จุดชาร์จ EV / แนวทาง',file:'ev-charger-ref',source:'',x:68,y:44,w:21,h:25,z:7,rot:-3},
-    {name:'พืชริมลานจอด',file:'ev-greenery',source:'',x:10,y:39,w:27,h:20,z:6,rot:2},
-    {name:'ภาพรวมลานจอด',file:'ev-style',source:'',x:38,y:72,w:29,h:16,z:7,rot:2},
-  ]},
-  laundry:{label:'LAUNDRY AREA · MOOD BOARD',background:{file:'laundry-board',source:''},colors:['#f0e9df', '#bca88e', '#8b8f82', '#70685f', '#c8b496'],items:[
-    {name:'ผนังกระเบื้อง',file:'laundry-wall-tile',source:'',x:6,y:9,w:39,h:40,z:2,rot:-3},
-    {name:'พื้นกันลื่น',file:'laundry-floor',source:'',x:48,y:59,w:41,h:28,z:2,rot:3},
-    {name:'ผิวไม้เคาน์เตอร์',file:'laundry-counter-wood',source:'',x:55,y:10,w:32,h:28,z:3,rot:3},
-    {name:'วัสดุตะกร้าสาน',file:'laundry-basket',source:'',x:18,y:39,w:29,h:21,z:6,rot:-2},
-    {name:'แสงสว่างสะอาด',file:'laundry-light',source:'',x:40,y:31,w:24,h:20,z:7,rot:4},
-    {name:'ผ้าลินิน',file:'laundry-fabric',source:'',x:10,y:65,w:27,h:18,z:6,rot:-3},
-    {name:'ภาพรวมบรรยากาศ',file:'laundry-style',source:'',x:46,y:40,w:28,h:22,z:8,rot:-2},
-  ]},
-  drying:{label:'DRYING AREA · MOOD BOARD',background:{file:'drying-board',source:''},colors:['#eee9de', '#cbb9a0', '#99a395', '#b18f72', '#68796c'],items:[
-    {name:'พื้นภายนอก / ระบายน้ำ',file:'drying-floor',source:'',x:8,y:58,w:46,h:31,z:2,rot:-2},
-    {name:'ผนัง / ฉากบังตา',file:'drying-screen',source:'',x:48,y:9,w:38,h:42,z:2,rot:2},
-    {name:'แสงแดดธรรมชาติ',file:'drying-sunlight',source:'',x:9,y:9,w:32,h:30,z:4,rot:-3},
-    {name:'วัสดุราวตาก',file:'drying-rail',source:'',x:57,y:40,w:27,h:20,z:6,rot:3},
-    {name:'พื้นผิวระแนงไม้',file:'drying-wood',source:'',x:13,y:40,w:24,h:21,z:7,rot:4},
-    {name:'พืชริมระเบียง',file:'drying-greenery',source:'',x:69,y:64,w:19,h:22,z:6,rot:-2},
-    {name:'ภาพรวมมุมตากผ้า',file:'drying-style',source:'',x:37,y:66,w:29,h:18,z:7,rot:2},
-  ]},
-
-};
-function extraAreaTextPage(room,index){
- var cfg=extraMoodBoards[room.moodKey],file=room.ref,link=safeURL(imageSources[file]);
- var ref='<div class="living-reference"><span class="ref-missing">ภาพอ้างอิง ' +safe(room.name)+ '<br>image/'+safe(file)+'</span><img data-photo="'+safe(file)+'" alt="ภาพอ้างอิง ' +safe(room.name)+ '">'+(link?'<a class="ref-link" href="'+safe(link)+'" target="_blank" rel="noopener noreferrer" aria-label="เปิดแหล่งที่มาภาพอ้างอิง"></a>':'')+'</div>';
- var pal='<div class="living-notes"><span class="note-heading">TONE COLOR</span></div><div class="living-palette">'+cfg.colors.map(function(c){return '<i style="background:'+c+'"></i>'}).join('')+'</div>';
- return textPage('<p class="eyebrow">'+safe(room.group)+' / '+p2(index-8)+'</p>'+T(room.name)+'<span class="dash"></span><p class="detail-intro">'+safe(room.description)+'</p>'+pal+ref,'room-details living-details extra-area-details');
-}
-function livingTextPage(room,index){
- var filename='living-2',href=safeURL(imageSources[filename]);
- var visual='<div class="living-reference"><span class="ref-missing">ภาพอ้างอิงห้อง<br>image/living/living-2</span><img data-photo="living-2" alt="ภาพอ้างอิงห้องนั่งเล่น">'+(href?'<a class="ref-link" href="'+safe(href)+'" target="_blank" rel="noopener noreferrer" aria-label="เปิดแหล่งที่มารูปตัวอย่างห้อง"></a>':'')+'</div>';
- var notes='<div class="living-notes"><span class="note-heading">TONE COLOR</span></div><div class="living-palette"><i style="background:#e9dfcf"></i><i style="background:#d0ad85"></i><i style="background:#7f8967"></i><i style="background:#4a382f"></i></div>';
- return textPage('<p class="eyebrow">ROOM '+p2(index+1)+' / '+p2(rooms.length)+'</p>'+T(room.name)+'<span class="dash"></span><p class="detail-intro">'+room.description+'</p>'+notes+visual,'room-details living-details');
-}
-var PG=[];
-PG.push([pc('<p class="eyebrow r" style="color:rgba(255,195,152,.72);letter-spacing:.22em">DESIGN PRESENTATION</p><h1 class="h"><span class="cl">INTERIOR</span><span class="cl">DESIGN</span></h1><span class="rule r"></span><p class="nm r">'+myName+'</p>','c cover')+'<p class="hint">&larr; &rarr;</p>','lea cover']);
-profiles.forEach(function(p,i){
- var blocks=p.blocks.map(function(b){return '<div class="profile-block"><h3>'+b[0]+'</h3><ul>'+b.slice(1).map(function(t){return '<li>'+t+'</li>'}).join('')+'</ul></div>'}).join('');
- PG.push([textPage('<p class="eyebrow">PROFILE & LIFESTYLE / '+p2(i+1)+'</p><h2 class="th">'+p.title.replace(/^.*?—\s*/,'').replace(/\[|\]/g,'')+'</h2><div class="profile-blocks">'+blocks+'</div>','profile-details'),'pp']);
- PG.push([imagePage(p.pics),'pp']);
+// หน้าที่แสดงจริง เรียงจากปกหน้าไปจนถึงปกหลัง (ไม่มีหน้าหรือองค์ประกอบแฝง)
+const PAGES = [];
+const add = (markup, type='pp') => PAGES.push([markup,type]);
+add(box(`<p class="eyebrow r" style="color:rgba(255,195,152,.72);letter-spacing:.22em">DESIGN PRESENTATION</p>`+
+  `<h1 class="h"><span class="cl">INTERIOR</span><span class="cl">DESIGN</span></h1>`+
+  `<span class="rule r"></span><p class="nm r">${esc(SETTINGS.name)}</p>`,'c cover')+
+  `<p class="hint">&larr; &rarr;</p>`,'lea cover');
+PROFILES.forEach((profile,index)=>{
+  add(profileText(profile,index));
+  add(imageGallery(profile.pics,'profile'));
 });
-var needs=[['01 / พื้นที่พักผ่อน','บ้านโปร่ง โล่ง รับแสงธรรมชาติ อากาศถ่ายเทดี และมีมุมสงบเป็นส่วนตัวสำหรับพักผ่อนและอ่านหนังสือ'],['02 / พื้นที่ทำกิจกรรม','มีพื้นที่สำหรับโยคะ ทำอาหาร และใช้เวลาร่วมกัน โดยครัวไทยต้องระบายกลิ่นและควันได้ดี'],['03 / ธรรมชาติและสัตว์เลี้ยง','มีพื้นที่ปลูกผัก เลี้ยงแมว 3 ตัวและปลาหางนกยูง โดยคำนึงถึงความสะอาดและการดูแลรักษา'],['04 / ครอบครัวที่มาเยี่ยม','มีพื้นที่นั่งพูดคุยและทำกิจกรรมกับคุณแม่และหลาน ทางเดินสะดวกและปลอดภัยสำหรับผู้สูงอายุ']];
-PG.push([textPage(T('USER NEEDS')+'<p class="detail-intro">สรุปความต้องการของอาจารย์วิวและอาจารย์หนอน รวมถึงยายและหลานที่มาเยี่ยมเป็นครั้งคราว</p>'+needs.map(function(n){return '<div class="item-detail"><strong>'+n[0]+'</strong><p>'+n[1]+'</p></div>'}).join(''),'user-needs'),'pp']);
-PG.push([imagePage(['family-visit']),'pp']);
-// Space zoning index. Numbers match the real order of room chapters.
-function functionIndexItem(i){
- return '<div class="function-index-item"><span class="function-index-name">'+safe(rooms[i].name)+'</span></div>';
-}
-function functionIndexGroup(title, ids){
- return '<section class="function-index-group"><h3>'+title+'</h3>'+ids.map(function(i){return functionIndexItem(i)}).join('')+'</section>';
-}
-PG.push([pc('<div class="function-index-head"><p class="eyebrow">SPACE ZONING / 14 AREAS</p><h1 class="function-index-title">LIST OF<br>FUNCTION</h1><span class="dash"></span></div>'
- +functionIndexGroup('PUBLIC',[0,1,3])
- +functionIndexGroup('SEMI-PUBLIC',[2,12])
- +functionIndexGroup('SEMI-PRIVATE',[9,10]),'function-index-page function-index-left'),'pp']);
-PG.push([pc('<div class="function-index-head function-index-head-right"><span class="dash"></span></div>'
- +functionIndexGroup('PRIVATE',[4,5,6,7,8])
- +functionIndexGroup('EXTERIOR',[11,13]),'function-index-page function-index-right'),'pp']);
-PG.push([textPage(T('MOOD & TONE')+'<p class="style-name">MODERN NATURAL</p><p class="detail-intro">เลือกออกแบบบ้านสไตล์ Modern Natural ผสมความเรียบง่ายทันสมัยกับความเป็นธรรมชาติ ใช้สีครีม น้ำตาล เขียวหม่น และวัสดุไม้ เพื่อสร้างบรรยากาศอบอุ่น สงบ และเหมาะกับการพักผ่อน</p><div class="pal">'+moodColors.map(function(c){return '<i style="background:'+c+'" title="'+c+'"></i>'}).join('')+'</div>'),'pp']);
-PG.push([moodToneImagePage(['mood-1','mood-2','mood-3','mood-4','mood-5']),'pp']);
-rooms.forEach(function(r,i){
- var extra=r.specialZones?'<div class="zones">'+r.specialZones.map(function(z){return '<div class="item-detail"><span class="zone-en">'+z.title+'</span><strong>'+z.thai+'</strong><p>'+z.detail+'</p></div>'}).join('')+'</div>':'';
- PG.push([i===0?livingTextPage(r,i):i===1?diningTextPage(r,i):i===2?kitchenTextPage(r,i):i===3?powderTextPage(r,i):i===4?bedroom1TextPage(r,i):i===5?closetTextPage(r,i):i===6?masterBathTextPage(r,i):i===7?bedroom2TextPage(r,i):i===8?bathroom2TextPage(r,i):r.moodKey?extraAreaTextPage(r,i):textPage('<p class="eyebrow">ROOM '+p2(i+1)+' / '+p2(rooms.length)+'</p>'+T(r.name)+'<span class="dash"></span><p class="detail-intro">'+r.description+'</p>'+extra,'room-details'),'pp']);
- PG.push([i===0?compositionPage(livingComposition):i===1?compositionPage(diningComposition):i===2?compositionPage(kitchenComposition):i===3?compositionPage(powderComposition):i===4?compositionPage(bedroom1Composition):i===5?compositionPage(closetComposition):i===6?compositionPage(masterBathComposition):i===7?compositionPage(bedroom2Composition):i===8?compositionPage(bathroom2Composition):r.moodKey?compositionPage(extraMoodBoards[r.moodKey]):imagePage(r.pics),'pp']);
-});
-PG.push([pc('<h1 class="h"><span class="cl">THANK</span><span class="cl">YOU</span></h1><span class="rule r"></span><p class="nm r">'+myName+'</p>','c'),'pp']);
-PG.push(['','pp']);
-PG.push(['<div class="arch"></div><div class="arch in"></div>','lea endcover']);
-N=PG.length/2;
-var book=document.getElementById('book'),L=[],F=[],s=0,lock=0,wind=1;
-for(var k=0;k<N;k++){var lf=document.createElement('div');lf.className='leaf';lf.style.setProperty('--i',k);
-[0,1].forEach(function(j){var p=2*k+j,o=PG[p],f=document.createElement('div');f.className='pg '+(j?'back ':'front ')+o[1];f.innerHTML=o[0];lf.appendChild(f);F[p]=f});
-book.appendChild(lf);L.push(lf)}
-book.style.translate='calc(var(--w)*-.5) 0';
-initializePhotos();
+add(contentPage(heading('USER NEEDS')+
+  `<p class="detail-intro">สรุปความต้องการของอาจารย์วิวและอาจารย์หนอน \nรวมถึงยายและหลานที่จะมาเยี่ยมเป็นครั้งคราว</p>`+
+  USER_NEEDS.map(([title,detail])=>`<div class="item-detail"><strong>${esc(title)}</strong><p>${esc(detail)}</p></div>`).join(''),'user-needs'));
+add(imageGallery(['family-visit'],'general','one'));
+add(box(`<div class="function-index-head"><p class="eyebrow"></p>`+
+  `<h1 class="function-index-title">LIST OF<br>FUNCTION</h1><span class="dash"></span></div>`+
+  zoning('PUBLIC')+zoning('SEMI-PUBLIC')+zoning('SEMI-PRIVATE'),'function-index-page'));
+add(box(`<div class="function-index-head function-index-head-right"><span class="dash"></span></div>`+
+  zoning('PRIVATE')+zoning('EXTERIOR'),'function-index-page'));
+add(contentPage(heading('MOOD & TONE')+
+  `<p class="style-name">${esc(SETTINGS.styleName)}</p>`+
+  `<p class="detail-intro">${esc(SETTINGS.styleDescription)}</p>`+
+  `<div class="mood-color-wrap">${colorsHtml(SETTINGS.styleColors,true)}</div>`+
+  `<section class="mood-inspiration"><h2>INSPIRATION</h2>`+
+  `<p>${esc(SETTINGS.styleInspiration)}</p></section>`, 'mood-story-page'));
+add(imageGallery(SETTINGS.moodImages,'mood','mood-gallery'));
+ROOMS.forEach((room,index)=>{add(roomText(room,index));add(roomBoard(room));});
+add(box(`<h1 class="h"><span class="cl">THANK</span><span class="cl">YOU</span></h1><span class="rule r"></span>`+
+  `<p class="nm r">${esc(SETTINGS.name)}</p>`,'c thank-you-page'));
+add('');
+add('<div class="arch"></div><div class="arch in"></div>','lea endcover');
 
-document.querySelectorAll('[data-s]').forEach(function(e){var t=e.textContent,i=0;e.textContent='';e.setAttribute('aria-label',t);
-if(/^[\x00-\x7F]+$/.test(t)){t.split(' ').forEach(function(w){var o=document.createElement('span');o.className='w';Array.from(w).forEach(function(c){var m=document.createElement('span');m.className='ch';m.style.setProperty('--i',i++);m.textContent=c;o.appendChild(m)});e.append(o,' ')})}
-else{var m=document.createElement('span');m.className='ch';m.textContent=t;e.appendChild(m)}});
-F.forEach(function(f){f.querySelectorAll('.r').forEach(function(e,i){e.style.setProperty('--d',(.8+i*.13)+'s')})});
-
-var bg=document.getElementById('bg');
-for(var q=0;q<40;q++){var st=document.createElement('i');st.className='star';st.style.cssText='left:'+Math.random()*100+'%;top:'+Math.random()*60+'%;animation-delay:-'+Math.random()*3+'s;animation-duration:'+(2+Math.random()*3)+'s';bg.appendChild(st)}
-
-var fx=document.getElementById('fx'),cv=fx.getContext('2d'),W,H,sand=[];
-function rs(){W=fx.width=innerWidth;H=fx.height=innerHeight}rs();addEventListener('resize',rs);
-for(var z=0;z<90;z++)sand.push({x:Math.random()*W,y:Math.random()*H,v:.5+Math.random()*2,z:1+Math.random()*1.5});
-function loop(){cv.clearRect(0,0,W,H);cv.fillStyle='rgba(255,214,160,.5)';
-sand.forEach(function(g){g.x+=g.v*wind;g.y+=Math.sin(g.x*.01)*.3;if(g.x>W){g.x=0;g.y=Math.random()*H}cv.fillRect(g.x,g.y,g.z*wind,g.z)});
-wind+=(1-wind)*.03;requestAnimationFrame(loop)}
-if(!matchMedia('(prefers-reduced-motion:reduce)').matches)loop();
-
-function vis(){F.forEach(function(f,p){f.classList.toggle('vis',(s==0&&p==0)||(s==N&&p==2*N-1)||(s>0&&s<N&&(p==2*s-1||p==2*s)))})}
-function closeToCover(){
- if(lock)return;
- lock=1;
- var idx=L.length-1;
- function step(){
-  while(idx>=0 && !L[idx].classList.contains('f')) idx--;
-  if(idx<0){
-   s=0;
-   book.style.translate='calc(var(--w)*-.5) 0';
-   vis();
-   wind=8;
-   setTimeout(function(){lock=0},650);
-   return;
+// สร้างแผ่นหนังสือ 2 หน้าต่อ 1 แผ่น
+const book = $('#book');
+const leaves = [], faces = [];
+for (let i=0;i<PAGES.length/2;i++) {
+  const leaf = document.createElement('div');
+  leaf.className='leaf'; leaf.style.setProperty('--i',i);
+  for(let side=0;side<2;side++) {
+    const page=2*i+side;
+    const face=document.createElement('div');
+    face.className=`pg ${side?'back':'front'} ${PAGES[page][1]}`;
+    face.innerHTML=PAGES[page][0];
+    leaf.appendChild(face);
+    faces.push(face);
   }
-  var lf=L[idx];
-  lf.classList.remove('tn'); void lf.offsetWidth; lf.classList.add('tn');
-  lf.classList.remove('f');
-  s=idx;
-  book.style.translate=s===0?'calc(var(--w)*-.5) 0':'0 0';
-  vis();
-  wind=8;
-  idx--;
-  setTimeout(step,58);
- }
- step();
+  book.appendChild(leaf); leaves.push(leaf);
 }
-function go(d){
- if(lock)return;
- if(d>0 && s===N){ closeToCover(); return; }
- var t=s+d;
- if(t<0||t>N)return;
- lock=1;
- var lf=L[d>0?s:t];
- lf.classList.toggle('f',d>0);
- lf.classList.remove('tn'); void lf.offsetWidth; lf.classList.add('tn');
- s=t;
- book.style.translate=t==0?'calc(var(--w)*-.5) 0':t==N?'calc(var(--w)*.5) 0':'0 0';
- vis();
- wind=8;
- setTimeout(function(){lock=0},1250)
-}
+const total=leaves.length;
+let position=0, turning=false;
+book.style.translate='calc(var(--w) * -.5) 0';
 
-addEventListener('keydown',function(e){var k=e.key;
-if(k=='ArrowRight'||k=='ArrowDown'||k==' '||k=='PageDown'){e.preventDefault();go(1)}
-else if(k=='ArrowLeft'||k=='ArrowUp'||k=='PageUp'){e.preventDefault();go(-1)}});
-addEventListener('wheel',function(e){if(Math.abs(e.deltaY)>40)go(e.deltaY>0?1:-1)},{passive:true});
-// Native image links open in a new tab. Clicks on them are excluded from page navigation.
-document.querySelectorAll('.living-composition').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation()})});
-
-// Image attribution click handler: use direct user gesture, not page-turn handlers.
-function sourceNotice(msg){
- var el=document.getElementById('source-notice');
- if(!el){el=document.createElement('div');el.id='source-notice';document.body.appendChild(el)}
- el.textContent=msg;
- el.classList.add('show');
- clearTimeout(window._sourceNoticeTimer);
- window._sourceNoticeTimer=setTimeout(function(){el.classList.remove('show')},3200);
-}
-function resolveSourceHit(target){
- var anchor=target.closest('a.image-source,a.ref-link,a.comp-link,a.comp-bg-source');
- if(anchor){return {url:anchor.getAttribute('href'),name:anchor.getAttribute('aria-label')||'ภาพนี้'}};
- var item=target.closest('.comp-item,.composition-bg,.living-reference,.slot');
- if(!item)return null;
- var img=item.querySelector('img[data-photo]');
- if(!img)return null;
- var name=img.getAttribute('data-photo');
- var link=imageSources[name]||item.getAttribute('data-source')||'';
- // Custom mood boards define item-level source URLs, which may not be in imageSources.
- if(!link && item.classList.contains('comp-item')){
-  var comp=item.closest('.living-composition');
-  var list=comp && comp.querySelectorAll('.comp-item');
-  if(list){
-   var i=Array.prototype.indexOf.call(list,item);
-   var allConfigs=[livingComposition,diningComposition,kitchenComposition,powderComposition,bedroom1Composition,closetComposition,masterBathComposition,bedroom2Composition,bathroom2Composition];
-   Object.keys(extraMoodBoards).forEach(function(k){allConfigs.push(extraMoodBoards[k])});
-   var config=allConfigs.find(function(c){return c&&c.label===comp.getAttribute('data-board-label')});
-   if(config && config.items[i])link=config.items[i].source||'';
+// ========================================================
+// ระบบรูป: ไม่ลบรูปเก่า ไม่เปลี่ยนชื่อเดิม และรองรับเปิด HTML เดี่ยว ๆ
+//  1) image/ห้อง/ชื่อรูป.jpg|png (โฟลเดอร์ข้างไฟล์ HTML)
+//  2) image/ชื่อรูป.jpg|png (แบบโฟลเดอร์เก่า)
+//  3) ชื่อรูปเดิมบน GitHub Pages (สำหรับเปิดไฟล์ HTML ที่โหลดมาเดี่ยว ๆ)
+// ========================================================
+function loadImages() {
+  const roots = [SETTINGS.imageFolder, ...SETTINGS.onlineImageFolders];
+  // บังคับรูปที่หน้า 3D ถูกพับอยู่ให้เริ่มโหลดตั้งแต่แรก
+  const images = [...document.querySelectorAll('img[data-photo]')];
+  for (const img of images) {
+    const file=img.dataset.photo;
+    const subfolder=img.dataset.folder;
+    const crop=SETTINGS.photoFraming[file]||{};
+    img.style.setProperty('--photo-zoom',String(Math.max(1,Number(crop.zoom)||1)));
+    img.style.setProperty('--photo-x',`${crop.x??50}%`);
+    img.style.setProperty('--photo-y',`${crop.y??50}%`);
+    const candidates=[];
+    const encodedFile=encodeURIComponent(file);
+    for (const root of roots) {
+      const normalized=root.endsWith('/')?root:root+'/';
+      for (const path of [subfolder+'/', '']) {
+        for (const ext of SETTINGS.imageExtensions) {
+          candidates.push(`${normalized}${path}${encodedFile}.${ext}`);
+        }
+      }
+    }
+    let attempt=0;
+    function nextPhoto() {
+      img.classList.remove('ready');
+      if(attempt < candidates.length){img.src=candidates[attempt++];}
+      else {img.removeAttribute('src');img.dataset.missing='true';}
+    }
+    img.addEventListener('load',()=>{
+      if(img.naturalWidth>0){img.classList.add('ready');img.dataset.missing='false';}
+      else nextPhoto();
+    });
+    img.addEventListener('error',nextPhoto);
+    nextPhoto();
   }
- }
- if(!link && item.classList.contains('composition-bg')){
-  var holder=item.closest('.living-composition');
-  var bgAnchor=item.querySelector('a.comp-bg-source');
-  if(bgAnchor)link=bgAnchor.getAttribute('href')||'';
- }
- return {url:link,name:name};
 }
-document.addEventListener('click',function(e){
- var hit=resolveSourceHit(e.target);
- if(!hit)return;
- e.stopPropagation();
- e.preventDefault();
- if(/^https?:\/\//i.test(hit.url||'')){
-  window.open(hit.url,'_blank','noopener,noreferrer');
- }else{
-  sourceNotice('ภาพ '+hit.name+' ยังไม่ได้ใส่ลิงก์ — ไปที่ easyImageLinks ต้นไฟล์ HTML');
- }
-},true);
+loadImages();
 
-addEventListener('click',function(e){
- if(e.target.closest('a, .slot, .gallery-page, .living-reference'))return;
- go(e.clientX>innerWidth/2?1:-1);
+function visiblePages() {
+  faces.forEach((face,p)=>face.classList.toggle('vis',
+    (position===0&&p===0)||(position===total&&p===2*total-1)||
+    (position>0&&position<total&&(p===2*position-1||p===2*position))));
+}
+function turn(direction) {
+  if(turning)return;
+  if(direction>0&&position===total){return backToCover();}
+  const next=position+direction;
+  if(next<0||next>total)return;
+  turning=true;
+  const leaf=leaves[direction>0?position:next];
+  leaf.classList.toggle('f',direction>0);
+  leaf.classList.remove('tn'); void leaf.offsetWidth; leaf.classList.add('tn');
+  position=next;
+  book.style.translate=position===0?'calc(var(--w) * -.5) 0':position===total?'calc(var(--w) * .5) 0':'0 0';
+  visiblePages();
+  particleSpeed=8;
+  setTimeout(()=>turning=false,1250);
+}
+function backToCover() {
+  turning=true;
+  let index=leaves.length-1;
+  function rewind() {
+    while(index>=0&&!leaves[index].classList.contains('f'))index--;
+    if(index<0){position=0;book.style.translate='calc(var(--w) * -.5) 0';visiblePages();setTimeout(()=>turning=false,650);return;}
+    const leaf=leaves[index];
+    leaf.classList.remove('tn');void leaf.offsetWidth;leaf.classList.add('tn');leaf.classList.remove('f');
+    position=index;
+    book.style.translate=position===0?'calc(var(--w) * -.5) 0':'0 0';
+    visiblePages(); particleSpeed=8;index--;setTimeout(rewind,58);
+  }
+  rewind();
+}
+
+// กดลูกศร, คลิกซ้าย/ขวา, ล้อเมาส์ หรือปัดหน้าจอเพื่อเปิดหนังสือ
+addEventListener('keydown',e=>{
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();turn(1);}
+  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();turn(-1);}
 });
-var sx=0;addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
-addEventListener('touchend',function(e){if(e.target.closest('a, .slot, .gallery-page, .living-reference'))return;var d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>50)go(d<0?1:-1)},{passive:true});
-addEventListener('mousemove',function(e){var r=document.documentElement.style;r.setProperty('--mx',(e.clientX/innerWidth-.5).toFixed(3));r.setProperty('--my',(e.clientY/innerHeight-.5).toFixed(3))});
-setTimeout(vis,150);
+addEventListener('click',e=>{if(e.target.closest('a,button'))return;turn(e.clientX>innerWidth/2?1:-1);});
+addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>40)turn(e.deltaY>0?1:-1);},{passive:true});
+let touchStart=0;
+addEventListener('touchstart',e=>touchStart=e.touches[0].clientX,{passive:true});
+addEventListener('touchend',e=>{const distance=e.changedTouches[0].clientX-touchStart;if(Math.abs(distance)>50)turn(distance<0?1:-1);},{passive:true});
+
+// เอฟเฟกต์ดาวและฝุ่นในพื้นหลัง
+const background=$('#bg');
+for(let i=0;i<40;i++) {
+  const star=document.createElement('i');star.className='star';
+  star.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*60}%;animation-delay:-${Math.random()*3}s;animation-duration:${2+Math.random()*3}s`;
+  background.appendChild(star);
+}
+const canvas=$('#fx'), context=canvas.getContext('2d');
+let width=0,height=0,particleSpeed=1;
+const particles=[];
+function resizeCanvas(){width=canvas.width=innerWidth;height=canvas.height=innerHeight;}
+resizeCanvas();addEventListener('resize',resizeCanvas);
+for(let i=0;i<90;i++)particles.push({x:Math.random()*width,y:Math.random()*height,v:.5+Math.random()*2,size:1+Math.random()*1.5});
+function drawParticles(){
+  context.clearRect(0,0,width,height);context.fillStyle='rgba(255,214,160,.5)';
+  particles.forEach(p=>{p.x+=p.v*particleSpeed;p.y+=Math.sin(p.x*.01)*.3;
+    if(p.x>width){p.x=0;p.y=Math.random()*height;}
+    context.fillRect(p.x,p.y,p.size*particleSpeed,p.size);
+  });
+  particleSpeed+=(1-particleSpeed)*.03;
+  requestAnimationFrame(drawParticles);
+}
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches)drawParticles();
+setTimeout(visiblePages,150);
 </script>
 </body>
 </html>

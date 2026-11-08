@@ -305,6 +305,55 @@ body { overflow: hidden; font-family: var(--thai); }
   .star, .glow, .hint, .tn .pg::after { animation:none!important; }
   #fx { display:none; }
 }
+/* FURNITURE SELECTION — Modern Natural editorial catalog */
+.pc.fs-clean-table {padding-top:10cqw;}
+.fs-clean-table .fs-table-title {margin:1cqw 0 6cqw;}
+.pc.fs-page { padding:7.1cqw 7cqw 6.2cqw; justify-content:flex-start; overflow:hidden; background:#f1e9db; color:#2d2925; }
+.fs-kicker { font:500 2.45cqw/1.25 var(--head); letter-spacing:.2em; color:#927152; text-transform:uppercase; }
+.fs-topline { display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #c8b9a2; padding-bottom:2.2cqw; }
+.fs-counter { color:#93785d; font:500 2.55cqw/1 var(--head); letter-spacing:.1em; }
+.fs-heading { margin:4.3cqw 0 4cqw; font:500 9.1cqw/1.02 var(--head); letter-spacing:.028em; color:#312a24; text-transform:uppercase; }
+.fs-photos { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:1.28fr 1fr; flex:1; min-height:0; gap:1.7cqw; }
+.fs-photo { min-width:0; min-height:0; position:relative; background:#e7dbca; overflow:hidden; border:1px solid #dacbb7; }
+.fs-photo:first-child { grid-column:1 / -1; }
+.fs-photo::after { content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(150deg,rgba(255,255,255,.3),transparent 55%); }
+.fs-product-image {position:absolute; inset:3% 3% 18%; width:94%; height:79%; object-fit:contain; display:none; z-index:1}
+.fs-product-image.ready {display:block}
+/* ช่องวางรูปจริง จะซ่อนคำแนะนำอัตโนมัติเมื่อโหลดรูปสำเร็จ */
+.fs-image-placeholder {position:absolute;inset:3% 5% 18%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4cqw;text-align:center;color:#ad987f;}
+.fs-image-placeholder svg {width:8.2cqw;height:8.2cqw;opacity:.58;stroke:currentColor;fill:none;stroke-width:1.5;}
+.fs-image-placeholder strong {font:500 2.65cqw/1.35 var(--head);letter-spacing:.09em;color:#8a6a4b;}
+.fs-image-placeholder small {font:400 2.05cqw/1.45 var(--head);letter-spacing:.035em;color:#9b876e;overflow-wrap:anywhere;max-width:98%;}
+.fs-photo:has(.fs-product-image.ready) .fs-image-placeholder {display:none;}
+.fs-itemtag {position:absolute; bottom:0; left:0; right:0; display:flex; align-items:center; justify-content:space-between; gap:1cqw; padding:2cqw 2.5cqw; background:#f7f0e4; z-index:2; border-top:1px solid #d6c6af;}
+.fs-code {font:600 2.9cqw/1 var(--head); letter-spacing:.04em; color:#8d6244; white-space:nowrap;}
+.fs-itemname {font:500 2.65cqw/1.2 var(--head); text-transform:uppercase; text-align:right; color:#40352a;}
+.fs-table-title { margin:4.2cqw 0 .7cqw; font:500 8.5cqw/1 var(--head); letter-spacing:.02em; }
+.fs-table-subtitle {margin:0 0 5cqw;color:#91745a;font:400 2.75cqw/1.4 var(--thai);}
+.fs-schedule {width:100%;border-collapse:collapse;table-layout:fixed;}
+.fs-schedule thead th {text-align:left;color:#fff;background:#87694e;padding:2.4cqw 1cqw;font:500 2.5cqw/1.25 var(--head);letter-spacing:.055em;}
+.fs-schedule tbody td {padding:3.8cqw 1cqw; border-bottom:1px solid #c7b8a6; color:#42372f; font:400 2.8cqw/1.32 var(--head);overflow-wrap:anywhere;}
+.fs-schedule td:nth-child(2){color:#9b7050;font-weight:600;}
+.fs-schedule td:nth-child(3){font-weight:500;}
+.fs-schedule th:nth-child(1){width:10%}.fs-schedule th:nth-child(2){width:17%}.fs-schedule th:nth-child(3){width:33%}.fs-schedule th:nth-child(4){width:29%}.fs-schedule th:nth-child(5){width:11%}
+.fs-schedule tbody tr:nth-child(even) {background:#e8ddcc88;}
+.fs-note {margin-top:auto;padding-top:3cqw;border-top:1px solid #cabaa6;display:flex;justify-content:space-between;color:#8f7964;font:400 2.5cqw/1.4 var(--head);letter-spacing:.035em;}
+.fs-number {font:400 15cqw/.9 var(--head);color:#c7b197;margin:4cqw 0 0;}
+
+
+/* Four living room furniture photos: all items have a proper image slot */
+.fs-photos.fs-photos-four { grid-template-rows:1fr 1fr; }
+.fs-photos.fs-photos-four .fs-photo:first-child { grid-column:auto; }
+
+/* Floor-plan image slot — same image placeholder behavior as furniture photos */
+.fs-clean-table .fs-plan-slot { flex:1; min-height:0; margin-top:5.4cqw; position:relative; border:1px solid #dacbb7; background:#e7dbca; overflow:hidden; }
+.fs-plan-placeholder {position:absolute; inset:4%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.4cqw; text-align:center; color:#ad987f;}
+.fs-plan-placeholder svg {width:8.2cqw; height:8.2cqw; opacity:.58; stroke:currentColor; fill:none; stroke-width:1.5;}
+.fs-plan-placeholder strong {font:500 2.65cqw/1.35 var(--head);letter-spacing:.09em;color:#8a6a4b;}
+.fs-plan-placeholder small {font:400 2.15cqw/1.45 var(--head);color:#9b876e;overflow-wrap:anywhere;max-width:100%;}
+.fs-plan-image {position:absolute; inset:2%; width:96%; height:96%; object-fit:contain; display:none;}
+.fs-plan-image.ready {display:block;}
+.fs-plan-slot:has(.fs-plan-image.ready) .fs-plan-placeholder {display:none;}
 </style>
 </head>
 <body>
@@ -765,6 +814,59 @@ add(contentPage(heading('MOOD & TONE')+
   `<p>${esc(SETTINGS.styleInspiration)}</p></section>`, 'mood-story-page'));
 add(imageGallery(SETTINGS.moodImages,'mood','mood-gallery'));
 ROOMS.forEach((room,index)=>{add(roomText(room,index));add(roomBoard(room));});
+
+// ========================================================
+// FURNITURE SELECTION — 4 ห้อง / ปรับรายการและขนาดตรงนี้
+// ขนาดที่ไม่ได้ระบุจากแปลนเป็นค่าเบื้องต้น ปรับแก้ได้
+// ภาพจริง (ถ้ามี): image/furniture/<folder>/<code>.png
+// ========================================================
+const FURNITURE_SELECTION = [
+ {title:'LIVING AREA',folder:'living',description:'พื้นที่นั่งเล่นและพักผ่อน',items:[
+   ['LF-01','L-SHAPE SOFA','2.80 × 1.80 × 0.85',1,'sofa'],
+   ['LF-02','SIDE TABLE','0.50 × 0.50 × 0.50',1,'side'],
+   ['LF-03','COFFEE TABLE','1.10 × 0.60 × 0.45',1,'coffee'],
+   ['BF-01','TV CABINET','2.00 × 0.45 × 0.55',1,'tv']
+ ]},
+ {title:'DINING AREA',folder:'dining',description:'พื้นที่รับประทานอาหาร 6 ที่นั่ง',items:[
+   ['LF-01','DINING TABLE','1.80 × 0.90 × 0.75',1,'dining'],
+   ['LF-02','DINING CHAIR','0.50 × 0.55 × 0.82',6,'chair']
+ ]},
+ {title:'MASTER BEDROOM',folder:'master-bedroom',description:'พื้นที่พักผ่อนส่วนตัว',items:[
+   ['LF-01','KING SIZE BED','1.95 × 2.00 × 0.50',1,'bed'],
+   ['LF-02','BEDSIDE TABLE','0.60 × 0.45 × 0.50',2,'side'],
+   ['LF-03','WORK DESK','1.20 × 0.60 × 0.75',1,'desk'],
+   ['BF-01','TV CABINET','1.80 × 0.45 × 0.55',1,'tv']
+ ]},
+ {title:'BEDROOM 2',folder:'bedroom2',description:'ห้องนอน 2 เตียง',items:[
+   ['LF-01','SINGLE BED','1.00 × 2.00 × 0.50',2,'bed'],
+   ['LF-02','BEDSIDE TABLE','0.50 × 0.45 × 0.50',1,'side'],
+   ['BF-01','WARDROBE','1.80 × 0.60 × 2.40',1,'wardrobe'],
+   ['BF-02','TV CABINET','1.50 × 0.45 × 0.55',1,'tv']
+ ]}
+];
+function fsProduct(room,item){
+ const [code,name,dimension,qty,kind]=item;
+ const relativePath=`image/furniture/${room.folder}/${code}.png`;
+ return `<div class="fs-photo">`+
+  `<div class="fs-image-placeholder"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="8" width="38" height="32" rx="2"/><circle cx="16" cy="18" r="3"/><path d="M8 35l12-12 8 8 5-5 8 9"/></svg>`+
+  `<strong>ADD FURNITURE PHOTO</strong><small>${esc(relativePath)}</small></div>`+
+  `<img class="fs-product-image" data-photo="${esc(code)}" data-folder="furniture/${esc(room.folder)}" alt="${esc(name)}">`+
+  `<div class="fs-itemtag"><b class="fs-code">${esc(code)}</b><span class="fs-itemname">${esc(name)}</span></div></div>`;
+}
+function fsPhotos(room,index){
+ return box(`<div class="fs-topline"><span class="fs-kicker">Furniture selection</span><span class="fs-counter">0${index+1} / 04</span></div>`+
+ `<h1 class="fs-heading">${esc(room.title)}</h1>`+
+ `<div class="fs-photos ${room.items.length===4?'fs-photos-four':''}">${room.items.map(item=>fsProduct(room,item)).join('')}</div>`,'fs-page');
+}
+function fsTable(room,index){
+ const rows=room.items.map(([code,name,dimension,qty],i)=>`<tr><td>${String(i+1).padStart(2,'0')}</td><td>${esc(code)}</td><td>${esc(name)}</td><td>${esc(dimension)}</td><td>${qty}</td></tr>`).join('');
+ return box(`<h2 class="fs-table-title">${esc(room.title)}</h2>`+
+ `<table class="fs-schedule"><thead><tr><th>ITEM</th><th>CODE</th><th>DESCRIPTION</th><th>SIZE (M)</th><th>QTY</th></tr></thead><tbody>${rows}</tbody></table>`+
+ `<div class="fs-plan-slot"><div class="fs-plan-placeholder"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="8" width="38" height="32" rx="2"/><circle cx="16" cy="18" r="3"/><path d="M8 35l12-12 8 8 5-5 8 9"/></svg><strong>ADD FLOOR PLAN PHOTO</strong><small>image/furniture/${esc(room.folder)}/floor-plan.png</small></div>`+
+ `<img class="fs-plan-image" data-photo="floor-plan" data-folder="furniture/${esc(room.folder)}" alt="${esc(room.title)} floor plan"></div>`,'fs-page fs-clean-table');
+}
+FURNITURE_SELECTION.forEach((room,i)=>{add(fsPhotos(room,i));add(fsTable(room,i));});
+
 add(box(`<h1 class="h"><span class="cl">THANK</span><span class="cl">YOU</span></h1><span class="rule r"></span>`+
   `<p class="nm r">${esc(SETTINGS.name)}</p>`,'c thank-you-page'));
 add('');
